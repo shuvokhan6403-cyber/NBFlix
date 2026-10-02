@@ -22,12 +22,7 @@
         <div class="flex items-center space-x-2">
             <span class="text-3xl font-extrabold tracking-wider text-red-600 uppercase">NBFlix</span>
         </div>
-        
-        <!-- Permanent Page Visitor Counter -->
-        <div class="bg-gray-800 text-xs md:text-sm px-3 py-1.5 rounded-full border border-gray-700 flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            <span>Total Site Visits: <strong id="visitor-count" class="text-red-500">1</strong></span>
-        </div>
+        <!-- Visitor counter has been successfully removed from here -->
     </header>
 
     <!-- Hero Section -->
@@ -135,20 +130,32 @@
         </div>
     </div>
 
-    <!-- JavaScript Logic for Unstoppable Counters -->
+    <!-- JavaScript Logic -->
     <script>
-        // --- ১. পেজ রিফ্রেশ কাউন্টার লজিক ---
         document.addEventListener("DOMContentLoaded", () => {
-            // লোকাল স্টোরেজ থেকে আগের ডাটা চেক করা
-            let pageVisits = localStorage.getItem("nbflix_total_visits");
-            
-            if (!pageVisits) {
-                pageVisits = 1; // প্রথমবার ভিজিট করলে ১
-            } else {
-                pageVisits = parseInt(pageVisits) + 1; // প্রতিবার রিফ্রেশে ১ করে বাড়বে
-            }
-            
-            // নতুন ভিউ সংখ্যা সেভ করা ও স্ক্রিনে দেখানো
-            localStorage.setItem("nbflix_total_visits", pageVisits);
-            document.getElementById("visitor-count").innerText = pageVisits;
+            // লোড হওয়ার সময় মুভিগুলোর আগের ভিউ ডাটা স্ক্রিনে দেখানো
+            updateMovieViewDOM("movie_1");
+            updateMovieViewDOM("movie_2");
+        });
 
+        // মুভি ভিউ কাউন্টার লজিক (যা রিফ্রেশ করলেও মুছবে না)
+        function countMovieView(movieId) {
+            let movieViews = localStorage.getItem(`nbflix_view_${movieId}`);
+            if (!movieViews) {
+                movieViews = 1;
+            } else {
+                movieViews = parseInt(movieViews) + 1;
+            }
+            localStorage.setItem(`nbflix_view_${movieId}`, movieViews);
+            updateMovieViewDOM(movieId);
+        }
+
+        function updateMovieViewDOM(movieId) {
+            let currentViews = localStorage.getItem(`nbflix_view_${movieId}`) || 0;
+            const element = document.getElementById(`view-${movieId}`);
+            if(element) {
+                element.innerText = currentViews;
+            }
+        }
+
+        // ট্রেইলার পপআপ হ্যান্ডলার
