@@ -2824,244 +2824,92 @@ async function getMiniMovieTrailer(movie){
 ========================================================= */
 
 async function loadMiniTrailer(){
+  miniTrailerStatus.textContent = "Finding…";
+  miniTrailerTitle.textContent = "Finding trailer…";
+  miniTrailerMeta.textContent = "Official YouTube Trailer";
+  miniTrailerLoading.style.display = "flex";
+  miniTrailerFrame.style.display = "none";
+  miniTrailerFrame.removeAttribute("src");
 
-  miniTrailerStatus.textContent =
-    "Finding…";
-
-
-  miniTrailerTitle.textContent =
-    "Finding trailer…";
-
-
-  miniTrailerMeta.textContent =
-    "Official YouTube Trailer";
-
-
-  miniTrailerLoading.style.display =
-    "flex";
-
-
-  miniTrailerFrame.style.display =
-    "none";
-
-
-  /*
-    Get:
-    1. Now Playing
-    2. Popular
-    3. Top Rated
-
-    Then remove duplicates.
-  */
-
-  const [
-
-    nowData,
-
-    popularData,
-
-    topData
-
-  ] = await Promise.all([
-
-    tmdbRequest(
-      "/movie/now_playing?page=1"
-    ),
-
-    tmdbRequest(
-      "/movie/popular?page=1"
-    ),
-
-    tmdbRequest(
-      "/movie/top_rated?page=1"
-    )
-
+  const [nowData, popularData, topData] = await Promise.all([
+    tmdbRequest("/movie/now_playing?page=1"),
+    tmdbRequest("/movie/popular?page=1"),
+    tmdbRequest("/movie/top_rated?page=1")
   ]);
 
-
   const combined = [];
-
   const seen = new Set();
-
-
-  [
-
-    nowData,
-
-    popularData,
-
-    topData
-
-  ].forEach(data => {
-
-    if(
-      !data ||
-      !Array.isArray(data.results)
-    ){
-
-      return;
-
-    }
-
-
+  [nowData, popularData, topData].forEach(data => {
+    if (!data || !Array.isArray(data.results)) return;
     data.results.forEach(movie => {
-
-      if(
-        movie &&
-        movie.id &&
-        !seen.has(movie.id)
-      ){
-
+      if (movie && movie.id && !seen.has(movie.id)) {
         seen.add(movie.id);
-
         combined.push(movie);
-
       }
-
     });
-
   });
 
-
-  /*
-    Search the first 18 movies
-    until a YouTube trailer is found.
-  */
-
-  for(
-    const movie of combined.slice(0,18)
-  ){
-
-    const trailer =
-      await getMiniMovieTrailer(movie);
-
-
-    if(!trailer){
-
-      continue;
-
-    }
-
-
-    miniTrailerMovie =
-      movie;
-
-
-    const name =
-      movie.title ||
-      movie.name ||
-      "Untitled";
-
-
-    const year =
-      (
-        movie.release_date ||
-        ""
-      ).slice(0,4);
-
-
-    const rating =
-      movie.vote_average
-        ? Number(
-            movie.vote_average
-          ).toFixed(1)
-        : "—";
-
-
-    /*
-      YouTube embed.
-      Muted autoplay is used because
-      browsers often block audio autoplay.
-    */
-
-    miniTrailerFrame.src =
-
-      "https://www.youtube.com/embed/" +
-
-      encodeURIComponent(
-        trailer.key
-      ) +
-
-      "?autoplay=1" +
-
-      "&mute=1" +
-
-      "&controls=1" +
-
-      "&rel=0" +
-
-      "&modestbranding=1";
-
-
-    miniTrailerFrame.style.display =
-      "block";
-
-
-    miniTrailerLoading.style.display =
-      "none";
-
-
-    miniTrailerTitle.textContent =
-      name;
-
-
-    miniTrailerMeta.textContent =
-
-      [
-        year,
-
-        "Movie",
-
-        "★ " + rating
-
-      ]
-
-      .filter(Boolean)
-
-      .join(" • ");
-
-
-    miniTrailerStatus.textContent =
-      "NOW";
-
-
-    return;
-
+  // Shuffle the movie list so the first trailer is not always the same.
+  for (let i = combined.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [combined[i], combined[j]] = [combined[j], combined[i]];
   }
 
+  // Keep a recent history across refreshes to avoid repeating trailers.
+  let recentIds = [];
+  try {
+    recentIds = JSON.parse(localStorage.getItem("nbflixRecentHeroTrailers") || "[]");
+    if (!Array.isArray(recentIds)) recentIds = [];
+  } catch (_) {
+    recentIds = [];
+  }
 
-  /*
-    No trailer available
-  */
+  let candidates = combined.filter(movie => !recentIds.includes(String(movie.id)));
+  if (!candidates.length) {
+    recentIds = [];
+    candidates = combined;
+  }
 
-  miniTrailerStatus.textContent =
-    "Unavailable";
+  for (const movie of candidates.slice(0, 30)) {
+    const trailer = await getMiniMovieTrailer(movie);
+    if (!trailer) continue;
 
+    miniTrailerMovie = movie;
+    const name = movie.title || movie.name || "Untitled";
+    const year = (movie.release_date || "").slice(0, 4);
+    const rating = movie.vote_average ? Number(movie.vote_average).toFixed(1) : "—";
 
-  miniTrailerTitle.textContent =
-    "Trailer unavailable";
+    miniTrailerFrame.src =
+      "https://www.youtube.com/embed/" +
+      encodeURIComponent(trailer.key) +
+      "?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1";
 
+    miniTrailerFrame.style.display = "block";
+    miniTrailerLoading.style.display = "none";
+    miniTrailerTitle.textContent = name;
+    miniTrailerMeta.textContent = [year, "Movie", "★ " + rating]
+      .filter(Boolean)
+      .join(" • ");
+    miniTrailerStatus.textContent = "NOW";
 
-  miniTrailerMeta.textContent =
-    "No YouTube trailer found";
+    recentIds.push(String(movie.id));
+    recentIds = recentIds.slice(-25);
+    try {
+      localStorage.setItem("nbflixRecentHeroTrailers", JSON.stringify(recentIds));
+    } catch (_) {}
+    return;
+  }
 
-
-  miniTrailerLoading.innerHTML =
-
-    `
+  miniTrailerStatus.textContent = "Unavailable";
+  miniTrailerTitle.textContent = "Trailer unavailable";
+  miniTrailerMeta.textContent = "No YouTube trailer found";
+  miniTrailerLoading.innerHTML = `
     <div>
-
-      <div style="font-size:28px;margin-bottom:5px">
-        ▶
-      </div>
-
+      <div style="font-size:28px;margin-bottom:5px">▶</div>
       No trailer found
-
     </div>
-    `;
-
+  `;
 }
-
 
 /* =========================================================
    MINI TRAILER CLICK
