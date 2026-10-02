@@ -1,343 +1,560 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBFlix</title>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cloudflare.com">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #0b0f19;
-            color: #f3f4f6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding-bottom: 60px;
-        }
-        
-        /* Navbar */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            background-color: #111827;
-            border-bottom: 1px solid #1f2937;
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .logo {
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            color: #dc2626;
-            text-transform: uppercase;
-        }
-        
-        /* Premium Counter UI */
-        .counter-box {
-            background-color: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 9999px;
-            padding: 6px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .live-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #10b981;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .counter-text {
-            font-size: 13px;
-            color: #d1d5db;
-            font-weight: 500;
-        }
-        .counter-num {
-            color: #dc2626;
-            font-weight: 700;
-            margin-left: 4px;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07080d">
+<title>NBFlix</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b0b0b'/%3E%3Ctext x='50' y='65' font-size='42' font-weight='bold' text-anchor='middle' fill='%23e50914'%3ENB%3C/text%3E%3C/svg%3E">
 
-        /* Hero Banner Section */
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        @media (min-width: 768px) {
-            .hero {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
-        }
-        .hero-title {
-            font-size: 44px;
-            font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
-        }
-        .hero-p {
-            color: #9ca3af;
-            font-size: 18px;
-            line-height: 1.6;
-            max-width: 600px;
-        }
+<style>
+:root{
+  --bg:#07080d;
+  --panel:#10121a;
+  --panel2:#151823;
+  --text:#f7f8fb;
+  --muted:#9ba1b2;
+  --accent:#ff315c;
+  --accent2:#ff5d7d;
+  --line:#242838;
+}
 
-        /* Search Bar */
-        .search-container {
-            position: relative;
-            width: 100%;
-        }
-        @media (min-width: 768px) {
-            .search-container { width: 320px; }
-        }
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-        }
-        .search-input {
-            width: 100%;
-            padding: 12px 16px 12px 44px;
-            background-color: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 9999px;
-            color: white;
-            outline: none;
-            transition: 0.2s;
-        }
-        .search-input:focus {
-            border-color: #dc2626;
-        }
+*{box-sizing:border-box}
 
-        /* Category Tabs (আপনার মূল স্ক্রিনশটের হুবহু তালিকা) */
-        .categories-nav {
-            max-width: 1200px;
-            margin: 0 auto 32px auto;
-            padding: 0 24px;
-            overflow-x: auto;
-            display: flex;
-            gap: 12px;
-            white-space: nowrap;
-        }
-        .categories-nav::-webkit-scrollbar { display: none; }
-        .tab-btn {
-            padding: 10px 20px;
-            border-radius: 9999px;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .tab-active {
-            background-color: #dc2626;
-            color: white;
-        }
-        .tab-inactive {
-            background-color: #1f2937;
-            color: #d1d5db;
-        }
-        .tab-inactive:hover {
-            background-color: #374151;
-        }
+html{scroll-behavior:smooth}
 
-        /* Movie Section Title */
-        .section-title {
-            max-width: 1200px;
-            margin: 0 auto 24px auto;
-            padding: 0 24px;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
 
-        /* Movie Grid Layout */
-        .grid-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 24px;
-        }
-        @media (min-width: 640px) { .grid-container { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-        @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-        @media (min-width: 1024px) { .grid-container { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+button,input{font:inherit}
 
-        .movie-card {
-            background-color: #111827;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid #1f2937;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .movie-card:hover {
-            transform: scale(1.05);
-        }
-        .img-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 2/3;
-            background-color: #1f2937;
-        }
-        .movie-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .movie-badge {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background-color: #dc2626;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        .rating-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background-color: rgba(0, 0, 0, 0.7);
-            font-size: 12px;
-            font-weight: 700;
-            color: #fbbf24;
-            padding: 4px 8px;
-            border-radius: 6px;
-            border: 1px solid #374151;
-        }
-        .movie-info {
-            padding: 16px;
-        }
-        .movie-name {
-            font-size: 16px;
-            font-weight: 700;
-            color: white;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .movie-meta {
-            font-size: 12px;
-            color: #9ca3af;
-            margin-top: 4px;
-        }
+/* =========================
+   NAVBAR
+========================= */
 
-        .loading-text {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            color: #9ca3af;
-            font-size: 18px;
-        }
+.nav{
+  min-height:70px;
+  display:flex;
+  align-items:center;
+  padding:12px 6%;
+  gap:20px;
+  background:rgba(16,18,26,.96);
+  backdrop-filter:blur(12px);
+  position:sticky;
+  top:0;
+  z-index:30;
+  flex-wrap:wrap;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
 
-        /* Modal Popup */
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 50;
-            background-color: rgba(0, 0, 0, 0.95);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        .modal-content {
-            background-color: #111827;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 768px;
-            overflow: hidden;
-            border: 1px solid #1f2937;
-        }
-        .modal-header {
-            padding: 16px;
-            border-bottom: 1px solid #1f2937;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: white;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            cursor: pointer;
-            font-size: 20px;
-        }
-        .close-btn:hover { color: white; }
-        .video-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            background-color: black;
-        }
-        .video-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo b{color:var(--accent)}
+
+.search-wrap{
+  margin-left:auto;
+  position:relative;
+  width:280px;
+}
+
+.search-mini-logo{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:-.5px;
+  color:#fff;
+  pointer-events:none;
+}
+.search-mini-logo b{color:var(--accent)}
+
+.search-side-logo{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#151823;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:-.5px;
+  white-space:nowrap;
+}
+.search-side-logo b{color:var(--accent)}
+
+input{
+  width:100%;
+  background:#151823;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:11px 42px 11px 58px;
+  color:white;
+  outline:none;
+}
+
+input:focus{border-color:var(--accent)}
+
+.search-icon{
+  position:absolute;
+  right:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#8d93a5;
+  pointer-events:none;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  padding:55px 6% 35px;
+  min-height:310px;
+
+  background:
+    radial-gradient(circle at 75% 20%,#652033 0%,transparent 28%),
+    radial-gradient(circle at 20% 100%,#25172a 0%,transparent 35%),
+    #07080d;
+
+  border-bottom:1px solid #171a25;
+}
+
+.hero-inner{
+  max-width:1250px;
+  margin:0 auto;
+
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:35px;
+  align-items:center;
+}
+
+.hero-copy{
+  min-width:0;
+}
+
+.hero-label{
+  color:#ff8aa1;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+h1{
+  font-size:clamp(38px,6vw,68px);
+  line-height:1;
+  letter-spacing:-2px;
+  margin:12px 0 18px;
+}
+
+.hero p{
+  color:#c8ccda;
+  max-width:650px;
+  line-height:1.7;
+}
+
+/* =========================
+   HERO MINI TRAILER
+========================= */
+
+.mini-trailer{
+  width:100%;
+  max-width:360px;
+  justify-self:end;
+
+  background:#0d0f15;
+  border:1px solid #292d3d;
+  border-radius:14px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.38);
+}
+
+.mini-trailer-head{
+  height:34px;
+  padding:0 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  background:#11141c;
+  border-bottom:1px solid #252936;
+
+  color:#cfd3df;
+
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+#miniTrailerStatus{
+  font-size:9px;
+  opacity:.55;
+  font-weight:600;
+}
+
+.mini-trailer-screen{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#000;
+  overflow:hidden;
+}
+
+.mini-trailer-screen iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:none;
+}
+
+.mini-trailer-loading{
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  color:#8e94a3;
+  font-size:12px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #171a23,
+      #050608 70%
+    );
+}
+
+.mini-trailer-info{
+  padding:10px 12px 11px;
+}
+
+#miniTrailerTitle{
+  font-size:13px;
+  font-weight:800;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+#miniTrailerMeta{
+  margin-top:3px;
+  font-size:10px;
+  color:#858b9a;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.wrap{
+  padding:30px 6%;
+}
+
+.tabs{
+  display:flex;
+  gap:9px;
+  overflow:auto;
+  padding:5px 0 20px;
+  scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{
+  display:none;
+}
+
+.tabs button,.more{
+  background:#171a25;
+  color:#eee;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:10px 16px;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:.18s;
+}
+
+.tabs button:hover{
+  border-color:#50566b;
+  transform:translateY(-1px);
+}
+
+.tabs button.active,.more{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.head-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.head{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.result-count{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:16px;
+}
+
+@media(max-width:1024px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:768px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+
+.card{
+  background:var(--panel);
+  border:1px solid #242838;
+  border-radius:13px;
+  overflow:hidden;
+  min-width:0;
+  cursor:pointer;
+
+  transition:
+    transform .18s,
+    border-color .18s,
+    box-shadow .18s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+}
+
+.poster-wrap{
+  position:relative;
+  overflow:hidden;
+  background:#202334;
+}
+
+.poster{
+  display:block;
+  width:100%;
+  aspect-ratio:2/3;
+  object-fit:cover;
+  background:#202334;
+}
+
+.rating-badge{
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(8px);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  padding:5px 7px;
+  border-radius:8px;
+
+  font-size:12px;
+  font-weight:bold;
+}
+
+.type-badge{
+  position:absolute;
+  left:8px;
+  bottom:8px;
+
+  background:var(--accent);
+
+  padding:5px 8px;
+  border-radius:7px;
+
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.body{
+  padding:12px;
+}
+
+.title{
+  font-weight:bold;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.status{
+  grid-column:1/-1;
+  text-align:center;
+  color:var(--muted);
+  padding:35px;
+}
+
+.actions{
+  text-align:center;
+  padding:24px;
+}
+
+.more:disabled{
+  opacity:.5;
+  cursor:default;
+}
+
+footer{
+  padding:25px 6%;
+  color:#888;
+  border-top:1px solid #171a25;
+  font-size:13px;
+  text-align:center;
+}
+
+/* =========================
+   PLAYER MODAL
+========================= */
+
+.player-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.94);
+  z-index:50;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.player-modal.open{
+  display:flex;
+}
+
+.player-box{
+  width:min(950px,100%);
+  max-height:95vh;
+  background:#10121a;
+  border:1px solid #303447;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 24px 90px #000;
+}
+
+.player-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  background:#10121a;
+  border-bottom:1px solid #242838;
+}
+
+.player-title{
+  font-size:18px;
+  font-weight:800;
+  color:white;
+}
+
+.close-player{
+  background:#242838;
+  color:white;
+  border:0;
+  padding:6px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.close-player:hover{background:var(--accent)}
+
+.video-container {
+  width:100%;
+  aspect-ratio:16/9;
+  background:black;
+}
+.video-container iframe {
+  width:100%;
+  height:100%;
+  border:0;
+}
+</style>
 </head>
 <body>
 
-    <!-- Header / Navbar -->
-    <header>
-        <div class="logo">NBFlix</div>
-        
-        <!-- Live Total Site Visits Counter -->
-        <div class="counter-box">
-            <span class="live-dot"></span>
-            <div class="counter-text">
-                Total site visits:<span id="visitor-count" class="counter-num">1</span>
-            </div>
-        </div>
-    </header>
+  <!-- NAVBAR -->
+  <div class="nav">
+    <div class="logo">NB<b>Flix</b></div>
+    <div class="search-wrap">
+      <div class="search-mini-logo">NB<b>Flix</b></div>
+      <input type="text" id="searchInput" placeholder="     Search movies or series...">
+    </div>
+  </div>
 
-    <!-- Main Banner Section -->
-    <section class="hero">
-        <div>
-            <h1 class="hero-title">Watch what moves you.</h1>
-            <p class="hero-p">
-                Explore movie and series information, posters, ratings, genres, cast and official YouTube trailers.
-            </p>
-        </div>
-        
-        <!-- Search Bar Area -->
-        <div class="search-container">
-            <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input type="text" id="search-input" placeholder="Search movies & series..." class="search-input">
-        </div>
-    </section>
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="hero-label">EXPLORE UNLIMITED</div>
+        <h1>Watch what moves you.</h1>
+        <p>Explore movie and series information, posters, ratings, genres, cast and official YouTube trailers.</p>
+        <!-- Visit counter has been permanently removed from here -->
+      </div>
 
-    <!-- Genre Tabs / Categories (আপনার সাইটের অরিজিনাল ক্যাটালগ তালিকা) -->
-    <div class="categories-nav">
-        <button class="tab-btn tab-active" onclick="fetchMovies('trending')">Trending Now</button>
-        <button class="tab-btn tab-inactive" onclick="fetchMovies('popular')">Popular Movies</button>
-        <button class="tab-btn tab-inactive" onclick="fetchMovies('top_rated')">Top Rated</button>
-        <button class="tab-btn tab-inactive" onclick="fetchMovies('now_playing')">Now Playing</button>
+      <!-- MINI TRAILER PANEL -->
+      <div class="mini-trailer">
+        <div class="mini-trailer-head">
+          <span>MINI TRAILER</span>
+          <span id="miniTrailerStatus">AUTO-PLAY</span>
+        </div>
+        <div class="mini-trailer-screen">
+          <div class="mini-trailer-loading" id="miniTrailerLoading">Select a movie to load preview</div>
+          <iframe id="miniTrailerIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="mini-trailer-info">
+          <div id="miniTrailerTitle">No Media Selected</div>
+          <div id="miniTrailerMeta">---</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <div class="wrap">
+    <!-- CATEGORIES TABS -->
+    <div class="tabs" id="tabsContainer">
+      <button class="active" onclick="switchTab('trending')">Trending Now</button>
+      <button onclick="switchTab('popular')">Popular Movies</button>
+      <button onclick="switchTab('top_rated')">Top Rated</button>
+      <button onclick="switchTab('now_playing')">Now Playing</button>
+      <button onclick="switchTab('upcoming')">Upcoming</button>
