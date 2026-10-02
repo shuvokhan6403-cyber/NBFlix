@@ -4,159 +4,338 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBFlix</title>
-    <!-- Tailwind CSS Standard CDN -->
-    <link href="https://jsdelivr.net" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
+    
+    <!-- সম্পূর্ণ নতুন এবং নিরাপদ CSS স্টাইলিং (যা কখনো ভাঙবে না) -->
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
             background-color: #0b0f19;
+            color: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding-bottom: 60px;
         }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background-color: #111827;
+            border-bottom: 1px solid #1f2937;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #dc2626;
+            text-transform: uppercase;
+        }
+        
+        /* Premium Counter UI */
+        .counter-box {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 9999px;
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .live-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .counter-text {
+            font-size: 13px;
+            color: #d1d5db;
+            font-weight: 500;
+        }
+        .counter-num {
+            color: #dc2626;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        /* Hero Banner Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+        .hero-title {
+            font-size: 44px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .hero-p {
+            color: #9ca3af;
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .search-container { width: 320px; }
+        }
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 9999px;
+            color: white;
+            outline: none;
+            transition: 0.2s;
+        }
+        .search-input:focus {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+        }
+
+        /* Category Tabs */
+        .categories-nav {
+            max-width: 1200px;
+            margin: 0 auto 32px auto;
+            padding: 0 24px;
+            overflow-x: auto;
+            display: flex;
+            gap: 12px;
+            white-space: nowrap;
+        }
+        .categories-nav::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab-active {
+            background-color: #dc2626;
+            color: white;
+        }
+        .tab-inactive {
+            background-color: #1f2937;
+            color: #d1d5db;
+        }
+        .tab-inactive:hover {
+            background-color: #374151;
+        }
+
+        /* Movie Section Title */
+        .section-title {
+            max-width: 1200px;
+            margin: 0 auto 24px auto;
+            padding: 0 24px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Movie Grid & Cards */
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-cols: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+        @media (min-width: 640px) { .grid-container { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+        @media (min-width: 1024px) { .grid-container { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+        .movie-card {
+            background-color: #111827;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #1f2937;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+        .img-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 2/3;
+            background-color: #1f2937;
+        }
+        .movie-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .movie-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background-color: #dc2626;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .rating-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 12px;
+            font-weight: 700;
+            color: #fbbf24;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid #374151;
+        }
+        .movie-info {
+            padding: 16px;
+        }
+        .movie-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .movie-meta {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        /* Modal Popup */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-content {
+            background-color: #111827;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 768px;
+            overflow: hidden;
+            border: 1px solid #1f2937;
+        }
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .close-btn:hover { color: white; }
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: black;
+        }
+        .video-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
-<body class="text-gray-100 font-sans antialiased">
+<body>
 
     <!-- Header / Navbar -->
-    <header class="sticky top-0 z-40 bg-gray-900 bg-opacity-90 backdrop-blur-md border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-            <span class="text-3xl font-extrabold tracking-wider text-red-600 uppercase">NBFlix</span>
-        </div>
+    <header>
+        <div class="logo">NBFlix</div>
         
-        <!-- Live & Permanent Total Site Visits Counter (Premium UI) -->
-        <div class="bg-gray-800 bg-opacity-80 border border-gray-700 rounded-full px-4 py-1.5 flex items-center space-x-2 shadow-inner">
-            <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <span class="text-xs md:text-sm text-gray-300 font-medium tracking-wide">
-                Total site visits: <span id="visitor-count" class="text-red-500 font-bold ml-1">Loading...</span>
-            </span>
+        <!-- Live & Permanent Total Site Visits Counter -->
+        <div class="counter-box">
+            <span class="live-dot"></span>
+            <div class="counter-text">
+                Total site visits:<span id="visitor-count" class="counter-num">Loading...</span>
+            </div>
         </div>
     </header>
 
     <!-- Main Banner Section -->
-    <section class="py-12 px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-        <div class="max-w-2xl">
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">Watch what moves you.</h1>
-            <p class="text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
+    <section class="hero">
+        <div>
+            <h1 class="hero-title">Watch what moves you.</h1>
+            <p class="hero-p">
                 Explore movie and series information, posters, ratings, genres, cast and official YouTube trailers.
             </p>
         </div>
         
         <!-- Search Bar Area -->
-        <div class="w-full md:w-80">
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-                <input type="text" placeholder="Search movies & series..." 
-                       class="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-red-600 text-white transition-all">
-            </div>
+        <div class="search-container">
+            <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" placeholder="Search movies & series..." class="search-input">
         </div>
     </section>
 
-    <!-- Genre Tabs / Categories (Scrollable) -->
-    <div class="px-6 max-w-7xl mx-auto mb-8 overflow-x-auto no-scrollbar flex items-center space-x-3 whitespace-nowrap">
-        <button class="px-5 py-2.5 bg-red-600 text-white rounded-full font-semibold shadow-md">Trending</button>
-        <button class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Popular Movies</button>
-        <button class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Top Rated</button>
-        <button class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Now Playing</button>
-        <button class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Upcoming</button>
-        <button class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Popular Series</button>
-    </div>
-
-    <!-- Section Title -->
-    <div class="px-6 max-w-7xl mx-auto mb-6">
-        <h2 class="text-2xl font-bold tracking-wide">Trending now</h2>
-    </div>
-
-    <!-- Movie Grid -->
-    <main class="px-6 max-w-7xl mx-auto pb-16">
-        <div id="movie-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-            
-            <!-- Movie Card 1 -->
-            <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer" onclick="openTrailer('dQw4w9WgXcQ')">
-                <div class="relative aspect-[2/3] w-full">
-                    <img src="https://unsplash.com" alt="Digger" class="w-full h-full object-cover">
-                    <span class="absolute bottom-3 left-3 bg-red-600 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider">Movie</span>
-                    <span class="absolute top-3 right-3 bg-black bg-opacity-70 backdrop-blur-md text-yellow-400 font-bold text-xs px-2 py-1 rounded border border-gray-700">
-                        <i class="fa-solid fa-star mr-1"></i>7.7
-                    </span>
-                </div>
-                <div class="p-4">
-                    <h3 class="font-bold text-base text-white truncate">Digger</h3>
-                    <p class="text-xs text-gray-400 mt-1">2026 • Movie</p>
-                </div>
-            </div>
-
-            <!-- Movie Card 2 -->
-            <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer" onclick="openTrailer('dQw4w9WgXcQ')">
-                <div class="relative aspect-[2/3] w-full">
-                    <img src="https://unsplash.com" alt="Runner" class="w-full h-full object-cover">
-                    <span class="absolute bottom-3 left-3 bg-red-600 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider">Movie</span>
-                    <span class="absolute top-3 right-3 bg-black bg-opacity-70 backdrop-blur-md text-yellow-400 font-bold text-xs px-2 py-1 rounded border border-gray-700">
-                        <i class="fa-solid fa-star mr-1"></i>8.3
-                    </span>
-                </div>
-                <div class="p-4">
-                    <h3 class="font-bold text-base text-white truncate">Runner</h3>
-                    <p class="text-xs text-gray-400 mt-1">2026 • Movie</p>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- Trailer Popup Modal -->
-    <div id="trailer-modal" class="fixed inset-0 z-50 bg-black bg-opacity-95 hidden items-center justify-center p-4">
-        <div class="relative bg-gray-900 rounded-2xl w-full max-w-3xl overflow-hidden border border-gray-800">
-            <div class="p-4 border-b border-gray-800 flex items-center justify-between">
-                <h3 class="font-bold text-lg text-white">Official Trailer</h3>
-                <button onclick="closeTrailer()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="relative w-full aspect-video bg-black">
-                <iframe id="trailer-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- Unstoppable Visitor Counting Logic -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // হাইব্রিড মেকানিজম: এটি প্রথমবার ১ সেট করবে এবং প্রতি পেজ রিলোডে নিখুঁতভাবে ১ প্লাস করতে থাকবে।
-            let currentCount = localStorage.getItem("nbflix_premium_visits");
-            
-            if (!currentCount) {
-                // একদম প্রথমবার ভিজিটের জন্য বেস ভ্যালু নির্ধারণ (আপনি চাইলে যেকোনো বড় সংখ্যাও দিতে পারেন যেমন ১০০)
-                currentCount = 1;
-            } else {
-                currentCount = parseInt(currentCount) + 1;
-            }
-            
-            // ডাটা সেভ এবং স্ক্রিনে অ্যানিমেশনের সাথে রিফ্লেক্ট করা
-            localStorage.setItem("nbflix_premium_visits", currentCount);
-            
-            // সংখ্যাটিকে হাজার বা লাখে কমা ফরম্যাটে দেখানোর জন্য (.toLocaleString)
-            document.getElementById("visitor-count").innerText = Number(currentCount).toLocaleString();
-        });
-
-        // ট্রেইলার মডাল হ্যান্ডলার
-        const modal = document.getElementById('trailer-modal');
-        const iframe = document.getElementById('trailer-iframe');
-
-        function openTrailer(key) {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            iframe.src = `https://youtube.com{key}?autoplay=1`;
-        }
-
-        function closeTrailer() {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            iframe.src = '';
-        }
-    </script>
-</body>
-</html>
+    <!-- Genre Tabs / Categories -->
+    <div class="categories-nav">
+        <button class="tab-btn tab-active">Trending</button>
+        <button class="tab-btn tab-inactive">Popular Movies</button>
+        <button class="tab-btn tab-inactive">Top Rated</button>
+        <button class="tab-btn tab-inactive">Now Playing</button>
+        <button class="tab-btn tab-inactive">Upcoming</button>
+        <button class="tab-btn tab-inactive">Popular Series</button>
+        <button class="tab-btn tab-inactive">Hindi</button>
+        <button class="tab-btn tab-inactive">Chinese</button>
