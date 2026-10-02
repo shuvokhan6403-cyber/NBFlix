@@ -22,7 +22,6 @@
         <div class="flex items-center space-x-2">
             <span class="text-3xl font-extrabold tracking-wider text-red-600 uppercase">NBFlix</span>
         </div>
-        <!-- Visitor counter has been successfully removed from here -->
     </header>
 
     <!-- Hero Section -->
@@ -58,7 +57,7 @@
             
             <!-- Sample Movie Card 1 -->
             <div class="movie-card relative group bg-gray-900 rounded-xl overflow-hidden cursor-pointer shadow-lg transition-transform duration-300 hover:scale-105 border border-gray-800" 
-                 onclick="openTrailerModal('Avatar: The Way of Water', 'dQw4w9WgXcQ', 'movie_1')">
+                 onclick="openTrailerModal('Avatar: The Way of Water', 'dQw4w9WgXcQ')">
                 <div class="relative aspect-[2/3] w-full bg-gray-800">
                     <img src="https://unsplash.com" alt="Movie Poster" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -72,16 +71,13 @@
                 </div>
                 <div class="p-3">
                     <h3 class="font-semibold text-sm truncate group-hover:text-red-500 transition-colors">Avatar: The Way of Water</h3>
-                    <div class="flex items-center justify-between text-xs text-gray-500 mt-1">
-                        <span>2022 • Sci-Fi</span>
-                        <span class="text-gray-400"><i class="fa-regular fa-eye mr-1"></i><strong id="view-movie_1">0</strong> views</span>
-                    </div>
+                    <p class="text-xs text-gray-500 mt-1">2022 • Sci-Fi</p>
                 </div>
             </div>
 
             <!-- Sample Movie Card 2 -->
             <div class="movie-card relative group bg-gray-900 rounded-xl overflow-hidden cursor-pointer shadow-lg transition-transform duration-300 hover:scale-105 border border-gray-800" 
-                 onclick="openTrailerModal('Wednesday Series', 'Di310WS8zLk', 'movie_2')">
+                 onclick="openTrailerModal('Wednesday Series', 'Di310WS8zLk')">
                 <div class="relative aspect-[2/3] w-full bg-gray-800">
                     <img src="https://unsplash.com" alt="Movie Poster" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -95,10 +91,7 @@
                 </div>
                 <div class="p-3">
                     <h3 class="font-semibold text-sm truncate group-hover:text-red-500 transition-colors">Wednesday Series</h3>
-                    <div class="flex items-center justify-between text-xs text-gray-500 mt-1">
-                        <span>2022 • Mystery</span>
-                        <span class="text-gray-400"><i class="fa-regular fa-eye mr-1"></i><strong id="view-movie_2">0</strong> views</span>
-                    </div>
+                    <p class="text-xs text-gray-500 mt-1">2022 • Mystery</p>
                 </div>
             </div>
 
@@ -130,32 +123,40 @@
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
+    <!-- Clean JavaScript Logic Without Any Counters -->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // লোড হওয়ার সময় মুভিগুলোর আগের ভিউ ডাটা স্ক্রিনে দেখানো
-            updateMovieViewDOM("movie_1");
-            updateMovieViewDOM("movie_2");
+        const modal = document.getElementById("trailer-modal");
+        const iframe = document.getElementById("trailer-iframe");
+        const loader = document.getElementById("modal-loading");
+
+        // Opens the popup modal and loads the YouTube video directly
+        function openTrailerModal(movieTitle, youtubeKey) {
+            document.getElementById("modal-title").innerText = `${movieTitle} - Official Trailer`;
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => modal.classList.remove("opacity-0"), 10);
+            
+            if(youtubeKey) {
+                loader.classList.add("hidden");
+                iframe.classList.remove("hidden");
+                iframe.src = `https://youtube.com{youtubeKey}?autoplay=1`;
+            }
+        }
+
+        // Closes the popup modal and stops the video playback safely
+        function closeTrailerModal() {
+            modal.classList.add("opacity-0");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+                iframe.src = ""; 
+            }, 300);
+        }
+
+        // Close when clicking on the dark background overlay
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeTrailerModal();
         });
-
-        // মুভি ভিউ কাউন্টার লজিক (যা রিফ্রেশ করলেও মুছবে না)
-        function countMovieView(movieId) {
-            let movieViews = localStorage.getItem(`nbflix_view_${movieId}`);
-            if (!movieViews) {
-                movieViews = 1;
-            } else {
-                movieViews = parseInt(movieViews) + 1;
-            }
-            localStorage.setItem(`nbflix_view_${movieId}`, movieViews);
-            updateMovieViewDOM(movieId);
-        }
-
-        function updateMovieViewDOM(movieId) {
-            let currentViews = localStorage.getItem(`nbflix_view_${movieId}`) || 0;
-            const element = document.getElementById(`view-${movieId}`);
-            if(element) {
-                element.innerText = currentViews;
-            }
-        }
-
-        // ট্রেইলার পপআপ হ্যান্ডলার
+    </script>
+</body>
+</html>
