@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBFlix</title>
-    <!-- Tailwind CSS (আপনার সাইটের স্টাইলিং ঠিক রাখার জন্য) -->
+    <!-- Tailwind CSS for Design -->
     <script src="https://tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
@@ -14,21 +14,18 @@
     <!-- Header / Navbar -->
     <header class="sticky top-0 z-40 bg-gray-900/90 backdrop-blur-md border-b border-gray-800 px-6 py-4 flex items-center justify-between">
         <div class="flex items-center space-x-2">
-            <!-- NBFlix লোগো (স্ক্রিনশটের মতো লাল রঙে) -->
             <span class="text-3xl font-extrabold tracking-wider text-red-600 uppercase">NBFlix</span>
         </div>
     </header>
 
-    <!-- Hero Header Text Section -->
+    <!-- Hero Section -->
     <section class="py-12 px-6 max-w-4xl">
         <p class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed max-w-3xl">
             Explore movie and series information, posters, ratings, genres, cast and official YouTube trailers.
         </p>
-        
-        <!-- এখানে আগে যে কাউন্টার বাটনটি ছিল, তা সম্পূর্ণ রিমুভ করা হয়েছে -->
     </section>
 
-    <!-- Genre Buttons / Tabs (স্ক্রিনশটের হুবহু ডিজাইন) -->
+    <!-- Genre Tabs -->
     <div class="px-6 mb-8 flex flex-wrap gap-3 text-sm font-medium">
         <button class="px-5 py-2.5 bg-red-600 text-white rounded-full font-semibold shadow-md">Trending</button>
         <button class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Popular Movies</button>
@@ -42,30 +39,26 @@
         <h2 class="text-2xl font-bold tracking-wide">Trending now</h2>
     </div>
 
-    <!-- Movie Grid (আপনার স্ক্রিনশটের হুবহু লেআউট) -->
+    <!-- Movie Grid -->
     <main class="px-6 pb-16">
         <div id="movie-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             
-            <!-- Movie Card 1: Digger -->
+            <!-- Movie Card 1 -->
             <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 shadow-xl transition-all duration-300 hover:scale-[1.03] cursor-pointer" onclick="openTrailer('dQw4w9WgXcQ')">
                 <div class="relative aspect-[2/3] w-full">
-                    <!-- পোস্টার ইমেজ -->
                     <img src="https://unsplash.com" alt="Digger" class="w-full h-full object-cover">
-                    <!-- মুভি ব্যাজ -->
                     <span class="absolute bottom-3 left-3 bg-red-600 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider">Movie</span>
-                    <!-- রেটিং ব্যাজ -->
                     <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-yellow-400 font-bold text-xs px-2 py-1 rounded border border-gray-700">
                         <i class="fa-solid fa-star mr-1"></i>7.7
                     </span>
                 </div>
-                <!-- মুভি ইনফো (কোনো ভিউ কাউন্টার ছাড়া) -->
                 <div class="p-4 bg-gray-900/60">
                     <h3 class="font-bold text-base text-white truncate">Digger</h3>
                     <p class="text-xs text-gray-400 mt-1">2026 • Movie • <i class="fa-solid fa-star text-yellow-500 text-[10px]"></i> 7.7</p>
                 </div>
             </div>
 
-            <!-- Movie Card 2: Runner -->
+            <!-- Movie Card 2 -->
             <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 shadow-xl transition-all duration-300 hover:scale-[1.03] cursor-pointer" onclick="openTrailer('dQw4w9WgXcQ')">
                 <div class="relative aspect-[2/3] w-full">
                     <img src="https://unsplash.com" alt="Runner" class="w-full h-full object-cover">
@@ -74,7 +67,6 @@
                         <i class="fa-solid fa-star mr-1"></i>8.3
                     </span>
                 </div>
-                <!-- মুভি ইনফো (কোনো ভিউ কাউন্টার ছাড়া) -->
                 <div class="p-4 bg-gray-900/60">
                     <h3 class="font-bold text-base text-white truncate">Runner</h3>
                     <p class="text-xs text-gray-400 mt-1">2026 • Movie • <i class="fa-solid fa-star text-yellow-500 text-[10px]"></i> 8.3</p>
