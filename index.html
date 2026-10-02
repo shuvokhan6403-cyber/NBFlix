@@ -1,26 +1,1674 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NBFlix</title><style>
-:root{--bg:#07080d;--panel:#10121a;--text:#f7f8fb;--muted:#9ba1b2;--accent:#ff315c;--line:#242838}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif}.nav{min-height:70px;display:flex;align-items:center;padding:12px 6%;gap:20px;background:#10121a;position:sticky;top:0;z-index:3;flex-wrap:wrap}.logo{font-size:25px;font-weight:900}.logo b{color:var(--accent)}input{margin-left:auto;background:#151823;border:1px solid var(--line);border-radius:999px;padding:11px;color:white;width:230px}.hero{padding:65px 6%;min-height:310px;background:radial-gradient(circle at 75% 20%,#652033,#07080d 65%)}h1{font-size:clamp(38px,6vw,68px);margin:10px 0}.wrap{padding:30px 6%}.tabs{display:flex;gap:9px;overflow:auto;padding:5px 0 20px}.tabs button,.more{background:#171a25;color:#eee;border:1px solid var(--line);border-radius:999px;padding:10px 16px;white-space:nowrap;cursor:pointer}.tabs button.active,.more{background:var(--accent);border-color:var(--accent)}.head{margin-bottom:18px;font-size:22px;font-weight:bold}.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}.card{background:var(--panel);border:1px solid #242838;border-radius:13px;overflow:hidden;min-width:0}.poster{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;background:#202334}.body{padding:12px}.title{font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sub{font-size:12px;color:var(--muted);margin-top:5px}.status{grid-column:1/-1;text-align:center;color:var(--muted);padding:35px}.actions{text-align:center;padding:24px}.more:disabled{opacity:.5;cursor:default}@media(max-width:950px){.grid{grid-template-columns:repeat(4,1fr)}}@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}input{width:100%;margin-left:0}.nav{gap:12px}.wrap{padding:24px 4%}}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NBFlix</title>
 
-.player-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:20;display:none;align-items:center;justify-content:center;padding:18px}.player-modal.open{display:flex}.player-box{width:min(960px,100%);background:#10121a;border:1px solid #303447;border-radius:18px;overflow:hidden;box-shadow:0 24px 90px #000}.player-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;gap:12px}.player-title{font-size:18px;font-weight:800}.close-player{background:#242838;color:#fff;border:0;border-radius:50%;width:38px;height:38px;font-size:22px;cursor:pointer}.screen{position:relative;background:radial-gradient(ellipse at center,#292d3c,#05060a 72%);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}.screen video{width:100%;height:100%;display:none;background:#000}.player-empty{text-align:center;padding:24px;color:#c8ccda;max-width:460px}.play-symbol{font-size:48px;color:#ff315c;margin-bottom:8px}.player-note{font-size:13px;color:#9ba1b2;line-height:1.6;margin-top:8px}.player-meta{padding:15px 18px;color:#b8bdcb;font-size:14px}.card{cursor:pointer;transition:transform .18s,border-color .18s}.card:hover{transform:translateY(-3px);border-color:#ff315c}@media(max-width:600px){.player-modal{padding:8px}.player-box{border-radius:12px}.player-top{padding:10px 12px}.player-title{font-size:15px}}
-</style></head><body><nav class="nav"><div class="logo">NB<b>Flix</b></div><input id="search" placeholder="Search movies & series…" aria-label="Search movies and series"></nav><section class="hero"><div style="color:#ff8aa1;font-weight:bold">NBFLIX</div><h1>Watch what moves you.</h1><p>Explore movie and series information, posters and ratings.</p></section><main class="wrap"><div class="tabs" id="tabs"><button class="active" data-key="trending">Trending</button><button data-key="popular">Popular Movies</button><button data-key="top">Top Rated</button><button data-key="now">Now Playing</button><button data-key="upcoming">Upcoming</button><button data-key="tv">Popular Series</button><button data-key="hindi">Hindi</button><button data-key="chinese">Chinese</button><button data-key="korean">Korean</button><button data-key="japanese">Japanese</button><button data-key="anime">Anime</button><button data-key="bangla">Bangla</button></div><div class="head" id="heading">Trending now</div><div class="grid" id="grid"><div class="status">Loading titles…</div></div><div class="actions"><button class="more" id="more">Load more</button></div></main><footer style="padding:25px 6%;color:#888">© 2026 NBFlix • Movie information and images by TMDB. Not endorsed or certified by TMDB.</footer>
-<div class="player-modal" id="playerModal" role="dialog" aria-modal="true" aria-label="Movie player">
-  <div class="player-box">
-    <div class="player-top"><div class="player-title" id="playerTitle">NBFlix Player</div><button class="close-player" id="closePlayer" aria-label="Close player">×</button></div>
-    <div class="screen">
-      <video id="movieVideo" controls playsinline preload="metadata"></video>
-      <div class="player-empty" id="playerEmpty"><div class="play-symbol">▶</div><strong>Ready when you are</strong><div class="player-note">This movie does not have a licensed video stream connected yet. When an authorized video source is added, it will play here.</div></div>
-    </div>
-    <div class="player-meta" id="playerMeta">Movie details and playback will appear here.</div>
+<style>
+:root{
+  --bg:#07080d;
+  --panel:#10121a;
+  --text:#f7f8fb;
+  --muted:#9ba1b2;
+  --accent:#ff315c;
+  --line:#242838
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,sans-serif
+}
+
+.nav{
+  min-height:70px;
+  display:flex;
+  align-items:center;
+  padding:12px 6%;
+  gap:20px;
+  background:#10121a;
+  position:sticky;
+  top:0;
+  z-index:3;
+  flex-wrap:wrap
+}
+
+.logo{
+  font-size:25px;
+  font-weight:900
+}
+
+.logo b{
+  color:var(--accent)
+}
+
+input{
+  margin-left:auto;
+  background:#151823;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:11px 16px;
+  color:white;
+  width:230px;
+  outline:none
+}
+
+.hero{
+  padding:65px 6%;
+  min-height:310px;
+  background:radial-gradient(circle at 75% 20%,#652033,#07080d 65%)
+}
+
+h1{
+  font-size:clamp(38px,6vw,68px);
+  margin:10px 0
+}
+
+.hero p{
+  color:#c8ccda
+}
+
+.visit-counter{
+  margin-top:22px;
+  color:#b8bdcb;
+  font-size:14px
+}
+
+.visit-counter strong{
+  color:white;
+  font-size:16px
+}
+
+.wrap{
+  padding:30px 6%
+}
+
+.tabs{
+  display:flex;
+  gap:9px;
+  overflow:auto;
+  padding:5px 0 20px
+}
+
+.tabs button,.more{
+  background:#171a25;
+  color:#eee;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:10px 16px;
+  white-space:nowrap;
+  cursor:pointer
+}
+
+.tabs button.active,.more{
+  background:var(--accent);
+  border-color:var(--accent)
+}
+
+.head{
+  margin-bottom:18px;
+  font-size:22px;
+  font-weight:bold
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:16px
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid #242838;
+  border-radius:13px;
+  overflow:hidden;
+  min-width:0;
+  cursor:pointer;
+  transition:transform .18s,border-color .18s
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  border-color:var(--accent)
+}
+
+.poster{
+  display:block;
+  width:100%;
+  aspect-ratio:2/3;
+  object-fit:cover;
+  background:#202334
+}
+
+.body{
+  padding:12px
+}
+
+.title{
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px
+}
+
+.views{
+  font-size:12px;
+  color:#aeb4c4;
+  margin-top:7px
+}
+
+.status{
+  grid-column:1/-1;
+  text-align:center;
+  color:var(--muted);
+  padding:35px
+}
+
+.actions{
+  text-align:center;
+  padding:24px
+}
+
+.more:disabled{
+  opacity:.5;
+  cursor:default
+}
+
+/* PLAYER */
+
+.player-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  z-index:20;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px
+}
+
+.player-modal.open{
+  display:flex
+}
+
+.player-box{
+  width:min(900px,100%);
+  background:#10121a;
+  border:1px solid #303447;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 24px 90px #000
+}
+
+.player-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  gap:12px
+}
+
+.player-title{
+  font-size:18px;
+  font-weight:800;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis
+}
+
+.close-player{
+  background:#242838;
+  color:#fff;
+  border:0;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  font-size:22px;
+  cursor:pointer;
+  flex-shrink:0
+}
+
+.screen{
+  position:relative;
+  background:#000;
+  aspect-ratio:16/9;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+
+.screen iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:none
+}
+
+.player-empty{
+  text-align:center;
+  padding:24px;
+  color:#c8ccda;
+  max-width:460px
+}
+
+.play-symbol{
+  font-size:48px;
+  color:var(--accent);
+  margin-bottom:8px
+}
+
+.player-note{
+  font-size:13px;
+  color:#9ba1b2;
+  line-height:1.6;
+  margin-top:8px
+}
+
+.player-meta{
+  padding:15px 18px;
+  color:#b8bdcb;
+  font-size:14px
+}
+
+@media(max-width:950px){
+  .grid{
+    grid-template-columns:repeat(4,1fr)
+  }
+}
+
+@media(max-width:600px){
+  .grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  input{
+    width:100%;
+    margin-left:0
+  }
+
+  .nav{
+    gap:12px
+  }
+
+  .wrap{
+    padding:24px 4%
+  }
+
+  .player-modal{
+    padding:8px
+  }
+
+  .player-box{
+    border-radius:12px
+  }
+
+  .player-top{
+    padding:10px 12px
+  }
+
+  .player-title{
+    font-size:15px
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <div class="logo">NB<b>Flix</b></div>
+
+  <input
+    id="search"
+    placeholder="Search movies & series…"
+    aria-label="Search movies and series">
+</nav>
+
+<section class="hero">
+
+  <div style="color:#ff8aa1;font-weight:bold">
+    NBFLIX
   </div>
+
+  <h1>Watch what moves you.</h1>
+
+  <p>
+    Explore movie and series information, posters, ratings and trailers.
+  </p>
+
+  <div class="visit-counter">
+    👁️ Total site visits:
+    <strong id="siteVisits">0</strong>
+  </div>
+
+</section>
+
+<main class="wrap">
+
+  <div class="tabs" id="tabs">
+
+    <button class="active" data-key="trending">
+      Trending
+    </button>
+
+    <button data-key="popular">
+      Popular Movies
+    </button>
+
+    <button data-key="top">
+      Top Rated
+    </button>
+
+    <button data-key="now">
+      Now Playing
+    </button>
+
+    <button data-key="upcoming">
+      Upcoming
+    </button>
+
+    <button data-key="tv">
+      Popular Series
+    </button>
+
+    <button data-key="hindi">
+      Hindi
+    </button>
+
+    <button data-key="chinese">
+      Chinese
+    </button>
+
+    <button data-key="korean">
+      Korean
+    </button>
+
+    <button data-key="japanese">
+      Japanese
+    </button>
+
+    <button data-key="anime">
+      Anime
+    </button>
+
+    <button data-key="bangla">
+      Bangla
+    </button>
+
+  </div>
+
+  <div class="head" id="heading">
+    Trending now
+  </div>
+
+  <div class="grid" id="grid">
+    <div class="status">
+      Loading titles…
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="more" id="more">
+      Load more
+    </button>
+  </div>
+
+</main>
+
+<footer style="padding:25px 6%;color:#888">
+  © 2026 NBFlix • Movie information and images by TMDB.
+  Not endorsed or certified by TMDB.
+</footer>
+
+
+<!-- TRAILER PLAYER -->
+
+<div
+  class="player-modal"
+  id="playerModal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Trailer player">
+
+  <div class="player-box">
+
+    <div class="player-top">
+
+      <div
+        class="player-title"
+        id="playerTitle">
+        NBFlix Trailer
+      </div>
+
+      <button
+        class="close-player"
+        id="closePlayer"
+        aria-label="Close player">
+        ×
+      </button>
+
+    </div>
+
+    <div class="screen">
+
+      <iframe
+        id="trailerFrame"
+        title="Movie trailer"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin">
+      </iframe>
+
+      <div
+        class="player-empty"
+        id="playerEmpty">
+
+        <div class="play-symbol">
+          ▶
+        </div>
+
+        <strong>
+          Trailer unavailable
+        </strong>
+
+        <div class="player-note">
+          No YouTube trailer was found for this title in TMDB.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div
+      class="player-meta"
+      id="playerMeta">
+      Movie trailer and details will appear here.
+    </div>
+
+  </div>
+
 </div>
-<script>
-const grid=document.querySelector('#grid'),search=document.querySelector('#search'),heading=document.querySelector('#heading'),more=document.querySelector('#more'),tabs=document.querySelector('#tabs');let titles=[],page=1,active='trending',busy=false,query='';const base='https://image.tmdb.org/t/p/w500';const configs={trending:{label:'Trending now',path:'/trending/all/week',filter:true},popular:{label:'Popular Movies',path:'/movie/popular'},top:{label:'Top Rated Movies',path:'/movie/top_rated'},now:{label:'Now Playing',path:'/movie/now_playing'},upcoming:{label:'Upcoming Movies',path:'/movie/upcoming'},tv:{label:'Popular Series',path:'/tv/popular'},hindi:{label:'Hindi Movies',path:'/discover/movie?with_original_language=hi&sort_by=popularity.desc'},chinese:{label:'Chinese Movies',path:'/discover/movie?with_original_language=zh&sort_by=popularity.desc'},korean:{label:'Korean Movies',path:'/discover/movie?with_original_language=ko&sort_by=popularity.desc'},japanese:{label:'Japanese Movies',path:'/discover/movie?with_original_language=ja&sort_by=popularity.desc'},anime:{label:'Japanese Anime',path:'/discover/movie?with_genres=16&with_original_language=ja&sort_by=popularity.desc'},bangla:{label:'Bangla Movies',path:'/discover/movie?with_original_language=bn&sort_by=popularity.desc'}};function safe(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}function draw(arr,append=false){if(!append)grid.innerHTML='';if(!arr.length&&!append){grid.innerHTML='<div class="status">No titles found.</div>';return;}arr.forEach(x=>{let n=x.title||x.name||'Untitled',yr=(x.release_date||x.first_air_date||'').slice(0,4),kind=x.media_type==='tv'||active==='tv'?'Series':'Movie',c=document.createElement('article');c.className='card';c.setAttribute('role','button');c.setAttribute('tabindex','0');c.setAttribute('aria-label','Open '+n);c.addEventListener('click',()=>openPlayer(x,n,yr,kind));c.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();openPlayer(x,n,yr,kind);}});c.innerHTML=(x.poster_path?`<img class="poster" loading="lazy" alt="${safe(n)} poster" src="${base+x.poster_path}">`:'<div class="poster"></div>')+`<div class="body"><div class="title" title="${safe(n)}">${safe(n)}</div><div class="sub">${safe([yr,kind,x.vote_average?'★ '+Number(x.vote_average).toFixed(1):''].filter(Boolean).join(' • '))}</div></div>`;grid.appendChild(c);});}async function load(reset=true){if(busy)return;busy=true;more.disabled=true;if(reset){page=1;titles=[];grid.innerHTML='<div class="status">Loading titles…</div>';}const cfg=configs[active];try{const endpoint=cfg.path+(cfg.path.includes('?')?'&':'?')+'page='+page;let r=await fetch('/.netlify/functions/tmdb?endpoint='+encodeURIComponent(endpoint));if(!r.ok)throw Error('HTTP '+r.status);let d=await r.json(),results=(d.results||[]).filter(x=>!cfg.filter||['movie','tv'].includes(x.media_type));titles=reset?results:titles.concat(results);showFiltered();more.style.display=(d.total_pages&&page<d.total_pages)?'inline-block':'none';}catch(e){if(reset)grid.innerHTML='<div class="status">Could not load titles. Check the Netlify function and TMDB_API_KEY, then redeploy.</div>';console.error(e);}finally{busy=false;more.disabled=false;}}function showFiltered(){const q=query.toLowerCase().trim();draw(q?titles.filter(x=>(x.title||x.name||'').toLowerCase().includes(q)):titles);}tabs.addEventListener('click',e=>{const b=e.target.closest('button[data-key]');if(!b)return;active=b.dataset.key;tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));heading.textContent=configs[active].label;load(true);});search.addEventListener('input',()=>{query=search.value;showFiltered();});more.addEventListener('click',()=>{page++;load(false);});
-const playerModal=document.querySelector('#playerModal'),movieVideo=document.querySelector('#movieVideo'),playerEmpty=document.querySelector('#playerEmpty'),playerTitle=document.querySelector('#playerTitle'),playerMeta=document.querySelector('#playerMeta');
-function openPlayer(item,name,year,kind){playerTitle.textContent=name;playerMeta.textContent=[year,kind,item.vote_average?'★ '+Number(item.vote_average).toFixed(1):''].filter(Boolean).join(' • ')||'Movie';movieVideo.pause();movieVideo.removeAttribute('src');movieVideo.load();movieVideo.style.display='none';playerEmpty.style.display='block';playerModal.classList.add('open');document.body.style.overflow='hidden';}
-function closePlayer(){movieVideo.pause();playerModal.classList.remove('open');document.body.style.overflow='';}
-document.querySelector('#closePlayer').addEventListener('click',closePlayer);
-playerModal.addEventListener('click',e=>{if(e.target===playerModal)closePlayer();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&playerModal.classList.contains('open'))closePlayer();});
+
+
+<script type="module">
+
+/* =========================
+   FIREBASE
+========================= */
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  runTransaction,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyAtiyFiumU28pwKmsg--izJIMqrFN5eW_4",
+
+  authDomain:
+    "nbflix-c86c6.firebaseapp.com",
+
+  projectId:
+    "nbflix-c86c6",
+
+  storageBucket:
+    "nbflix-c86c6.firebasestorage.app",
+
+  messagingSenderId:
+    "950751956592",
+
+  appId:
+    "1:950751956592:web:2027f0a37565534b166eb5",
+
+  measurementId:
+    "G-93P77HBSG6"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+
+/* =========================
+   SITE VISITS
+========================= */
+
+function watchSiteVisits(){
+
+  onValue(
+    ref(db,"siteVisits"),
+
+    snap => {
+
+      const count =
+        Number(snap.val()) || 0;
+
+      document.querySelector("#siteVisits")
+        .textContent =
+        count.toLocaleString();
+
+    },
+
+    error => {
+      console.error(
+        "Site visit read error:",
+        error
+      );
+    }
+  );
+
+}
+
+
+async function incrementSiteVisit(){
+
+  try{
+
+    await runTransaction(
+      ref(db,"siteVisits"),
+
+      current => {
+
+        return (
+          Number(current) || 0
+        ) + 1;
+
+      }
+    );
+
+  }catch(error){
+
+    console.error(
+      "Site visit counter error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   MOVIE VIEWS
+========================= */
+
+function movieCounterPath(item,kind){
+
+  return (
+    "movieViews/" +
+    kind.toLowerCase() +
+    "/" +
+    item.id
+  );
+
+}
+
+
+async function incrementMovieView(
+  item,
+  kind
+){
+
+  try{
+
+    await runTransaction(
+
+      ref(
+        db,
+        movieCounterPath(item,kind)
+      ),
+
+      current => {
+
+        return (
+          Number(current) || 0
+        ) + 1;
+
+      }
+
+    );
+
+  }catch(error){
+
+    console.error(
+      "Movie view counter error:",
+      error
+    );
+
+  }
+
+}
+
+
+function watchMovieViews(
+  item,
+  kind,
+  element
+){
+
+  onValue(
+
+    ref(
+      db,
+      movieCounterPath(item,kind)
+    ),
+
+    snap => {
+
+      element.textContent =
+        (
+          Number(snap.val()) || 0
+        ).toLocaleString();
+
+    },
+
+    error => {
+
+      console.error(
+        "Movie view read error:",
+        error
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =========================
+   TMDB
+========================= */
+
+const grid =
+  document.querySelector("#grid");
+
+const search =
+  document.querySelector("#search");
+
+const heading =
+  document.querySelector("#heading");
+
+const more =
+  document.querySelector("#more");
+
+const tabs =
+  document.querySelector("#tabs");
+
+
+let titles = [];
+
+let page = 1;
+
+let active = "trending";
+
+let busy = false;
+
+let query = "";
+
+
+const base =
+  "https://image.tmdb.org/t/p/w500";
+
+
+const configs = {
+
+  trending:{
+    label:"Trending now",
+    path:"/trending/all/week",
+    filter:true
+  },
+
+  popular:{
+    label:"Popular Movies",
+    path:"/movie/popular"
+  },
+
+  top:{
+    label:"Top Rated Movies",
+    path:"/movie/top_rated"
+  },
+
+  now:{
+    label:"Now Playing",
+    path:"/movie/now_playing"
+  },
+
+  upcoming:{
+    label:"Upcoming Movies",
+    path:"/movie/upcoming"
+  },
+
+  tv:{
+    label:"Popular Series",
+    path:"/tv/popular"
+  },
+
+  hindi:{
+    label:"Hindi Movies",
+    path:
+      "/discover/movie?with_original_language=hi&sort_by=popularity.desc"
+  },
+
+  chinese:{
+    label:"Chinese Movies",
+    path:
+      "/discover/movie?with_original_language=zh&sort_by=popularity.desc"
+  },
+
+  korean:{
+    label:"Korean Movies",
+    path:
+      "/discover/movie?with_original_language=ko&sort_by=popularity.desc"
+  },
+
+  japanese:{
+    label:"Japanese Movies",
+    path:
+      "/discover/movie?with_original_language=ja&sort_by=popularity.desc"
+  },
+
+  anime:{
+    label:"Japanese Anime",
+    path:
+      "/discover/movie?with_genres=16&with_original_language=ja&sort_by=popularity.desc"
+  },
+
+  bangla:{
+    label:"Bangla Movies",
+    path:
+      "/discover/movie?with_original_language=bn&sort_by=popularity.desc"
+  }
+
+};
+
+
+/* =========================
+   SAFE TEXT
+========================= */
+
+function safe(s=""){
+
+  return String(s).replace(
+
+    /[&<>"']/g,
+
+    c => ({
+
+      "&":"&amp;",
+
+      "<":"&lt;",
+
+      ">":"&gt;",
+
+      '"':"&quot;",
+
+      "'":"&#39;"
+
+    }[c])
+
+  );
+
+}
+
+
+/* =========================
+   DRAW CARDS
+========================= */
+
+function draw(
+  arr,
+  append=false
+){
+
+  if(!append){
+
+    grid.innerHTML = "";
+
+  }
+
+
+  if(
+    !arr.length &&
+    !append
+  ){
+
+    grid.innerHTML =
+      '<div class="status">No titles found.</div>';
+
+    return;
+
+  }
+
+
+  arr.forEach(x => {
+
+    const n =
+      x.title ||
+      x.name ||
+      "Untitled";
+
+
+    const yr =
+      (
+        x.release_date ||
+        x.first_air_date ||
+        ""
+      ).slice(0,4);
+
+
+    const kind =
+      x.media_type === "tv" ||
+      active === "tv"
+        ? "Series"
+        : "Movie";
+
+
+    const c =
+      document.createElement("article");
+
+
+    c.className = "card";
+
+    c.setAttribute(
+      "role",
+      "button"
+    );
+
+    c.setAttribute(
+      "tabindex",
+      "0"
+    );
+
+    c.setAttribute(
+      "aria-label",
+      "Open trailer for " + n
+    );
+
+
+    c.innerHTML =
+
+      (
+
+        x.poster_path
+
+        ?
+
+        `<img
+          class="poster"
+          loading="lazy"
+          alt="${safe(n)} poster"
+          src="${base+x.poster_path}">
+        `
+
+        :
+
+        '<div class="poster"></div>'
+
+      )
+
+      +
+
+      `
+
+      <div class="body">
+
+        <div
+          class="title"
+          title="${safe(n)}">
+
+          ${safe(n)}
+
+        </div>
+
+        <div class="sub">
+
+          ${safe(
+
+            [
+
+              yr,
+
+              kind,
+
+              x.vote_average
+                ? "★ " +
+                  Number(
+                    x.vote_average
+                  ).toFixed(1)
+                : ""
+
+            ]
+
+            .filter(Boolean)
+
+            .join(" • ")
+
+          )}
+
+        </div>
+
+        <div class="views">
+
+          👁️ Views:
+
+          <span>0</span>
+
+        </div>
+
+      </div>
+
+      `;
+
+
+    const viewEl =
+      c.querySelector(
+        ".views span"
+      );
+
+
+    watchMovieViews(
+      x,
+      kind,
+      viewEl
+    );
+
+
+    const open = () =>
+      openPlayer(
+        x,
+        n,
+        yr,
+        kind
+      );
+
+
+    c.addEventListener(
+      "click",
+      open
+    );
+
+
+    c.addEventListener(
+      "keydown",
+      ev => {
+
+        if(
+          ev.key === "Enter" ||
+          ev.key === " "
+        ){
+
+          ev.preventDefault();
+
+          open();
+
+        }
+
+      }
+    );
+
+
+    grid.appendChild(c);
+
+  });
+
+}
+
+
+/* =========================
+   LOAD MOVIES
+========================= */
+
+async function load(
+  reset=true
+){
+
+  if(busy)return;
+
+
+  busy=true;
+
+  more.disabled=true;
+
+
+  if(reset){
+
+    page=1;
+
+    titles=[];
+
+    grid.innerHTML =
+      '<div class="status">Loading titles…</div>';
+
+  }
+
+
+  const cfg =
+    configs[active];
+
+
+  try{
+
+    const endpoint =
+
+      cfg.path +
+
+      (
+        cfg.path.includes("?")
+          ? "&"
+          : "?"
+      )
+
+      +
+
+      "page=" +
+
+      page;
+
+
+    const r =
+
+      await fetch(
+
+        "/.netlify/functions/tmdb?endpoint=" +
+
+        encodeURIComponent(endpoint)
+
+      );
+
+
+    if(!r.ok){
+
+      throw Error(
+        "HTTP " + r.status
+      );
+
+    }
+
+
+    const d =
+      await r.json();
+
+
+    const results =
+
+      (d.results || [])
+
+      .filter(
+
+        x =>
+
+          !cfg.filter ||
+
+          [
+            "movie",
+            "tv"
+          ].includes(
+            x.media_type
+          )
+
+      );
+
+
+    titles =
+      reset
+        ? results
+        : titles.concat(results);
+
+
+    showFiltered();
+
+
+    more.style.display =
+
+      (
+        d.total_pages &&
+        page < d.total_pages
+      )
+
+      ? "inline-block"
+      : "none";
+
+
+  }catch(e){
+
+    if(reset){
+
+      grid.innerHTML =
+
+        `
+
+        <div class="status">
+
+          Could not load titles.
+
+          Check the Netlify function
+          and TMDB_API_KEY, then redeploy.
+
+        </div>
+
+        `;
+
+    }
+
+    console.error(e);
+
+
+  }finally{
+
+    busy=false;
+
+    more.disabled=false;
+
+  }
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function showFiltered(){
+
+  const q =
+    query
+      .toLowerCase()
+      .trim();
+
+
+  draw(
+
+    q
+
+      ?
+
+      titles.filter(
+
+        x =>
+
+          (
+            x.title ||
+            x.name ||
+            ""
+          )
+          .toLowerCase()
+          .includes(q)
+
+      )
+
+      :
+
+      titles
+
+  );
+
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+tabs.addEventListener(
+  "click",
+  e => {
+
+    const b =
+      e.target.closest(
+        "button[data-key]"
+      );
+
+
+    if(!b)return;
+
+
+    active =
+      b.dataset.key;
+
+
+    tabs
+      .querySelectorAll("button")
+      .forEach(
+
+        x =>
+
+          x.classList.toggle(
+            "active",
+            x === b
+          )
+
+      );
+
+
+    heading.textContent =
+      configs[active].label;
+
+
+    load(true);
+
+  }
+);
+
+
+/* SEARCH */
+
+search.addEventListener(
+  "input",
+  () => {
+
+    query =
+      search.value;
+
+    showFiltered();
+
+  }
+);
+
+
+/* LOAD MORE */
+
+more.addEventListener(
+  "click",
+  () => {
+
+    page++;
+
+    load(false);
+
+  }
+);
+
+
+/* =========================
+   TRAILER PLAYER
+========================= */
+
+const playerModal =
+  document.querySelector(
+    "#playerModal"
+  );
+
+
+const trailerFrame =
+  document.querySelector(
+    "#trailerFrame"
+  );
+
+
+const playerEmpty =
+  document.querySelector(
+    "#playerEmpty"
+  );
+
+
+const playerTitle =
+  document.querySelector(
+    "#playerTitle"
+  );
+
+
+const playerMeta =
+  document.querySelector(
+    "#playerMeta"
+  );
+
+
+/*
+  TMDB videos endpoint থেকে
+  YouTube Trailer খোঁজা হবে.
+*/
+
+async function getTrailer(item){
+
+  const type =
+
+    (
+      item.media_type === "tv" ||
+      active === "tv"
+    )
+
+    ? "tv"
+    : "movie";
+
+
+  const endpoint =
+    `/${type}/${item.id}/videos`;
+
+
+  try{
+
+    const r =
+
+      await fetch(
+
+        "/.netlify/functions/tmdb?endpoint=" +
+
+        encodeURIComponent(endpoint)
+
+      );
+
+
+    if(!r.ok)return null;
+
+
+    const d =
+      await r.json();
+
+
+    const vids =
+      Array.isArray(d.results)
+        ? d.results
+        : [];
+
+
+    const youtube =
+
+      vids.filter(
+
+        v =>
+
+          v.site === "YouTube" &&
+          v.key
+
+      );
+
+
+    /*
+      আগে official English trailer,
+      তারপর official trailer,
+      তারপর অন্য trailer/teaser.
+    */
+
+    return (
+
+      youtube.find(
+
+        v =>
+
+          v.type === "Trailer" &&
+          v.official === true &&
+          v.iso_639_1 === "en"
+
+      )
+
+      ||
+
+      youtube.find(
+
+        v =>
+
+          v.type === "Trailer" &&
+          v.official === true
+
+      )
+
+      ||
+
+      youtube.find(
+
+        v =>
+          v.type === "Trailer"
+
+      )
+
+      ||
+
+      youtube.find(
+
+        v =>
+          v.type === "Teaser"
+
+      )
+
+      ||
+
+      youtube[0]
+
+      ||
+
+      null
+
+    );
+
+
+  }catch(e){
+
+    console.error(
+      "Trailer load error:",
+      e
+    );
+
+    return null;
+
+  }
+
+}
+
+
+/* OPEN PLAYER */
+
+async function openPlayer(
+  item,
+  name,
+  year,
+  kind
+){
+
+  playerTitle.textContent =
+    name;
+
+
+  playerMeta.textContent =
+
+    [
+
+      year,
+
+      kind,
+
+      item.vote_average
+        ? "★ " +
+          Number(
+            item.vote_average
+          ).toFixed(1)
+        : ""
+
+    ]
+
+    .filter(Boolean)
+
+    .join(" • ") ||
+
+    "Movie";
+
+
+  trailerFrame.style.display =
+    "none";
+
+
+  trailerFrame.removeAttribute(
+    "src"
+  );
+
+
+  playerEmpty.style.display =
+    "block";
+
+
+  playerModal.classList.add(
+    "open"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  /* Movie view +1 */
+
+  incrementMovieView(
+    item,
+    kind
+  );
+
+
+  /*
+    Trailer খোঁজা
+  */
+
+  const trailer =
+    await getTrailer(item);
+
+
+  /*
+    User player বন্ধ করে দিলে
+    আর iframe বসানো হবে না.
+  */
+
+  if(
+    !playerModal.classList.contains(
+      "open"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  if(trailer){
+
+    trailerFrame.src =
+
+      "https://www.youtube.com/embed/" +
+
+      encodeURIComponent(
+        trailer.key
+      ) +
+
+      "?autoplay=1&rel=0";
+
+
+    trailerFrame.style.display =
+      "block";
+
+
+    playerEmpty.style.display =
+      "none";
+
+  }
+
+}
+
+
+/* CLOSE PLAYER */
+
+function closePlayer(){
+
+  trailerFrame.removeAttribute(
+    "src"
+  );
+
+
+  trailerFrame.style.display =
+    "none";
+
+
+  playerModal.classList.remove(
+    "open"
+  );
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* CLOSE BUTTON */
+
+document
+  .querySelector("#closePlayer")
+  .addEventListener(
+    "click",
+    closePlayer
+  );
+
+
+/* CLICK OUTSIDE */
+
+playerModal.addEventListener(
+  "click",
+  e => {
+
+    if(
+      e.target === playerModal
+    ){
+
+      closePlayer();
+
+    }
+
+  }
+);
+
+
+/* ESC */
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    if(
+
+      e.key === "Escape" &&
+
+      playerModal.classList.contains(
+        "open"
+      )
+
+    ){
+
+      closePlayer();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   START
+========================= */
+
+watchSiteVisits();
+
+incrementSiteVisit();
 
 load();
-</script></body></html>
+
+</script>
+
+</body>
+</html>
