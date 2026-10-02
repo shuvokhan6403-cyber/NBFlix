@@ -23,10 +23,10 @@
             <span class="text-3xl font-extrabold tracking-wider text-red-600 uppercase">NBFlix</span>
         </div>
         
-        <!-- Live Visitor Counter -->
+        <!-- Permanent Page Visitor Counter -->
         <div class="bg-gray-800 text-xs md:text-sm px-3 py-1.5 rounded-full border border-gray-700 flex items-center space-x-2">
             <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            <span>Total Visits: <strong id="visitor-count" class="text-red-500">1</strong></span>
+            <span>Total Site Visits: <strong id="visitor-count" class="text-red-500">1</strong></span>
         </div>
     </header>
 
@@ -54,11 +54,6 @@
             <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Now Playing</button>
             <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Upcoming</button>
             <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Popular Series</button>
-            <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Hindi</button>
-            <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Chinese</button>
-            <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Korean</button>
-            <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Japanese Anime</button>
-            <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition">Bangla</button>
         </div>
     </nav>
 
@@ -66,38 +61,52 @@
     <main class="px-4 lg:px-8 max-w-7xl mx-auto mb-16">
         <div id="movie-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             
-            <!-- Movie Card Template (Placeholder) -->
-            <div class="movie-card relative group bg-gray-900 rounded-xl overflow-hidden cursor-pointer shadow-lg transition-transform duration-300 hover:scale-105 border border-gray-800" onclick="openTrailerModal('Sample Movie Trailer')">
+            <!-- Sample Movie Card 1 -->
+            <div class="movie-card relative group bg-gray-900 rounded-xl overflow-hidden cursor-pointer shadow-lg transition-transform duration-300 hover:scale-105 border border-gray-800" 
+                 onclick="openTrailerModal('Avatar: The Way of Water', 'dQw4w9WgXcQ', 'movie_1')">
                 <div class="relative aspect-[2/3] w-full bg-gray-800">
-                    <!-- Placeholder Image (TMDB dynamic content will go here via JS) -->
                     <img src="https://unsplash.com" alt="Movie Poster" class="w-full h-full object-cover">
-                    <!-- Play Overlay -->
                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="play-btn transform scale-75 opacity-0 transition-all duration-300 bg-red-600 text-white p-4 rounded-full shadow-2xl">
                             <i class="fa-solid fa-play text-xl pl-0.5"></i>
                         </span>
                     </div>
-                    <!-- Rating Badge -->
                     <span class="absolute top-2 right-2 bg-black/70 backdrop-blur-md text-yellow-400 font-bold text-xs px-2 py-1 rounded border border-gray-700">
-                        <i class="fa-solid fa-star mr-1"></i>8.4
+                        <i class="fa-solid fa-star mr-1"></i>7.8
                     </span>
                 </div>
                 <div class="p-3">
-                    <h3 class="font-semibold text-sm truncate group-hover:text-red-500 transition-colors">Sample Movie Title</h3>
-                    <p class="text-xs text-gray-500 mt-1">2026 • Sci-Fi</p>
+                    <h3 class="font-semibold text-sm truncate group-hover:text-red-500 transition-colors">Avatar: The Way of Water</h3>
+                    <div class="flex items-center justify-between text-xs text-gray-500 mt-1">
+                        <span>2022 • Sci-Fi</span>
+                        <span class="text-gray-400"><i class="fa-regular fa-eye mr-1"></i><strong id="view-movie_1">0</strong> views</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- More placeholders can be generated dynamically using TMDB API JS -->
+            <!-- Sample Movie Card 2 -->
+            <div class="movie-card relative group bg-gray-900 rounded-xl overflow-hidden cursor-pointer shadow-lg transition-transform duration-300 hover:scale-105 border border-gray-800" 
+                 onclick="openTrailerModal('Wednesday Series', 'Di310WS8zLk', 'movie_2')">
+                <div class="relative aspect-[2/3] w-full bg-gray-800">
+                    <img src="https://unsplash.com" alt="Movie Poster" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="play-btn transform scale-75 opacity-0 transition-all duration-300 bg-red-600 text-white p-4 rounded-full shadow-2xl">
+                            <i class="fa-solid fa-play text-xl pl-0.5"></i>
+                        </span>
+                    </div>
+                    <span class="absolute top-2 right-2 bg-black/70 backdrop-blur-md text-yellow-400 font-bold text-xs px-2 py-1 rounded border border-gray-700">
+                        <i class="fa-solid fa-star mr-1"></i>8.1
+                    </span>
+                </div>
+                <div class="p-3">
+                    <h3 class="font-semibold text-sm truncate group-hover:text-red-500 transition-colors">Wednesday Series</h3>
+                    <div class="flex items-center justify-between text-xs text-gray-500 mt-1">
+                        <span>2022 • Mystery</span>
+                        <span class="text-gray-400"><i class="fa-regular fa-eye mr-1"></i><strong id="view-movie_2">0</strong> views</span>
+                    </div>
+                </div>
+            </div>
 
-        </div>
-
-        <!-- Load More Button -->
-        <div class="text-center mt-12">
-            <button class="px-8 py-3 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-full border border-gray-700 hover:border-gray-600 transition-all shadow-md inline-flex items-center space-x-2">
-                <span>Load More</span>
-                <i class="fa-solid fa-chevron-down text-xs"></i>
-            </button>
         </div>
     </main>
 
@@ -110,16 +119,13 @@
     <!-- Video/Trailer Modal Popup -->
     <div id="trailer-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0">
         <div class="relative bg-gray-900 rounded-2xl w-full max-w-3xl overflow-hidden border border-gray-800 shadow-2xl">
-            <!-- Modal Header -->
             <div class="p-4 border-b border-gray-800 flex items-center justify-between">
                 <h3 id="modal-title" class="font-bold text-lg text-white truncate">Official YouTube Trailer</h3>
                 <button onclick="closeTrailerModal()" class="text-gray-400 hover:text-white p-1 transition">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-            <!-- Video Container aspect-video -->
             <div class="relative w-full aspect-video bg-black flex items-center justify-center">
-                <!-- If you are using iframe for YouTube -->
                 <div id="modal-loading" class="absolute text-gray-400 flex flex-col items-center space-y-2">
                     <i class="fa-solid fa-spinner animate-spin text-3xl text-red-600"></i>
                     <p class="text-sm">Searching TMDB for a YouTube trailer...</p>
@@ -129,33 +135,20 @@
         </div>
     </div>
 
-    <!-- JavaScript logic (Fixes and enhancements) -->
+    <!-- JavaScript Logic for Unstoppable Counters -->
     <script>
-        // 1. Fixed Local Visitor Counter Logic
+        // --- ১. পেজ রিফ্রেশ কাউন্টার লজিক ---
         document.addEventListener("DOMContentLoaded", () => {
-            let visits = localStorage.getItem("nbflix_visits");
-            if (!visits) {
-                visits = 1;
-            } else {
-                visits = parseInt(visits) + 1;
-            }
-            localStorage.setItem("nbflix_visits", visits);
-            document.getElementById("visitor-count").innerText = visits;
-        });
-
-        // 2. Trailer Modal Open/Close Logic
-        const modal = document.getElementById("trailer-modal");
-        const iframe = document.getElementById("trailer-iframe");
-        const loader = document.getElementById("modal-loading");
-
-        function openTrailerModal(movieTitle, youtubeKey = "") {
-            document.getElementById("modal-title").innerText = `${movieTitle} - Official Trailer`;
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
-            setTimeout(() => modal.classList.remove("opacity-0"), 10);
+            // লোকাল স্টোরেজ থেকে আগের ডাটা চেক করা
+            let pageVisits = localStorage.getItem("nbflix_total_visits");
             
-            // If you pass the actual YouTube Key from TMDB API
-            if(youtubeKey) {
-                loader.classList.add("hidden");
-                iframe.classList.remove("hidden");
-                iframe.src = `https://youtube.com{youtubeKey}?autoplay=1`;
+            if (!pageVisits) {
+                pageVisits = 1; // প্রথমবার ভিজিট করলে ১
+            } else {
+                pageVisits = parseInt(pageVisits) + 1; // প্রতিবার রিফ্রেশে ১ করে বাড়বে
+            }
+            
+            // নতুন ভিউ সংখ্যা সেভ করা ও স্ক্রিনে দেখানো
+            localStorage.setItem("nbflix_total_visits", pageVisits);
+            document.getElementById("visitor-count").innerText = pageVisits;
+
