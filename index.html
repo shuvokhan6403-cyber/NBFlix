@@ -7,7 +7,6 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
     
-    <!-- সম্পূর্ণ নতুন এবং নিরাপদ CSS স্টাইলিং (যা কখনো ভাঙবে না) -->
     <style>
         * {
             box-sizing: border-box;
@@ -126,7 +125,6 @@
         }
         .search-input:focus {
             border-color: #dc2626;
-            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
         }
 
         /* Category Tabs */
@@ -171,13 +169,13 @@
             letter-spacing: 0.5px;
         }
 
-        /* Movie Grid & Cards */
+        /* Fixed Movie Grid (স্থায়ী লেআউট) */
         .grid-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
             display: grid;
-            grid-template-cols: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 24px;
         }
         @media (min-width: 640px) { .grid-container { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -246,6 +244,15 @@
             margin-top: 4px;
         }
 
+        /* Loading UI text */
+        .loading-text {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #9ca3af;
+            font-size: 18px;
+        }
+
         /* Modal Popup */
         .modal {
             position: fixed;
@@ -308,7 +315,7 @@
         <div class="counter-box">
             <span class="live-dot"></span>
             <div class="counter-text">
-                Total site visits:<span id="visitor-count" class="counter-num">Loading...</span>
+                Total site visits:<span id="visitor-count" class="counter-num">1</span>
             </div>
         </div>
     </header>
@@ -325,17 +332,13 @@
         <!-- Search Bar Area -->
         <div class="search-container">
             <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input type="text" placeholder="Search movies & series..." class="search-input">
+            <input type="text" id="search-input" placeholder="Search movies & series..." class="search-input">
         </div>
     </section>
 
     <!-- Genre Tabs / Categories -->
     <div class="categories-nav">
-        <button class="tab-btn tab-active">Trending</button>
-        <button class="tab-btn tab-inactive">Popular Movies</button>
-        <button class="tab-btn tab-inactive">Top Rated</button>
-        <button class="tab-btn tab-inactive">Now Playing</button>
-        <button class="tab-btn tab-inactive">Upcoming</button>
-        <button class="tab-btn tab-inactive">Popular Series</button>
-        <button class="tab-btn tab-inactive">Hindi</button>
-        <button class="tab-btn tab-inactive">Chinese</button>
+        <button class="tab-btn tab-active" onclick="fetchMovies('trending')">Trending</button>
+        <button class="tab-btn tab-inactive" onclick="fetchMovies('popular')">Popular Movies</button>
+        <button class="tab-btn tab-inactive" onclick="fetchMovies('top_rated')">Top Rated</button>
+        <button class="tab-btn tab-inactive" onclick="fetchMovies('now_playing')">Now Playing</button>
