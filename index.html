@@ -7,7 +7,7 @@
 <title>NBFlix - Elite Cinematic Streaming</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230b0b0b'/%3E%3Ctext x='50' y='65' font-size='42' font-weight='900' text-anchor='middle' fill='%23ff003c'%3ENB%3C/text%3E%3C/svg%3E">
 
-<!-- Google Fonts (Unbounded & Inter for Unique Luxury Typography) -->
+<!-- Google Fonts for Unique Luxury Typography -->
 <link rel="preconnect" href="https://googleapis.com">
 <link rel="preconnect" href="https://gstatic.com" crossorigin>
 <link href="https://googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Unbounded:wght@800;900&display=swap" rel="stylesheet">
@@ -36,24 +36,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Ambient Ambient Glow Mesh Behind Content */
-.glow-mesh {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 1600px;
-  height: 650px;
-  background: 
-    radial-gradient(circle at 80% 20%, rgba(255, 0, 60, 0.07) 0%, transparent 50%),
-    radial-gradient(circle at 15% 80%, rgba(147, 51, 234, 0.05) 0%, transparent 40%);
-  z-index: -1;
-  pointer-events: none;
-}
-
 /* =========================
-   EXCLUSIVE HEADER & NAVBAR
+   EXCLUSIVE NAVBAR
 ========================= */
 .app-nav {
   height: 90px;
@@ -61,7 +45,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0 6%;
-  background: rgba(4, 5, 8, 0.8);
+  background: rgba(4, 5, 8, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   position: sticky;
@@ -264,7 +248,7 @@ body {
 .shelf-heading { font-family: 'Unbounded', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
 
 /* =========================
-   ULTRA UNIQUE PLATFORM GRID
+   PLATFORM MOVIE GRID
 ========================= */
 .dynamic-grid {
   display: grid;
@@ -365,4 +349,10 @@ body {
   text-transform: uppercase;
   z-index: 2;
 }
+
+.card-description-panel { padding: 16px; background: var(--surface); }
+.card-main-title { font-size: 15px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-sub-meta { font-size: 12px; color: var(--text-muted); margin-top: 6px; display: flex; align-items: center; justify-content: space-between; }
+
+.status-panel-msg { grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 60px 0; font-size: 15px; }
 
