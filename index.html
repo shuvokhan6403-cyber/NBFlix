@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07080d">
 <title>NBFlix</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b0b0b'/%3E%3Ctext x='50' y='65' font-size='42' font-weight='bold' text-anchor='middle' fill='%23e50914'%3ENB%3C/text%3E%3C/svg%3E">
 
 <style>
 :root{
@@ -65,41 +64,12 @@ button,input{font:inherit}
   width:280px;
 }
 
-.search-mini-logo{
-  position:absolute;
-  left:13px;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:1;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:-.5px;
-  color:#fff;
-  pointer-events:none;
-}
-.search-mini-logo b{color:var(--accent)}
-
-.search-side-logo{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:7px 10px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#151823;
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:-.5px;
-  white-space:nowrap;
-}
-.search-side-logo b{color:var(--accent)}
-
 input{
   width:100%;
   background:#151823;
   border:1px solid var(--line);
   border-radius:999px;
-  padding:11px 42px 11px 58px;
+  padding:11px 42px 11px 16px;
   color:white;
   outline:none;
 }
@@ -825,8 +795,6 @@ footer{
 
   <div class="search-wrap">
 
-    <span class="search-mini-logo">NB<b>F</b></span>
-
     <input
       id="search"
       placeholder="Search movies & series…"
@@ -835,8 +803,6 @@ footer{
     <span class="search-icon">🔎</span>
 
   </div>
-
-  <div class="search-side-logo">NB<b>Flix</b></div>
 
 </nav>
 
@@ -1186,8 +1152,6 @@ import {
 
 
 const firebaseConfig = {
-
-  databaseURL: "https://nbflix-c86c6-default-rtdb.asia-southeast1.firebasedatabase.app",
 
   apiKey:
     "AIzaSyAtiyFiumU28pwKmsg--izJIMqrFN5eW_4",
@@ -2450,6 +2414,17 @@ async function loadDetails(item){
 
 
 /* =========================================================
+   FULL MOVIE SOURCES
+   Add only videos/embeds you own or are authorized to use.
+   Key = TMDB movie/TV ID. Value = { type: "video"|"embed", url: "..." }
+========================================================= */
+const movieStreamLinks = {
+  // Example:
+  // "12345": { type: "video", url: "https://example.com/movie.mp4" },
+  // "67890": { type: "embed", url: "https://player.example.com/embed/..." }
+};
+
+/* =========================================================
    OPEN PLAYER
 ========================================================= */
 
@@ -2489,18 +2464,32 @@ async function openPlayer(
     "Movie";
 
 
-  trailerFrame.style.display =
-    "none";
+  trailerFrame.style.display = "none";
+  trailerFrame.removeAttribute("src");
 
+  const oldVideo = document.querySelector("#fullMovieVideo");
+  if(oldVideo) oldVideo.remove();
 
-  trailerFrame.removeAttribute(
-    "src"
-  );
-
-
-  playerEmpty.style.display =
-    "block";
-
+  const stream = movieStreamLinks[String(item.id)];
+  if(stream && stream.url){
+    playerEmpty.style.display = "none";
+    if(stream.type === "video"){
+      const video = document.createElement("video");
+      video.id = "fullMovieVideo";
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      video.src = stream.url;
+      video.style.cssText = "display:block;width:100%;height:100%;max-height:70vh;background:#000;object-fit:contain";
+      trailerFrame.parentElement.appendChild(video);
+    }else{
+      trailerFrame.src = stream.url;
+      trailerFrame.style.display = "block";
+    }
+  }else{
+    playerEmpty.style.display = "block";
+  }
 
   playerEmpty.innerHTML =
 
@@ -2567,6 +2556,11 @@ async function openPlayer(
   }
 
 
+  if(stream && stream.url){
+    // Keep the configured full movie source active.
+    return;
+  }
+
   if(trailer){
 
     trailerFrame.src =
@@ -2618,6 +2612,14 @@ async function openPlayer(
 ========================================================= */
 
 function closePlayer(){
+
+  const oldVideo = document.querySelector("#fullMovieVideo");
+  if(oldVideo){
+    oldVideo.pause();
+    oldVideo.removeAttribute("src");
+    oldVideo.load();
+    oldVideo.remove();
+  }
 
   trailerFrame.removeAttribute(
     "src"
@@ -2860,92 +2862,244 @@ async function getMiniMovieTrailer(movie){
 ========================================================= */
 
 async function loadMiniTrailer(){
-  miniTrailerStatus.textContent = "Finding…";
-  miniTrailerTitle.textContent = "Finding trailer…";
-  miniTrailerMeta.textContent = "Official YouTube Trailer";
-  miniTrailerLoading.style.display = "flex";
-  miniTrailerFrame.style.display = "none";
-  miniTrailerFrame.removeAttribute("src");
 
-  const [nowData, popularData, topData] = await Promise.all([
-    tmdbRequest("/movie/now_playing?page=1"),
-    tmdbRequest("/movie/popular?page=1"),
-    tmdbRequest("/movie/top_rated?page=1")
+  miniTrailerStatus.textContent =
+    "Finding…";
+
+
+  miniTrailerTitle.textContent =
+    "Finding trailer…";
+
+
+  miniTrailerMeta.textContent =
+    "Official YouTube Trailer";
+
+
+  miniTrailerLoading.style.display =
+    "flex";
+
+
+  miniTrailerFrame.style.display =
+    "none";
+
+
+  /*
+    Get:
+    1. Now Playing
+    2. Popular
+    3. Top Rated
+
+    Then remove duplicates.
+  */
+
+  const [
+
+    nowData,
+
+    popularData,
+
+    topData
+
+  ] = await Promise.all([
+
+    tmdbRequest(
+      "/movie/now_playing?page=1"
+    ),
+
+    tmdbRequest(
+      "/movie/popular?page=1"
+    ),
+
+    tmdbRequest(
+      "/movie/top_rated?page=1"
+    )
+
   ]);
 
+
   const combined = [];
+
   const seen = new Set();
-  [nowData, popularData, topData].forEach(data => {
-    if (!data || !Array.isArray(data.results)) return;
+
+
+  [
+
+    nowData,
+
+    popularData,
+
+    topData
+
+  ].forEach(data => {
+
+    if(
+      !data ||
+      !Array.isArray(data.results)
+    ){
+
+      return;
+
+    }
+
+
     data.results.forEach(movie => {
-      if (movie && movie.id && !seen.has(movie.id)) {
+
+      if(
+        movie &&
+        movie.id &&
+        !seen.has(movie.id)
+      ){
+
         seen.add(movie.id);
+
         combined.push(movie);
+
       }
+
     });
+
   });
 
-  // Shuffle the movie list so the first trailer is not always the same.
-  for (let i = combined.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [combined[i], combined[j]] = [combined[j], combined[i]];
-  }
 
-  // Keep a recent history across refreshes to avoid repeating trailers.
-  let recentIds = [];
-  try {
-    recentIds = JSON.parse(localStorage.getItem("nbflixRecentHeroTrailers") || "[]");
-    if (!Array.isArray(recentIds)) recentIds = [];
-  } catch (_) {
-    recentIds = [];
-  }
+  /*
+    Search the first 18 movies
+    until a YouTube trailer is found.
+  */
 
-  let candidates = combined.filter(movie => !recentIds.includes(String(movie.id)));
-  if (!candidates.length) {
-    recentIds = [];
-    candidates = combined;
-  }
+  for(
+    const movie of combined.slice(0,18)
+  ){
 
-  for (const movie of candidates.slice(0, 30)) {
-    const trailer = await getMiniMovieTrailer(movie);
-    if (!trailer) continue;
+    const trailer =
+      await getMiniMovieTrailer(movie);
 
-    miniTrailerMovie = movie;
-    const name = movie.title || movie.name || "Untitled";
-    const year = (movie.release_date || "").slice(0, 4);
-    const rating = movie.vote_average ? Number(movie.vote_average).toFixed(1) : "—";
+
+    if(!trailer){
+
+      continue;
+
+    }
+
+
+    miniTrailerMovie =
+      movie;
+
+
+    const name =
+      movie.title ||
+      movie.name ||
+      "Untitled";
+
+
+    const year =
+      (
+        movie.release_date ||
+        ""
+      ).slice(0,4);
+
+
+    const rating =
+      movie.vote_average
+        ? Number(
+            movie.vote_average
+          ).toFixed(1)
+        : "—";
+
+
+    /*
+      YouTube embed.
+      Muted autoplay is used because
+      browsers often block audio autoplay.
+    */
 
     miniTrailerFrame.src =
+
       "https://www.youtube.com/embed/" +
-      encodeURIComponent(trailer.key) +
-      "?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1";
 
-    miniTrailerFrame.style.display = "block";
-    miniTrailerLoading.style.display = "none";
-    miniTrailerTitle.textContent = name;
-    miniTrailerMeta.textContent = [year, "Movie", "★ " + rating]
+      encodeURIComponent(
+        trailer.key
+      ) +
+
+      "?autoplay=1" +
+
+      "&mute=1" +
+
+      "&controls=1" +
+
+      "&rel=0" +
+
+      "&modestbranding=1";
+
+
+    miniTrailerFrame.style.display =
+      "block";
+
+
+    miniTrailerLoading.style.display =
+      "none";
+
+
+    miniTrailerTitle.textContent =
+      name;
+
+
+    miniTrailerMeta.textContent =
+
+      [
+        year,
+
+        "Movie",
+
+        "★ " + rating
+
+      ]
+
       .filter(Boolean)
-      .join(" • ");
-    miniTrailerStatus.textContent = "NOW";
 
-    recentIds.push(String(movie.id));
-    recentIds = recentIds.slice(-25);
-    try {
-      localStorage.setItem("nbflixRecentHeroTrailers", JSON.stringify(recentIds));
-    } catch (_) {}
+      .join(" • ");
+
+
+    miniTrailerStatus.textContent =
+      "NOW";
+
+
     return;
+
   }
 
-  miniTrailerStatus.textContent = "Unavailable";
-  miniTrailerTitle.textContent = "Trailer unavailable";
-  miniTrailerMeta.textContent = "No YouTube trailer found";
-  miniTrailerLoading.innerHTML = `
+
+  /*
+    No trailer available
+  */
+
+  miniTrailerStatus.textContent =
+    "Unavailable";
+
+
+  miniTrailerTitle.textContent =
+    "Trailer unavailable";
+
+
+  miniTrailerMeta.textContent =
+    "No YouTube trailer found";
+
+
+  miniTrailerLoading.innerHTML =
+
+    `
     <div>
-      <div style="font-size:28px;margin-bottom:5px">▶</div>
+
+      <div style="font-size:28px;margin-bottom:5px">
+        ▶
+      </div>
+
       No trailer found
+
     </div>
-  `;
+    `;
+
 }
+
 
 /* =========================================================
    MINI TRAILER CLICK
