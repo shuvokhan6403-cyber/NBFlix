@@ -31,6 +31,10 @@ body{
 
 button,input{font:inherit}
 
+/* =========================
+   NAVBAR
+========================= */
+
 .nav{
   min-height:70px;
   display:flex;
@@ -81,14 +85,35 @@ input:focus{border-color:var(--accent)}
   pointer-events:none;
 }
 
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
-  padding:65px 6% 35px;
+  padding:55px 6% 35px;
   min-height:310px;
+
   background:
     radial-gradient(circle at 75% 20%,#652033 0%,transparent 28%),
     radial-gradient(circle at 20% 100%,#25172a 0%,transparent 35%),
     #07080d;
+
   border-bottom:1px solid #171a25;
+}
+
+.hero-inner{
+  max-width:1250px;
+  margin:0 auto;
+
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:35px;
+  align-items:center;
+}
+
+.hero-copy{
+  min-width:0;
 }
 
 .hero-label{
@@ -117,8 +142,10 @@ h1{
   display:inline-flex;
   align-items:center;
   gap:6px;
+
   background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.06);
+
   padding:8px 12px;
   border-radius:999px;
 }
@@ -130,106 +157,102 @@ h1{
 
 
 /* =========================
-   FEATURED TRAILER
+   HERO MINI TRAILER
 ========================= */
 
-.featured{
-  padding:10px 6% 35px;
-  background:
-    linear-gradient(to bottom,#07080d,#0b0c12);
-}
+.mini-trailer{
+  width:100%;
+  max-width:360px;
+  justify-self:end;
 
-.featured-box{
-  max-width:1150px;
-  margin:auto;
-  background:#10121a;
+  background:#0d0f15;
   border:1px solid #292d3d;
-  border-radius:18px;
+  border-radius:14px;
+
   overflow:hidden;
-  box-shadow:0 18px 55px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.38);
 }
 
-.featured-head{
+.mini-trailer-head{
+  height:34px;
+  padding:0 12px;
+
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:15px;
-  padding:18px 20px;
-  border-bottom:1px solid #242838;
-}
+  justify-content:space-between;
+  gap:10px;
 
-.featured-label{
-  font-size:18px;
+  background:#11141c;
+  border-bottom:1px solid #252936;
+
+  color:#cfd3df;
+
+  font-size:10px;
   font-weight:800;
+  letter-spacing:1px;
 }
 
-.featured-label span{
-  color:var(--accent);
+#miniTrailerStatus{
+  font-size:9px;
+  opacity:.55;
+  font-weight:600;
 }
 
-.featured-status{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.featured-screen{
+.mini-trailer-screen{
   position:relative;
   width:100%;
   aspect-ratio:16/9;
   background:#000;
+  overflow:hidden;
 }
 
-.featured-screen iframe{
+.mini-trailer-screen iframe{
   width:100%;
   height:100%;
   border:0;
   display:none;
 }
 
-.featured-loading{
+.mini-trailer-loading{
   position:absolute;
   inset:0;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   text-align:center;
-  color:#c8ccda;
-}
 
-.featured-info{
-  padding:18px 20px 20px;
-}
-
-.featured-title{
-  font-size:23px;
-  font-weight:900;
-}
-
-.featured-meta{
-  color:#aeb4c4;
-  font-size:13px;
-  margin-top:6px;
-}
-
-.featured-note{
-  color:#8f95a7;
+  color:#8e94a3;
   font-size:12px;
-  margin-top:10px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #171a23,
+      #050608 70%
+    );
 }
 
-.featured-open{
-  margin-top:14px;
-  background:var(--accent);
-  color:white;
-  border:0;
-  border-radius:999px;
-  padding:9px 15px;
-  cursor:pointer;
-  font-weight:700;
+.mini-trailer-info{
+  padding:10px 12px 11px;
 }
 
-.featured-open:hover{
-  background:var(--accent2);
+#miniTrailerTitle{
+  font-size:13px;
+  font-weight:800;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+#miniTrailerMeta{
+  margin-top:3px;
+  font-size:10px;
+  color:#858b9a;
 }
 
 
@@ -249,7 +272,9 @@ h1{
   scrollbar-width:none;
 }
 
-.tabs::-webkit-scrollbar{display:none}
+.tabs::-webkit-scrollbar{
+  display:none;
+}
 
 .tabs button,.more{
   background:#171a25;
@@ -303,7 +328,11 @@ h1{
   overflow:hidden;
   min-width:0;
   cursor:pointer;
-  transition:transform .18s,border-color .18s,box-shadow .18s;
+
+  transition:
+    transform .18s,
+    border-color .18s,
+    box-shadow .18s;
 }
 
 .card:hover{
@@ -329,9 +358,11 @@ h1{
 .poster-fallback{
   width:100%;
   aspect-ratio:2/3;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   color:#666d80;
   background:#181b27;
   font-size:13px;
@@ -341,11 +372,15 @@ h1{
   position:absolute;
   top:8px;
   right:8px;
+
   background:rgba(0,0,0,.78);
   backdrop-filter:blur(8px);
+
   border:1px solid rgba(255,255,255,.1);
+
   padding:5px 7px;
   border-radius:8px;
+
   font-size:12px;
   font-weight:bold;
 }
@@ -354,18 +389,24 @@ h1{
   position:absolute;
   left:8px;
   bottom:8px;
+
   background:var(--accent);
+
   padding:5px 8px;
   border-radius:7px;
+
   font-size:10px;
   font-weight:800;
   text-transform:uppercase;
 }
 
-.body{padding:12px}
+.body{
+  padding:12px;
+}
 
 .title{
   font-weight:bold;
+
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -415,11 +456,15 @@ footer{
 .player-modal{
   position:fixed;
   inset:0;
+
   background:rgba(0,0,0,.94);
+
   z-index:50;
+
   display:none;
   align-items:center;
   justify-content:center;
+
   padding:18px;
   overflow:auto;
 }
@@ -431,10 +476,13 @@ footer{
 .player-box{
   width:min(950px,100%);
   max-height:95vh;
+
   overflow:auto;
+
   background:#10121a;
   border:1px solid #303447;
   border-radius:18px;
+
   box-shadow:0 24px 90px #000;
 }
 
@@ -442,17 +490,23 @@ footer{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   padding:14px 18px;
+
   gap:12px;
+
   position:sticky;
   top:0;
+
   background:#10121a;
+
   z-index:2;
 }
 
 .player-title{
   font-size:18px;
   font-weight:800;
+
   overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
@@ -461,21 +515,30 @@ footer{
 .close-player{
   background:#242838;
   color:#fff;
+
   border:0;
   border-radius:50%;
+
   width:38px;
   height:38px;
+
   font-size:22px;
+
   cursor:pointer;
   flex-shrink:0;
 }
 
-.close-player:hover{background:var(--accent)}
+.close-player:hover{
+  background:var(--accent);
+}
 
 .screen{
   position:relative;
+
   background:#000;
+
   aspect-ratio:16/9;
+
   display:flex;
   align-items:center;
   justify-content:center;
@@ -540,7 +603,9 @@ footer{
   font-size:12px;
 }
 
-.detail-section{margin-top:16px}
+.detail-section{
+  margin-top:16px;
+}
 
 .detail-label{
   color:#fff;
@@ -555,51 +620,93 @@ footer{
 }
 
 
-/* LOADING */
+/* =========================
+   LOADING
+========================= */
 
 .loader{
   width:28px;
   height:28px;
+
   border:3px solid #303447;
   border-top-color:var(--accent);
+
   border-radius:50%;
+
   animation:spin .8s linear infinite;
+
   margin:0 auto 12px;
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg)}
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 
-/* TO TOP */
+/* =========================
+   TO TOP
+========================= */
 
 .top-btn{
   position:fixed;
   right:18px;
   bottom:18px;
+
   width:42px;
   height:42px;
+
   border-radius:50%;
   border:1px solid #303447;
+
   background:#171a25;
   color:#fff;
+
   cursor:pointer;
+
   display:none;
+
   z-index:10;
 }
 
-.top-btn.show{display:block}
+.top-btn.show{
+  display:block;
+}
 
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:1100px){
-  .grid{grid-template-columns:repeat(5,1fr)}
+
+  .grid{
+    grid-template-columns:repeat(5,1fr);
+  }
+
 }
 
 @media(max-width:950px){
-  .grid{grid-template-columns:repeat(4,1fr)}
+
+  .grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+}
+
+@media(max-width:800px){
+
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .mini-trailer{
+    justify-self:start;
+    max-width:430px;
+  }
+
 }
 
 @media(max-width:700px){
@@ -609,30 +716,23 @@ footer{
     gap:12px;
   }
 
-  .wrap{padding:24px 4%}
+  .wrap{
+    padding:24px 4%;
+  }
 
-  .hero{padding:50px 4% 30px}
+  .hero{
+    padding:50px 4% 30px;
+  }
 
-  .featured{padding:5px 4% 28px}
-
-  .nav{padding:10px 4%}
+  .nav{
+    padding:10px 4%;
+  }
 
   .search-wrap{
     width:100%;
     margin-left:0;
   }
 
-  .featured-head{
-    padding:14px;
-  }
-
-  .featured-info{
-    padding:14px;
-  }
-
-  .featured-title{
-    font-size:19px;
-  }
 }
 
 @media(max-width:500px){
@@ -642,7 +742,13 @@ footer{
     gap:12px;
   }
 
-  h1{font-size:42px}
+  h1{
+    font-size:42px;
+  }
+
+  .mini-trailer{
+    max-width:100%;
+  }
 
   .player-modal{
     padding:7px;
@@ -654,24 +760,28 @@ footer{
     max-height:96vh;
   }
 
-  .player-top{padding:10px 12px}
-
-  .player-title{font-size:15px}
-
-  .player-meta{padding:12px}
-
-  .details{padding:5px 12px 18px}
-
-  .featured-head{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:4px;
+  .player-top{
+    padding:10px 12px;
   }
+
+  .player-title{
+    font-size:15px;
+  }
+
+  .player-meta{
+    padding:12px;
+  }
+
+  .details{
+    padding:5px 12px 18px;
+  }
+
 }
 </style>
 </head>
 
 <body>
+
 
 <!-- =========================
      NAVBAR
@@ -703,111 +813,96 @@ footer{
 
 <section class="hero">
 
-  <div class="hero-label">
-    NBFLIX
-  </div>
-
-  <h1>
-    Watch what moves you.
-  </h1>
-
-  <p>
-    Explore movie and series information, posters,
-    ratings, genres, cast and official YouTube trailers.
-  </p>
-
-  <div class="visit-counter">
-
-    👁️ Total site visits:
-
-    <strong id="siteVisits">0</strong>
-
-  </div>
-
-</section>
+  <div class="hero-inner">
 
 
-<!-- =========================
-     FEATURED TRAILER
-========================= -->
+    <!-- HERO TEXT -->
 
-<section class="featured">
+    <div class="hero-copy">
 
-  <div class="featured-box">
-
-    <div class="featured-head">
-
-      <div class="featured-label">
-        ▶ <span>Featured Trailer</span>
+      <div class="hero-label">
+        NBFLIX
       </div>
 
-      <div
-        class="featured-status"
-        id="featuredStatus">
-        Finding a trailer…
+      <h1>
+        Watch what moves you.
+      </h1>
+
+      <p>
+        Explore movie and series information, posters,
+        ratings, genres, cast and official YouTube trailers.
+      </p>
+
+      <div class="visit-counter">
+
+        👁️ Total site visits:
+
+        <strong id="siteVisits">0</strong>
+
       </div>
 
     </div>
 
 
-    <div class="featured-screen">
+    <!-- SMALL TRAILER -->
 
-      <iframe
-        id="featuredFrame"
-        title="Featured YouTube trailer"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-        referrerpolicy="strict-origin-when-cross-origin">
-      </iframe>
+    <div
+      class="mini-trailer"
+      id="miniTrailer">
 
 
-      <div
-        class="featured-loading"
-        id="featuredLoading">
+      <div class="mini-trailer-head">
 
-        <div>
+        <span>
+          ▶ TRAILER
+        </span>
 
-          <div class="loader"></div>
+        <span id="miniTrailerStatus">
+          Loading…
+        </span>
 
-          <strong>
-            Finding the latest trailer…
-          </strong>
+      </div>
 
-          <div class="player-note">
-            Searching new and top movies.
+
+      <div class="mini-trailer-screen">
+
+        <iframe
+          id="miniTrailerFrame"
+          title="NBFlix YouTube Trailer"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+
+
+        <div
+          id="miniTrailerLoading"
+          class="mini-trailer-loading">
+
+          <div>
+
+            <div class="loader"></div>
+
+            Finding trailer…
+
           </div>
 
         </div>
 
       </div>
 
-    </div>
 
+      <div class="mini-trailer-info">
 
-    <div class="featured-info">
+        <div id="miniTrailerTitle">
+          Finding trailer…
+        </div>
 
-      <div
-        class="featured-title"
-        id="featuredTitle">
-        Loading featured movie…
+        <div id="miniTrailerMeta">
+          Official YouTube Trailer
+        </div>
+
       </div>
-
-      <div
-        class="featured-meta"
-        id="featuredMeta">
-        Please wait…
-      </div>
-
-      <div class="featured-note">
-        Official/available YouTube trailer found through TMDB.
-      </div>
-
-      <button
-        class="featured-open"
-        id="featuredOpen"
-        style="display:none">
-        View Details
-      </button>
 
     </div>
 
@@ -824,7 +919,9 @@ footer{
 
   <div class="tabs" id="tabs">
 
-    <button class="active" data-key="trending">
+    <button
+      class="active"
+      data-key="trending">
       Trending
     </button>
 
@@ -941,19 +1038,25 @@ footer{
 
   <div class="player-box">
 
+
     <div class="player-top">
 
       <div
         class="player-title"
         id="playerTitle">
+
         NBFlix Trailer
+
       </div>
+
 
       <button
         class="close-player"
         id="closePlayer"
         aria-label="Close player">
+
         ×
+
       </button>
 
     </div>
@@ -994,7 +1097,9 @@ footer{
     <div
       class="player-meta"
       id="playerMeta">
+
       Loading details…
+
     </div>
 
 
@@ -1005,7 +1110,9 @@ footer{
       <div class="loader"></div>
 
       <div style="text-align:center;color:#9ba1b2">
+
         Loading movie details…
+
       </div>
 
     </div>
@@ -1019,7 +1126,9 @@ footer{
   class="top-btn"
   id="topBtn"
   aria-label="Back to top">
+
   ↑
+
 </button>
 
 
@@ -2538,44 +2647,42 @@ document.addEventListener(
 
 
 /* =========================================================
-   FEATURED TRAILER SYSTEM
+   HERO MINI TRAILER
 ========================================================= */
 
-const featuredFrame =
+const miniTrailerFrame =
   document.querySelector(
-    "#featuredFrame"
+    "#miniTrailerFrame"
   );
 
-const featuredLoading =
+const miniTrailerLoading =
   document.querySelector(
-    "#featuredLoading"
+    "#miniTrailerLoading"
   );
 
-const featuredTitle =
+const miniTrailerTitle =
   document.querySelector(
-    "#featuredTitle"
+    "#miniTrailerTitle"
   );
 
-const featuredMeta =
+const miniTrailerMeta =
   document.querySelector(
-    "#featuredMeta"
+    "#miniTrailerMeta"
   );
 
-const featuredStatus =
+const miniTrailerStatus =
   document.querySelector(
-    "#featuredStatus"
-  );
-
-const featuredOpen =
-  document.querySelector(
-    "#featuredOpen"
+    "#miniTrailerStatus"
   );
 
 
-let featuredMovie = null;
+let miniTrailerMovie =
+  null;
 
 
-/* TMDB request through existing Netlify function */
+/* =========================================================
+   GENERIC TMDB REQUEST
+========================================================= */
 
 async function tmdbRequest(endpoint){
 
@@ -2617,36 +2724,45 @@ async function tmdbRequest(endpoint){
 }
 
 
-/* Get best YouTube trailer */
+/* =========================================================
+   GET MOVIE TRAILER FOR HERO
+========================================================= */
 
-async function getFeaturedTrailer(item){
+async function getMiniMovieTrailer(movie){
 
-  const videos =
+  const data =
     await tmdbRequest(
-      `/movie/${item.id}/videos`
+      `/movie/${movie.id}/videos`
     );
 
 
-  if(!videos){
+  if(!data){
     return null;
   }
 
 
-  const list =
-    Array.isArray(videos.results)
-      ? videos.results
+  const videos =
+
+    Array.isArray(data.results)
+      ? data.results
       : [];
 
 
   const youtube =
 
-    list.filter(
+    videos.filter(
 
       v =>
+
         v.site === "YouTube" &&
         v.key
 
     );
+
+
+  if(!youtube.length){
+    return null;
+  }
 
 
   return (
@@ -2654,6 +2770,7 @@ async function getFeaturedTrailer(item){
     youtube.find(
 
       v =>
+
         v.type === "Trailer" &&
         v.official === true &&
         v.iso_639_1 === "en"
@@ -2665,6 +2782,7 @@ async function getFeaturedTrailer(item){
     youtube.find(
 
       v =>
+
         v.type === "Trailer" &&
         v.official === true
 
@@ -2701,43 +2819,49 @@ async function getFeaturedTrailer(item){
 }
 
 
-/* Load Featured Trailer */
+/* =========================================================
+   LOAD HERO MINI TRAILER
+========================================================= */
 
-async function loadFeaturedTrailer(){
+async function loadMiniTrailer(){
 
-  featuredStatus.textContent =
-    "Finding a trailer…";
-
-
-  featuredTitle.textContent =
-    "Loading featured movie…";
+  miniTrailerStatus.textContent =
+    "Finding…";
 
 
-  featuredMeta.textContent =
-    "Searching Now Playing and Top Rated";
+  miniTrailerTitle.textContent =
+    "Finding trailer…";
 
 
-  featuredLoading.style.display =
+  miniTrailerMeta.textContent =
+    "Official YouTube Trailer";
+
+
+  miniTrailerLoading.style.display =
     "flex";
 
 
-  featuredFrame.style.display =
-    "none";
-
-
-  featuredOpen.style.display =
+  miniTrailerFrame.style.display =
     "none";
 
 
   /*
-    New + popular + top movies.
-    Duplicate IDs are removed.
+    Get:
+    1. Now Playing
+    2. Popular
+    3. Top Rated
+
+    Then remove duplicates.
   */
 
   const [
+
     nowData,
+
     popularData,
+
     topData
+
   ] = await Promise.all([
 
     tmdbRequest(
@@ -2757,42 +2881,51 @@ async function loadFeaturedTrailer(){
 
   const combined = [];
 
+  const seen = new Set();
+
 
   [
+
     nowData,
+
     popularData,
+
     topData
+
   ].forEach(data => {
 
     if(
-      data &&
-      Array.isArray(data.results)
+      !data ||
+      !Array.isArray(data.results)
     ){
 
-      data.results.forEach(movie => {
-
-        if(
-          movie &&
-          movie.id &&
-          !combined.some(
-            x => x.id === movie.id
-          )
-        ){
-
-          combined.push(movie);
-
-        }
-
-      });
+      return;
 
     }
+
+
+    data.results.forEach(movie => {
+
+      if(
+        movie &&
+        movie.id &&
+        !seen.has(movie.id)
+      ){
+
+        seen.add(movie.id);
+
+        combined.push(movie);
+
+      }
+
+    });
 
   });
 
 
   /*
-    First movie with an available
-    YouTube trailer will be shown.
+    Search the first 18 movies
+    until a YouTube trailer is found.
   */
 
   for(
@@ -2800,117 +2933,129 @@ async function loadFeaturedTrailer(){
   ){
 
     const trailer =
-      await getFeaturedTrailer(movie);
+      await getMiniMovieTrailer(movie);
 
 
-    if(trailer){
+    if(!trailer){
 
-      featuredMovie =
-        movie;
-
-
-      const name =
-        movie.title ||
-        movie.name ||
-        "Untitled";
-
-
-      const year =
-        (
-          movie.release_date ||
-          ""
-        ).slice(0,4);
-
-
-      const rating =
-        movie.vote_average
-          ? Number(
-              movie.vote_average
-            ).toFixed(1)
-          : "—";
-
-
-      featuredTitle.textContent =
-        name;
-
-
-      featuredMeta.textContent =
-
-        [
-          "🎬 Movie",
-          year,
-          "★ " + rating
-        ]
-
-        .filter(Boolean)
-
-        .join(" • ");
-
-
-      featuredStatus.textContent =
-        "Featured • New / Top";
-
-
-      featuredFrame.src =
-
-        "https://www.youtube.com/embed/" +
-
-        encodeURIComponent(
-          trailer.key
-        ) +
-
-        "?autoplay=0&rel=0";
-
-
-      featuredFrame.style.display =
-        "block";
-
-
-      featuredLoading.style.display =
-        "none";
-
-
-      featuredOpen.style.display =
-        "inline-block";
-
-
-      return;
+      continue;
 
     }
+
+
+    miniTrailerMovie =
+      movie;
+
+
+    const name =
+      movie.title ||
+      movie.name ||
+      "Untitled";
+
+
+    const year =
+      (
+        movie.release_date ||
+        ""
+      ).slice(0,4);
+
+
+    const rating =
+      movie.vote_average
+        ? Number(
+            movie.vote_average
+          ).toFixed(1)
+        : "—";
+
+
+    /*
+      YouTube embed.
+      Muted autoplay is used because
+      browsers often block audio autoplay.
+    */
+
+    miniTrailerFrame.src =
+
+      "https://www.youtube.com/embed/" +
+
+      encodeURIComponent(
+        trailer.key
+      ) +
+
+      "?autoplay=1" +
+
+      "&mute=1" +
+
+      "&controls=1" +
+
+      "&rel=0" +
+
+      "&modestbranding=1";
+
+
+    miniTrailerFrame.style.display =
+      "block";
+
+
+    miniTrailerLoading.style.display =
+      "none";
+
+
+    miniTrailerTitle.textContent =
+      name;
+
+
+    miniTrailerMeta.textContent =
+
+      [
+        year,
+
+        "Movie",
+
+        "★ " + rating
+
+      ]
+
+      .filter(Boolean)
+
+      .join(" • ");
+
+
+    miniTrailerStatus.textContent =
+      "NOW";
+
+
+    return;
 
   }
 
 
-  /* No trailer found */
+  /*
+    No trailer available
+  */
 
-  featuredStatus.textContent =
+  miniTrailerStatus.textContent =
+    "Unavailable";
+
+
+  miniTrailerTitle.textContent =
     "Trailer unavailable";
 
 
-  featuredTitle.textContent =
-    "No featured trailer found";
+  miniTrailerMeta.textContent =
+    "No YouTube trailer found";
 
 
-  featuredMeta.textContent =
-    "TMDB could not find a YouTube trailer for the current titles.";
-
-
-  featuredLoading.innerHTML =
+  miniTrailerLoading.innerHTML =
 
     `
     <div>
 
-      <div class="play-symbol">
+      <div style="font-size:28px;margin-bottom:5px">
         ▶
       </div>
 
-      <strong>
-        Trailer unavailable
-      </strong>
-
-      <div class="player-note">
-        Try again later when new trailer information is available.
-      </div>
+      No trailer found
 
     </div>
     `;
@@ -2918,38 +3063,58 @@ async function loadFeaturedTrailer(){
 }
 
 
-/* Open featured movie in normal details player */
+/* =========================================================
+   MINI TRAILER CLICK
+========================================================= */
 
-featuredOpen.addEventListener(
-  "click",
-  () => {
+document
+  .querySelector("#miniTrailer")
+  .addEventListener(
+    "click",
+    e => {
 
-    if(!featuredMovie)return;
+      /*
+        Don't interfere with YouTube iframe
+        controls.
+      */
+
+      if(
+        e.target.closest("iframe")
+      ){
+
+        return;
+
+      }
 
 
-    const name =
-      featuredMovie.title ||
-      featuredMovie.name ||
-      "Untitled";
+      if(!miniTrailerMovie){
+        return;
+      }
 
 
-    const year =
-      (
-        featuredMovie.release_date ||
-        featuredMovie.first_air_date ||
-        ""
-      ).slice(0,4);
+      const name =
+        miniTrailerMovie.title ||
+        miniTrailerMovie.name ||
+        "Untitled";
 
 
-    openPlayer(
-      featuredMovie,
-      name,
-      year,
-      "Movie"
-    );
+      const year =
+        (
+          miniTrailerMovie.release_date ||
+          miniTrailerMovie.first_air_date ||
+          ""
+        ).slice(0,4);
 
-  }
-);
+
+      openPlayer(
+        miniTrailerMovie,
+        name,
+        year,
+        "Movie"
+      );
+
+    }
+  );
 
 
 /* =========================================================
@@ -2980,8 +3145,11 @@ topBtn.addEventListener(
   () => {
 
     window.scrollTo({
+
       top:0,
+
       behavior:"smooth"
+
     });
 
   }
@@ -2998,7 +3166,15 @@ incrementSiteVisit();
 
 load();
 
-loadFeaturedTrailer();
+/*
+  Load the small Hero trailer
+  separately from the movie grid.
+*/
+
+setTimeout(
+  loadMiniTrailer,
+  800
+);
 
 
 </script>
