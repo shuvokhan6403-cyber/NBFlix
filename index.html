@@ -588,6 +588,7 @@ transition:.2s
 }
 
 .load-btn:hover{background:var(--red)}
+
 .load-btn:disabled{
 opacity:.5;
 cursor:wait
@@ -673,7 +674,8 @@ gap:9px;
 margin-top:19px
 }
 
-.trailer,.watch-player{
+.trailer,
+.watch-player{
 aspect-ratio:16/9;
 background:#030408;
 border-top:1px solid var(--line);
@@ -973,25 +975,44 @@ flex-direction:column
 <body>
 
 <header class="nav">
-<a class="logo" href="/">NB<span>Flix</span></a>
 
-<div class="nav-badge">DISCOVER</div>
+<a class="logo" href="/">
+NB<span>Flix</span>
+</a>
+
+<div class="nav-badge">
+DISCOVER
+</div>
 
 <div class="search">
+
 <span class="search-icon">⌕</span>
+
 <input
 id="searchInput"
 type="search"
 placeholder="Search movies & series..."
 autocomplete="off"
 >
-<button class="search-clear" id="searchClear">×</button>
+
+<button
+class="search-clear"
+id="searchClear">
+×
+</button>
+
 </div>
+
 </header>
+
 
 <section class="hero">
 
-<div class="hero-backdrop" id="heroBackdrop"></div>
+<div
+class="hero-backdrop"
+id="heroBackdrop">
+</div>
+
 <div class="hero-glow"></div>
 
 <div class="hero-content">
@@ -1014,122 +1035,194 @@ Discover your next favorite title with posters, ratings, descriptions and offici
 </p>
 
 <div class="hero-actions">
-<button class="btn" id="exploreBtn">
+
+<button
+class="btn"
+id="exploreBtn">
 Explore Catalog ↓
 </button>
 
-<button class="btn secondary" id="trendingBtn">
+<button
+class="btn secondary"
+id="trendingBtn">
 🔥 Trending Now
 </button>
+
 </div>
 
 <div class="hero-info">
+
 <span>🎬 <strong>Movies</strong></span>
 <span>📺 <strong>Series</strong></span>
 <span>🌎 <strong>Worldwide</strong></span>
 <span>▶ <strong>YouTube Trailers</strong></span>
+
 </div>
 
 </div>
+
 
 <div class="hero-player">
 
 <div class="player-heading">
-<strong>▶ New Movie Trailers</strong>
-<span id="playerCounter">AUTO PLAY</span>
+
+<strong>
+▶ New Movie Trailers
+</strong>
+
+<span id="playerCounter">
+AUTO PLAY
+</span>
+
 </div>
 
-<div class="player-frame" id="featureVideo">
-<div class="state" style="padding:55px 10px">
+<div
+class="player-frame"
+id="featureVideo">
+
+<div
+class="state"
+style="padding:55px 10px">
 Loading trailers...
 </div>
+
 </div>
 
-<div class="player-title" id="featureName">
+<div
+class="player-title"
+id="featureName">
 Finding new trailers...
 </div>
 
-<div class="player-status" id="playerStatus">
+<div
+class="player-status"
+id="playerStatus">
 Bangla • Hindi • English • Tamil • Korean
 </div>
 
 </div>
 
 </div>
+
 </section>
+
 
 <section class="top-section">
 
 <div class="section-mini-head">
-<strong>🔥 Trending Movies</strong>
-<span>Updated from TMDB</span>
+
+<strong>
+🔥 Trending Movies
+</strong>
+
+<span>
+Updated from TMDB
+</span>
+
 </div>
 
 <div class="ticker-window">
-<div class="ticker-track" id="tickerTrack">
-<span style="color:#9298a8">Loading...</span>
+
+<div
+class="ticker-track"
+id="tickerTrack">
+
+<span style="color:#9298a8">
+Loading...
+</span>
+
 </div>
+
 </div>
 
 </section>
 
+
 <main id="catalog">
 
-<div class="tabs" id="tabs">
+<div
+class="tabs"
+id="tabs">
 
-<button class="tab active" data-id="trending">
+<button
+class="tab active"
+data-id="trending">
 Trending
 </button>
 
-<button class="tab" data-id="popular">
+<button
+class="tab"
+data-id="popular">
 Popular Movies
 </button>
 
-<button class="tab" data-id="top">
+<button
+class="tab"
+data-id="top">
 Top Rated
 </button>
 
-<button class="tab" data-id="now">
+<button
+class="tab"
+data-id="now">
 Now Playing
 </button>
 
-<button class="tab" data-id="upcoming">
+<button
+class="tab"
+data-id="upcoming">
 Upcoming
 </button>
 
-<button class="tab" data-id="series">
+<button
+class="tab"
+data-id="series">
 Popular Series
 </button>
 
-<button class="tab" data-id="hi">
+<button
+class="tab"
+data-id="hi">
 Hindi
 </button>
 
-<button class="tab" data-id="zh">
+<button
+class="tab"
+data-id="zh">
 Chinese
 </button>
 
-<button class="tab" data-id="ko">
+<button
+class="tab"
+data-id="ko">
 Korean
 </button>
 
-<button class="tab" data-id="ja">
+<button
+class="tab"
+data-id="ja">
 Japanese
 </button>
 
-<button class="tab" data-id="anime">
+<button
+class="tab"
+data-id="anime">
 Anime
 </button>
 
-<button class="tab" data-id="bn">
+<button
+class="tab"
+data-id="bn">
 Bangla
 </button>
 
 </div>
 
+
 <div class="section-head">
 
 <div>
+
 <h2 id="sectionTitle">
 Trending This Week
 </h2>
@@ -1137,24 +1230,39 @@ Trending This Week
 <small id="resultCount">
 Discover something new
 </small>
-</div>
 
 </div>
 
-<div class="ad-slot" id="adSlot"></div>
+</div>
 
-<div class="grid" id="movieGrid">
+
+<div
+class="ad-slot"
+id="adSlot">
+</div>
+
+
+<div
+class="grid"
+id="movieGrid">
 
 <div class="state">
+
 <div class="spinner"></div>
+
 Loading movies...
+
 </div>
 
 </div>
+
 
 <div class="load-wrap">
 
-<button class="load-btn" id="loadMore" hidden>
+<button
+class="load-btn"
+id="loadMore"
+hidden>
 Load More Movies ↓
 </button>
 
@@ -1162,14 +1270,15 @@ Load More Movies ↓
 
 </main>
 
+
 <footer class="footer">
 
 Movie and TV data provided by
+
 <a
 href="https://www.themoviedb.org/"
 target="_blank"
-rel="noopener"
->
+rel="noopener">
 TMDB
 </a>.
 
@@ -1179,13 +1288,19 @@ NBFlix is not endorsed or certified by TMDB.
 
 </footer>
 
-<div class="modal" id="modal">
+
+<div
+class="modal"
+id="modal">
 
 <div class="dialog">
 
-<button class="close" id="closeModal">
+<button
+class="close"
+id="closeModal">
 ×
 </button>
+
 
 <div class="detail-top">
 
@@ -1194,6 +1309,7 @@ class="detail-poster"
 id="detailPoster"
 alt=""
 >
+
 
 <div class="detail-copy">
 
@@ -1208,6 +1324,7 @@ id="detailMeta">
 class="detail-overview"
 id="detailOverview">
 </p>
+
 
 <div class="detail-actions">
 
@@ -1232,12 +1349,15 @@ Close
 </div>
 
 </div>
+
 </div>
+
 
 <div
 class="watch-player"
 id="watchPlayer">
 </div>
+
 
 <div
 class="trailer"
@@ -1250,7 +1370,9 @@ Select “Watch Trailer” to load the official trailer.
 </div>
 
 </div>
+
 </div>
+
 
 <button
 class="admin-launch"
@@ -1259,15 +1381,25 @@ title="Admin">
 ⚙
 </button>
 
-<section class="admin" id="adminPanel">
+
+<section
+class="admin"
+id="adminPanel">
 
 <div class="admin-wrap">
 
 <div class="admin-head">
 
 <div>
-<div class="nav-badge">NBFLIX CONTROL</div>
-<h2>Admin Dashboard</h2>
+
+<div class="nav-badge">
+NBFLIX CONTROL
+</div>
+
+<h2>
+Admin Dashboard
+</h2>
+
 </div>
 
 <div class="admin-actions">
@@ -1288,38 +1420,60 @@ Close
 
 </div>
 
+
 <div class="admin-grid">
+
 
 <!-- TRAFFIC -->
 
 <div class="admin-card">
 
-<h3>📊 Traffic & Earnings</h3>
+<h3>
+📊 Traffic & Earnings
+</h3>
 
 <div class="stats">
 
 <div class="stat">
+
 <span class="admin-note">
 Visits on this browser
 </span>
-<b id="adminVisits">0</b>
+
+<b id="adminVisits">
+0
+</b>
+
 </div>
 
+
 <div class="stat">
+
 <span class="admin-note">
 Movie detail opens
 </span>
-<b id="adminViews">0</b>
+
+<b id="adminViews">
+0
+</b>
+
 </div>
 
+
 <div class="stat">
+
 <span class="admin-note">
 Estimated earnings
 </span>
-<b id="adminMoney">৳0.00</b>
+
+<b id="adminMoney">
+৳0.00
+</b>
+
 </div>
 
 </div>
+
 
 <label>
 Estimated revenue per 1,000 visits (৳)
@@ -1351,7 +1505,9 @@ They are not verified ad-network earnings or site-wide analytics.
 
 <div class="admin-card">
 
-<h3>🎬 Add / Edit Movie Link</h3>
+<h3>
+🎬 Add / Edit Movie Link
+</h3>
 
 <label>
 Movie / Series Name
@@ -1359,7 +1515,7 @@ Movie / Series Name
 
 <input
 id="movieNameInput"
-placeholder="Example: Avatar 2"
+placeholder="Example: Digger"
 >
 
 <label>
@@ -1389,9 +1545,9 @@ Clear
 </div>
 
 <p class="admin-note">
-Only the name and link are required.
-HTTPS, HTTP, YouTube, player pages and other links can be saved.
-If a website blocks embedding, Watch Now will open that link directly.
+Name + any link is enough.
+For automatic matching, use the same movie/series name shown by TMDB.
+No TMDB ID is required here.
 </p>
 
 <div
@@ -1406,7 +1562,9 @@ id="movieLinkList">
 
 <div class="admin-card">
 
-<h3>📢 Add Advertisement</h3>
+<h3>
+📢 Add Advertisement
+</h3>
 
 <label>
 Ad title
@@ -1470,7 +1628,9 @@ Ad details are stored in this browser.
 
 <div class="admin-card">
 
-<h3>🔐 Admin Password</h3>
+<h3>
+🔐 Admin Password
+</h3>
 
 <p class="admin-note">
 Set a local dashboard password.
@@ -1502,11 +1662,14 @@ id="adminMessage">
 </div>
 
 </div>
+
 </div>
 
 </section>
 
+
 <script src="https://www.youtube.com/iframe_api"></script>
+
 
 <script>
 
@@ -1582,7 +1745,9 @@ path:"/discover/movie?with_original_language=bn&sort_by=popularity.desc"
 };
 
 
-const $=id=>document.getElementById(id);
+const $=id=>
+document.getElementById(id);
+
 
 const getStore=(key,fallback)=>{
 
@@ -1599,6 +1764,7 @@ return fallback;
 }
 
 };
+
 
 const setStore=(key,val)=>
 localStorage.setItem(
@@ -1625,20 +1791,204 @@ let currentItem=null;
 
 
 /*
-Movie links are now stored
-using an internal generated key.
+================================================
+MOVIE LINKS
+================================================
 
-No TMDB ID is required.
+New format:
+
+[
+  {
+    name:"Digger",
+    url:"https://example.com/..."
+  }
+]
+
+No manual TMDB ID.
+
+Old generated-ID data is automatically converted
+when possible.
 */
 
-let movieLinks=
-getStore("nbflix_movie_links",[]);
+const storedMovieLinks=
+getStore(
+"nbflix_movie_links",
+[]
+);
 
-let ads=
-getStore("nbflix_ads",[]);
+
+let movieLinks=
+Array.isArray(storedMovieLinks)
+?
+storedMovieLinks
+.map(v=>{
+
+if(!v)
+return null;
+
+return{
+name:String(v.name||"").trim(),
+url:String(v.url||"").trim(),
+tmdbId:v.tmdbId||
+v.legacyId||
+v.id||
+""
+};
+
+})
+.filter(v=>v&&v.url)
+:
+Object.entries(storedMovieLinks||{})
+.map(([id,v])=>({
+
+name:String(v?.name||"").trim(),
+url:String(v?.url||"").trim(),
+tmdbId:String(id)
+
+}))
+.filter(v=>v.url);
+
+
+const ads=
+getStore(
+"nbflix_ads",
+[]
+);
+
 
 let adEnabled=
-getStore("nbflix_ad_enabled",true);
+getStore(
+"nbflix_ad_enabled",
+true
+);
+
+
+/*
+================================================
+TITLE NORMALIZER
+================================================
+
+This allows:
+
+Avatar 2
+avatar 2
+Avatar   2
+Avatar-2
+
+to match more easily.
+*/
+
+function normalizeTitle(s=""){
+
+return String(s)
+.toLowerCase()
+.trim()
+.replace(/\s+/g," ")
+.replace(/[^\p{L}\p{N} ]/gu,"")
+.trim();
+
+}
+
+
+/*
+Get every possible TMDB name.
+*/
+
+function getItemNames(item){
+
+return [
+
+item.title,
+item.name,
+item.original_title,
+item.original_name
+
+]
+
+.filter(Boolean)
+
+.map(normalizeTitle)
+
+.filter(Boolean);
+
+}
+
+
+/*
+================================================
+FIND SAVED MOVIE LINK
+================================================
+*/
+
+function findMovieLink(item){
+
+const names=
+getItemNames(item);
+
+
+/*
+1. Exact title match
+*/
+
+let entry=
+movieLinks.find(v=>
+names.includes(
+normalizeTitle(v.name)
+)
+);
+
+
+if(entry)
+return entry;
+
+
+/*
+2. If old data has TMDB ID,
+use that as fallback.
+*/
+
+entry=
+movieLinks.find(v=>
+v.tmdbId&&
+String(v.tmdbId)===
+String(item.id)
+);
+
+
+if(entry)
+return entry;
+
+
+/*
+3. Unique partial title fallback.
+Only use it if exactly one saved
+link matches.
+*/
+
+const partial=
+movieLinks.filter(v=>{
+
+const saved=
+normalizeTitle(v.name);
+
+if(!saved)
+return false;
+
+return names.some(n=>
+n.includes(saved)||
+saved.includes(n)
+);
+
+});
+
+
+if(partial.length===1)
+return partial[0];
+
+
+return null;
+
+}
 
 
 const grid=$("movieGrid");
@@ -1695,7 +2045,7 @@ const list=
 v=>v.site==="YouTube"&&v.key
 );
 
-return (
+return(
 
 list.find(
 v=>v.type==="Trailer"&&v.official
@@ -1730,7 +2080,8 @@ async function api(path){
 
 const response=
 await fetch(
-API+"?endpoint="+
+API+
+"?endpoint="+
 encodeURIComponent(path),
 {
 cache:"no-store"
@@ -1741,7 +2092,8 @@ let data;
 
 try{
 
-data=await response.json();
+data=
+await response.json();
 
 }catch{
 
@@ -1750,6 +2102,7 @@ throw new Error(
 );
 
 }
+
 
 if(
 !response.ok||
@@ -1764,6 +2117,7 @@ data.error||
 
 }
 
+
 return data;
 
 }
@@ -1775,6 +2129,7 @@ const type=
 item.media_type||
 (item.first_air_date?"tv":"movie");
 
+
 try{
 
 const data=
@@ -1782,10 +2137,16 @@ await api(
 `/${type}/${item.id}/videos`
 );
 
+
 return{
+
 item,
+
 type,
-video:pickTrailer(data.results)
+
+video:
+pickTrailer(data.results)
+
 };
 
 }catch{
@@ -1859,8 +2220,10 @@ results.forEach(
 if(r.status!=="fulfilled")
 return;
 
+
 const list=
 r.value.results||[];
+
 
 const lang=
 index>=2?
@@ -1876,7 +2239,11 @@ ids.has(String(item.id))
 )
 return;
 
-ids.add(String(item.id));
+
+ids.add(
+String(item.id)
+);
+
 
 candidates.push({
 
@@ -1893,8 +2260,7 @@ lang.label:
 
 });
 
-}
-);
+});
 
 
 for(
@@ -1935,13 +2301,17 @@ checked.forEach(r=>{
 if(
 !r||
 !r.video||
-seenTrailerKeys.has(r.video.key)
+seenTrailerKeys.has(
+r.video.key
+)
 )
 return;
+
 
 seenTrailerKeys.add(
 r.video.key
 );
+
 
 trailerQueue.push({
 
@@ -1969,8 +2339,15 @@ setPlayerText(
 "NBFlix"
 );
 
+
 $("featureVideo").innerHTML=
-'<div class="state" style="padding:45px 10px">No YouTube trailers available right now.</div>';
+`
+<div
+class="state"
+style="padding:45px 10px">
+No YouTube trailers available right now.
+</div>
+`;
 
 return;
 
@@ -1988,7 +2365,13 @@ $("featureName").textContent=
 "Trailer unavailable";
 
 $("featureVideo").innerHTML=
-'<div class="state" style="padding:45px 10px">Could not load trailers.</div>';
+`
+<div
+class="state"
+style="padding:45px 10px">
+Could not load trailers.
+</div>
+`;
 
 }
 
@@ -2004,10 +2387,18 @@ playerCreated
 )
 return;
 
+
 playerCreated=true;
 
+
 $("featureVideo").innerHTML=
-'<div id="youtubeFeaturePlayer" style="width:100%;height:100%"></div>';
+`
+<div
+id="youtubeFeaturePlayer"
+style="width:100%;height:100%">
+</div>
+`;
+
 
 playFeatureAt(
 0,
@@ -2026,7 +2417,9 @@ if(!trailerQueue.length)
 return;
 
 
-if(index>=trailerQueue.length){
+if(
+index>=trailerQueue.length
+){
 
 setPlayerText(
 "You've watched all available trailers",
@@ -2034,11 +2427,13 @@ setPlayerText(
 "Queue finished"
 );
 
+
 if(
 ytPlayer&&
 ytPlayer.stopVideo
 )
 ytPlayer.stopVideo();
+
 
 return;
 
@@ -2046,6 +2441,7 @@ return;
 
 
 trailerIndex=index;
+
 
 const t=
 trailerQueue[index];
@@ -2115,6 +2511,7 @@ trailerIndex+1
 }
 
 }
+
 );
 
 }else{
@@ -2141,6 +2538,7 @@ c=>({
 "'":"&#39;"
 
 }[c])
+
 );
 
 }
@@ -2151,7 +2549,9 @@ loading=false,
 hide=false
 ){
 
-const b=$("loadMore");
+const b=
+$("loadMore");
+
 
 b.hidden=
 hide||
@@ -2160,7 +2560,9 @@ hide||
 currentPage>=totalPages
 );
 
+
 b.disabled=loading;
+
 
 b.textContent=
 loading?
@@ -2174,9 +2576,11 @@ function showError(message){
 
 grid.innerHTML=
 `
+
 <div class="state">
 
-<div style="font-size:28px;margin-bottom:10px">
+<div
+style="font-size:28px;margin-bottom:10px">
 ⚠️
 </div>
 
@@ -2195,10 +2599,13 @@ Check your Vercel /api/tmdb route and TMDB_API_KEY.
 </small>
 
 </div>
+
 `;
+
 
 countEl.textContent=
 "Unable to load";
+
 
 updateLoadButton(
 false,
@@ -2217,13 +2624,17 @@ localStorage.getItem(
 )||0
 )+1;
 
+
 localStorage.setItem(
 "nbflix_local_views",
 n
 );
 
+
 if(
-$("adminPanel").classList.contains("open")
+$("adminPanel").classList.contains(
+"open"
+)
 )
 refreshStats();
 
@@ -2239,28 +2650,41 @@ i=>String(i.id)
 )
 );
 
+
 const fresh=
 items.filter(
 i=>
 i.poster_path&&
-!existing.has(String(i.id))
+!existing.has(
+String(i.id)
+)
 );
 
-allItems.push(...fresh);
+
+allItems.push(
+...fresh
+);
 
 
 if(!allItems.length){
 
 grid.innerHTML=
-'<div class="state">No titles found.</div>';
+`
+<div class="state">
+No titles found.
+</div>
+`;
+
 
 countEl.textContent=
 "0 results";
+
 
 updateLoadButton(
 false,
 true
 );
+
 
 return;
 
@@ -2278,14 +2702,17 @@ item.original_title||
 item.original_name||
 "Untitled";
 
+
 const date=
 item.release_date||
 item.first_air_date||
 "";
 
+
 const type=
 item.media_type||
 (item.first_air_date?"tv":"movie");
+
 
 return`
 
@@ -2307,7 +2734,9 @@ onerror="this.style.opacity='.12'"
 >
 
 <span class="rating">
-★ ${Number(item.vote_average||0).toFixed(1)}
+★ ${Number(
+item.vote_average||0
+).toFixed(1)}
 </span>
 
 <span class="kind">
@@ -2316,20 +2745,26 @@ ${type==="tv"?"Series":"Movie"}
 
 </div>
 
+
 <div class="card-info">
 
 <div class="card-title">
 ${esc(name)}
 </div>
 
+
 <div class="card-meta">
 
 <span>
-${esc(date.slice(0,4)||"—")}
+${esc(
+date.slice(0,4)||"—"
+)}
 </span>
 
 <span class="star">
-★ ${Number(item.vote_average||0).toFixed(1)}
+★ ${Number(
+item.vote_average||0
+).toFixed(1)}
 </span>
 
 </div>
@@ -2341,6 +2776,7 @@ ${esc(date.slice(0,4)||"—")}
 `;
 
 }
+
 ).join("");
 
 
@@ -2353,10 +2789,12 @@ Number(
 card.dataset.index
 );
 
+
 card.onclick=
 ()=>openDetails(
 allItems[i]
 );
+
 
 card.onkeydown=e=>{
 
@@ -2382,7 +2820,10 @@ countEl.textContent=
 allItems.length+
 " titles";
 
-updateLoadButton(false);
+
+updateLoadButton(
+false
+);
 
 }
 
@@ -2392,7 +2833,8 @@ page,
 append=false
 ){
 
-const req=requestId;
+const req=
+requestId;
 
 
 if(!append){
@@ -2403,8 +2845,10 @@ currentPage=1;
 
 totalPages=1;
 
+
 grid.innerHTML=
 `
+
 <div class="state">
 
 <div class="spinner"></div>
@@ -2412,18 +2856,23 @@ grid.innerHTML=
 Loading movies...
 
 </div>
+
 `;
 
 }
 
 
-updateLoadButton(true);
+updateLoadButton(
+true
+);
 
 
 let base=
 searchQuery?
 "/search/multi?query="+
-encodeURIComponent(searchQuery)+
+encodeURIComponent(
+searchQuery
+)+
 "&include_adult=false":
 configs[current].path;
 
@@ -2444,11 +2893,13 @@ try{
 const data=
 await api(path);
 
+
 if(req!==requestId)
 return;
 
 
 currentPage=page;
+
 
 totalPages=
 Math.min(
@@ -2472,12 +2923,15 @@ i=>i.media_type!=="person"
 if(req!==requestId)
 return;
 
+
 if(append){
 
 countEl.textContent=
 "Could not load more";
 
-updateLoadButton(false);
+updateLoadButton(
+false
+);
 
 }else{
 
@@ -2500,6 +2954,7 @@ current=id;
 
 searchQuery="";
 
+
 $("searchInput").value="";
 
 $("searchClear").style.display=
@@ -2519,6 +2974,7 @@ b.dataset.id===id
 
 titleEl.textContent=
 configs[id].title;
+
 
 loadPage(1);
 
@@ -2543,12 +2999,15 @@ function search(q){
 
 requestId++;
 
-searchQuery=q.trim();
+searchQuery=
+q.trim();
+
 
 document.querySelectorAll(
 ".tab"
 ).forEach(
-b=>b.classList.remove(
+b=>
+b.classList.remove(
 "active"
 )
 );
@@ -2558,6 +3017,7 @@ titleEl.textContent=
 searchQuery?
 "Search results":
 configs[current].title;
+
 
 loadPage(1);
 
@@ -2573,11 +3033,13 @@ await api(
 "/trending/movie/week"
 );
 
+
 const items=
 (data.results||[])
 .filter(
 i=>i.poster_path
 );
+
 
 const track=
 $("tickerTrack");
@@ -2588,19 +3050,25 @@ arr=>
 arr.map(
 i=>
 `
+
 <div class="ticker-item">
 
 <img
 loading="lazy"
 src="${IMG+i.poster_path}"
-alt="${esc(i.title||"Movie")}"
+alt="${esc(
+i.title||"Movie"
+)}"
 >
 
 <div class="ticker-item-title">
-${esc(i.title||"Untitled")}
+${esc(
+i.title||"Untitled"
+)}
 </div>
 
 </div>
+
 `
 ).join("");
 
@@ -2617,7 +3085,11 @@ setHero(items[0]);
 }catch{
 
 $("tickerTrack").innerHTML=
-'<span style="color:#9298a8">Trending movies unavailable.</span>';
+`
+<span style="color:#9298a8">
+Trending movies unavailable.
+</span>
+`;
 
 }
 
@@ -2632,7 +3104,9 @@ item.backdrop_path
 ){
 
 $("heroBackdrop").style.backgroundImage=
-`url("${BACKDROP+item.backdrop_path}")`;
+`url("${BACKDROP+
+item.backdrop_path
+}")`;
 
 }
 
@@ -2649,6 +3123,12 @@ el.style.display=
 }
 
 
+/*
+================================================
+OPEN DETAILS
+================================================
+*/
+
 function openDetails(item){
 
 currentItem=item;
@@ -2660,7 +3140,10 @@ const type=
 item.media_type||
 (item.first_air_date?"tv":"movie");
 
-const id=item.id;
+
+const id=
+item.id;
+
 
 const name=
 item.title||
@@ -2695,7 +3178,11 @@ item.first_air_date||
 
 
 $("detailMeta").textContent=
-`${type==="tv"?"Series":"Movie"} • ${date.slice(0,4)||"—"} • ★ ${Number(item.vote_average||0).toFixed(1)}`;
+`${type==="tv"?"Series":"Movie"} • ${
+date.slice(0,4)||"—"
+} • ★ ${
+Number(item.vote_average||0).toFixed(1)
+}`;
 
 
 $("detailOverview").textContent=
@@ -2710,9 +3197,11 @@ clearPlayer(trailerBox);
 
 trailerBox.innerHTML=
 `
+
 <div class="state">
 Select “Watch Trailer” to load the official trailer.
 </div>
+
 `;
 
 trailerBox.style.display=
@@ -2724,9 +3213,23 @@ $("modal").classList.add(
 );
 
 
+/*
+WATCH NOW
+
+Important:
+It uses the saved Name + Link
+from Admin.
+*/
+
 $("watchNow").onclick=
 ()=>playMovie(item);
 
+
+/*
+TRAILER
+
+This stays inside NBFlix.
+*/
 
 $("playTrailer").onclick=
 async()=>{
@@ -2736,8 +3239,10 @@ clearPlayer(watch);
 trailerBox.style.display=
 "block";
 
+
 trailerBox.innerHTML=
 `
+
 <div class="state">
 
 <div class="spinner"></div>
@@ -2745,6 +3250,7 @@ trailerBox.innerHTML=
 Finding trailer...
 
 </div>
+
 `;
 
 
@@ -2754,6 +3260,7 @@ const data=
 await api(
 `/${type}/${id}/videos`
 );
+
 
 const t=
 pickTrailer(
@@ -2765,9 +3272,11 @@ if(!t){
 
 trailerBox.innerHTML=
 `
+
 <div class="state">
 No YouTube trailer available for this title.
 </div>
+
 `;
 
 return;
@@ -2782,7 +3291,9 @@ document.createElement(
 
 
 frame.src=
-`https://www.youtube-nocookie.com/embed/${encodeURIComponent(t.key)}?autoplay=1&rel=0`;
+`https://www.youtube-nocookie.com/embed/${
+encodeURIComponent(t.key)
+}?autoplay=1&rel=0`;
 
 
 frame.title=
@@ -2794,7 +3305,8 @@ frame.allow=
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
 
-frame.allowFullscreen=true;
+frame.allowFullscreen=
+true;
 
 
 trailerBox.replaceChildren(
@@ -2806,9 +3318,11 @@ frame
 
 trailerBox.innerHTML=
 `
+
 <div class="state">
 Could not load trailer. Please try again.
 </div>
+
 `;
 
 }
@@ -2819,38 +3333,67 @@ Could not load trailer. Please try again.
 
 
 /*
-========================================
+================================================
 WATCH NOW
-========================================
+================================================
 
-The saved link is opened directly.
+Dashboard:
+Name + Any Link
 
-This means:
-- YouTube link -> YouTube
-- movie page link -> that movie page
-- external player link -> external player
-- any saved link -> external page
+The movie/series name is matched
+with TMDB automatically.
 
-No TMDB ID is needed.
+When Watch Now is pressed,
+the saved link opens directly.
+
+No embed restrictions.
+No HTTPS restriction.
+
+Example:
+
+Name: Digger
+Link: https://example.com/digger
+
+Watch Now -> example.com/digger
+================================================
 */
-
 
 function playMovie(item){
 
-const id=
-String(item.id);
-
 const entry=
-movieLinks.find(
-v=>
-String(v.id)===id
-);
+findMovieLink(item);
 
 
-if(!entry||!entry.url){
+if(
+!entry||
+!entry.url
+){
 
 alert(
-"Watch Now link has not been added for this title."
+`Watch Now link has not been added for "${
+
+item.title||
+item.name||
+"this title"
+
+}".\n\nOpen Admin Dashboard and save the movie name + link.`
+);
+
+return;
+
+}
+
+
+const target=
+String(
+entry.url
+).trim();
+
+
+if(!target){
+
+alert(
+"Saved link is empty."
 );
 
 return;
@@ -2859,20 +3402,22 @@ return;
 
 
 /*
-Directly open the saved link.
+Direct navigation.
 
-The original NBFlix trailer player
-is NOT changed.
+This goes straight to the saved page/player.
 */
 
-window.open(
-entry.url,
-"_blank",
-"noopener,noreferrer"
-);
+window.location.href=
+target;
 
 }
 
+
+/*
+================================================
+CLOSE MODAL
+================================================
+*/
 
 function closeModal(){
 
@@ -2880,9 +3425,11 @@ $("modal").classList.remove(
 "open"
 );
 
+
 clearPlayer(
 $("trailerBox")
 );
+
 
 clearPlayer(
 $("watchPlayer")
@@ -2891,10 +3438,17 @@ $("watchPlayer")
 }
 
 
+/*
+================================================
+ADS
+================================================
+*/
+
 function showAd(){
 
 const slot=
 $("adSlot");
+
 
 const ad=
 ads.find(
@@ -2925,9 +3479,11 @@ document.createElement(
 "a"
 );
 
+
 a.href=
 ad.link||
 "#";
+
 
 a.target="_blank";
 
@@ -2940,8 +3496,10 @@ document.createElement(
 "img"
 );
 
+
 img.src=
 ad.image;
+
 
 img.alt=
 ad.title||
@@ -2960,11 +3518,14 @@ document.createElement(
 "div"
 );
 
+
 p.textContent=
 ad.title;
 
+
 p.style.cssText=
 "padding:16px;background:#10121a;border:1px solid var(--line);border-radius:10px";
+
 
 slot.append(p);
 
@@ -2977,12 +3538,19 @@ slot.style.display=
 }
 
 
+/*
+================================================
+ADMIN LOGIN
+================================================
+*/
+
 function openAdmin(){
 
 const saved=
 localStorage.getItem(
 "nbflix_admin_password"
 );
+
 
 const pass=
 prompt(
@@ -3008,6 +3576,7 @@ return;
 
 }
 
+
 localStorage.setItem(
 "nbflix_admin_password",
 pass
@@ -3028,6 +3597,7 @@ $("adminPanel").classList.add(
 "open"
 );
 
+
 renderAdmin();
 
 }
@@ -3040,6 +3610,7 @@ refreshStats();
 renderMovieLinks();
 
 renderAds();
+
 
 $("cpmInput").value=
 localStorage.getItem(
@@ -3058,12 +3629,14 @@ localStorage.getItem(
 )||0
 );
 
+
 const views=
 Number(
 localStorage.getItem(
 "nbflix_local_views"
 )||0
 );
+
 
 const cpm=
 Number(
@@ -3076,8 +3649,10 @@ localStorage.getItem(
 $("adminVisits").textContent=
 visits;
 
+
 $("adminViews").textContent=
 views;
+
 
 $("adminMoney").textContent=
 "৳"+
@@ -3089,9 +3664,9 @@ visits*cpm/1000
 
 
 /*
-========================================
+================================================
 RENDER SAVED MOVIE LINKS
-========================================
+================================================
 */
 
 function renderMovieLinks(){
@@ -3099,7 +3674,24 @@ function renderMovieLinks(){
 const list=
 $("movieLinkList");
 
+
 list.innerHTML="";
+
+
+if(!movieLinks.length){
+
+list.innerHTML=
+`
+<div
+class="admin-note"
+style="padding:10px 0">
+No movie links saved yet.
+</div>
+`;
+
+return;
+
+}
 
 
 movieLinks.forEach(
@@ -3109,6 +3701,7 @@ const row=
 document.createElement(
 "div"
 );
+
 
 row.className=
 "admin-row";
@@ -3130,6 +3723,7 @@ document.createElement(
 "small"
 );
 
+
 sub.textContent=
 v.url;
 
@@ -3142,6 +3736,7 @@ document.createElement(
 "div"
 );
 
+
 actions.className=
 "admin-actions";
 
@@ -3151,8 +3746,10 @@ document.createElement(
 "button"
 );
 
+
 edit.className=
 "mini-btn";
+
 
 edit.textContent=
 "Edit";
@@ -3163,8 +3760,10 @@ edit.onclick=()=>{
 $("movieNameInput").value=
 v.name||"";
 
+
 $("movieUrlInput").value=
 v.url||"";
+
 
 $("saveMovie").dataset.editIndex=
 String(index);
@@ -3177,8 +3776,10 @@ document.createElement(
 "button"
 );
 
+
 del.className=
 "mini-btn danger";
+
 
 del.textContent=
 "Delete";
@@ -3191,10 +3792,12 @@ index,
 1
 );
 
+
 setStore(
 "nbflix_movie_links",
 movieLinks
 );
+
 
 renderMovieLinks();
 
@@ -3212,33 +3815,45 @@ info,
 actions
 );
 
+
 list.append(row);
 
 }
+
 );
 
 }
 
 
 /*
-========================================
+================================================
 SAVE MOVIE LINK
-========================================
+================================================
 
 Name + ANY LINK
 
 No TMDB ID.
+No HTTPS restriction.
+No URL validation.
+
+If the same name already exists,
+it is updated instead of creating
+another duplicate.
+================================================
 */
 
 $("saveMovie").onclick=()=>{
 
 const name=
 $("movieNameInput")
-.value.trim();
+.value
+.trim();
+
 
 const url=
 $("movieUrlInput")
-.value.trim();
+.value
+.trim();
 
 
 if(!name){
@@ -3255,7 +3870,7 @@ return;
 if(!url){
 
 alert(
-"Video / Watch Now link is required."
+"Watch Now link is required."
 );
 
 return;
@@ -3263,55 +3878,90 @@ return;
 }
 
 
-/*
-No HTTPS restriction here.
-
-User asked that any link should save.
-
-We only check that something was entered.
-*/
-
 const editIndex=
 $("saveMovie").dataset.editIndex;
 
 
-const item={
-id:
-editIndex!==undefined&&
-editIndex!==""
-?
-movieLinks[
-Number(editIndex)
-]?.id
-:
-Date.now().toString(),
-
-name:name,
-
-url:url
-
-};
-
+/*
+EDIT EXISTING
+*/
 
 if(
 editIndex!==undefined&&
 editIndex!==""
 ){
 
-movieLinks[
-Number(editIndex)
-]=item;
+const index=
+Number(editIndex);
 
-delete $("saveMovie").dataset.editIndex;
+
+if(
+movieLinks[index]
+){
+
+movieLinks[index]={
+name:name,
+url:url,
+tmdbId:
+movieLinks[index].tmdbId||
+""
+};
+
+}
+
+
+delete $("saveMovie")
+.dataset.editIndex;
 
 }else{
 
-movieLinks.push(
-item
+/*
+NEW LINK
+
+If same name already exists,
+replace it.
+*/
+
+const normalized=
+normalizeTitle(name);
+
+
+const existingIndex=
+movieLinks.findIndex(
+v=>
+normalizeTitle(v.name)===
+normalized
+);
+
+
+const newItem={
+name:name,
+url:url,
+tmdbId:""
+};
+
+
+if(existingIndex>=0){
+
+movieLinks[
+existingIndex
+]=
+newItem;
+
+}else{
+
+movieLinks.unshift(
+newItem
 );
 
 }
 
+}
+
+
+/*
+Save locally.
+*/
 
 setStore(
 "nbflix_movie_links",
@@ -3333,27 +3983,47 @@ $("adminMessage").textContent=
 };
 
 
+/*
+CLEAR MOVIE FORM
+*/
+
 $("clearMovieForm").onclick=()=>{
 
 $("movieNameInput").value="";
 
 $("movieUrlInput").value="";
 
-delete $("saveMovie").dataset.editIndex;
+
+delete $("saveMovie")
+.dataset.editIndex;
 
 };
 
 
+/*
+================================================
+ADS SAVE
+================================================
+*/
+
 $("saveAd").onclick=()=>{
 
 const title=
-$("adTitleInput").value.trim();
+$("adTitleInput")
+.value
+.trim();
+
 
 const image=
-$("adImageInput").value.trim();
+$("adImageInput")
+.value
+.trim();
+
 
 const link=
-$("adLinkInput").value.trim();
+$("adLinkInput")
+.value
+.trim();
 
 
 if(
@@ -3432,10 +4102,17 @@ $("adLinkInput").value="";
 };
 
 
+/*
+================================================
+RENDER ADS
+================================================
+*/
+
 function renderAds(){
 
 const list=
 $("adList");
+
 
 list.innerHTML="";
 
@@ -3448,6 +4125,7 @@ document.createElement(
 "div"
 );
 
+
 row.className=
 "admin-row";
 
@@ -3456,6 +4134,7 @@ const info=
 document.createElement(
 "div"
 );
+
 
 info.textContent=
 ad.title||
@@ -3466,6 +4145,7 @@ const sub=
 document.createElement(
 "small"
 );
+
 
 sub.textContent=
 ad.link||
@@ -3481,8 +4161,10 @@ document.createElement(
 "button"
 );
 
+
 del.className=
 "mini-btn danger";
+
 
 del.textContent=
 "Delete";
@@ -3495,10 +4177,12 @@ i,
 1
 );
 
+
 setStore(
 "nbflix_ads",
 ads
 );
+
 
 renderAds();
 
@@ -3512,9 +4196,11 @@ info,
 del
 );
 
+
 list.append(row);
 
 }
+
 );
 
 }
@@ -3522,17 +4208,26 @@ list.append(row);
 
 $("toggleAd").onclick=()=>{
 
-adEnabled=!adEnabled;
+adEnabled=
+!adEnabled;
+
 
 setStore(
 "nbflix_ad_enabled",
 adEnabled
 );
 
+
 showAd();
 
 };
 
+
+/*
+================================================
+CPM
+================================================
+*/
 
 $("saveCpm").onclick=()=>{
 
@@ -3544,15 +4239,23 @@ $("cpmInput").value
 )||0
 );
 
+
 localStorage.setItem(
 "nbflix_local_cpm",
 n
 );
 
+
 refreshStats();
 
 };
 
+
+/*
+================================================
+PASSWORD
+================================================
+*/
 
 $("savePassword").onclick=()=>{
 
@@ -3564,6 +4267,7 @@ if(p.length<6){
 
 $("adminMessage").textContent=
 "Password must be at least 6 characters.";
+
 
 return;
 
@@ -3585,12 +4289,19 @@ $("adminMessage").textContent=
 };
 
 
+/*
+================================================
+TABS
+================================================
+*/
+
 $("tabs").onclick=e=>{
 
 const b=
 e.target.closest(
 ".tab"
 );
+
 
 if(b)
 loadCategory(
@@ -3599,6 +4310,12 @@ b.dataset.id
 
 };
 
+
+/*
+================================================
+SEARCH
+================================================
+*/
 
 $("searchInput").oninput=e=>{
 
@@ -3644,6 +4361,7 @@ $("searchInput").value="";
 $("searchClear").style.display=
 "none";
 
+
 loadCategory(
 "trending"
 );
@@ -3651,9 +4369,21 @@ loadCategory(
 };
 
 
+/*
+================================================
+LOAD MORE
+================================================
+*/
+
 $("loadMore").onclick=
 loadMore;
 
+
+/*
+================================================
+MODAL
+================================================
+*/
 
 $("closeModal").onclick=
 closeModal;
@@ -3681,6 +4411,7 @@ if(e.key==="Escape"){
 
 closeModal();
 
+
 $("adminPanel")
 .classList.remove(
 "open"
@@ -3688,9 +4419,14 @@ $("adminPanel")
 
 }
 
-}
-);
+});
 
+
+/*
+================================================
+HERO BUTTONS
+================================================
+*/
 
 $("exploreBtn").onclick=()=>
 $("catalog").scrollIntoView({
@@ -3704,12 +4440,19 @@ loadCategory(
 "trending"
 );
 
+
 $("catalog").scrollIntoView({
 behavior:"smooth"
 });
 
 };
 
+
+/*
+================================================
+ADMIN BUTTONS
+================================================
+*/
 
 $("adminLaunch").onclick=
 openAdmin;
@@ -3728,8 +4471,9 @@ $("adminPanel").classList.remove(
 
 
 /*
-Local browser-only visit counter.
-Not site-wide.
+================================================
+LOCAL VISIT COUNTER
+================================================
 */
 
 if(
@@ -3749,6 +4493,7 @@ localStorage.getItem(
 
 );
 
+
 sessionStorage.setItem(
 "nbflix_visit_counted",
 "1"
@@ -3756,6 +4501,12 @@ sessionStorage.setItem(
 
 }
 
+
+/*
+================================================
+START
+================================================
+*/
 
 showAd();
 
