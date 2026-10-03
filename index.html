@@ -1144,75 +1144,51 @@ Loading...
 class="tabs"
 id="tabs">
 
-<button
-class="tab active"
-data-id="trending">
+<button class="tab active" data-id="trending">
 Trending
 </button>
 
-<button
-class="tab"
-data-id="popular">
+<button class="tab" data-id="popular">
 Popular Movies
 </button>
 
-<button
-class="tab"
-data-id="top">
+<button class="tab" data-id="top">
 Top Rated
 </button>
 
-<button
-class="tab"
-data-id="now">
+<button class="tab" data-id="now">
 Now Playing
 </button>
 
-<button
-class="tab"
-data-id="upcoming">
+<button class="tab" data-id="upcoming">
 Upcoming
 </button>
 
-<button
-class="tab"
-data-id="series">
+<button class="tab" data-id="series">
 Popular Series
 </button>
 
-<button
-class="tab"
-data-id="hi">
+<button class="tab" data-id="hi">
 Hindi
 </button>
 
-<button
-class="tab"
-data-id="zh">
+<button class="tab" data-id="zh">
 Chinese
 </button>
 
-<button
-class="tab"
-data-id="ko">
+<button class="tab" data-id="ko">
 Korean
 </button>
 
-<button
-class="tab"
-data-id="ja">
+<button class="tab" data-id="ja">
 Japanese
 </button>
 
-<button
-class="tab"
-data-id="anime">
+<button class="tab" data-id="anime">
 Anime
 </button>
 
-<button
-class="tab"
-data-id="bn">
+<button class="tab" data-id="bn">
 Bangla
 </button>
 
@@ -1424,8 +1400,6 @@ Close
 <div class="admin-grid">
 
 
-<!-- TRAFFIC -->
-
 <div class="admin-card">
 
 <h3>
@@ -1545,9 +1519,9 @@ Clear
 </div>
 
 <p class="admin-note">
-Name + any link is enough.
-For automatic matching, use the same movie/series name shown by TMDB.
-No TMDB ID is required here.
+Only Name + Link are required.<br>
+The Name should match the title shown on the TMDB card.<br>
+Any link can be saved. Watch Now opens that link directly.
 </p>
 
 <div
@@ -1624,8 +1598,6 @@ Ad details are stored in this browser.
 </div>
 
 
-<!-- PASSWORD -->
-
 <div class="admin-card">
 
 <h3>
@@ -1670,15 +1642,11 @@ id="adminMessage">
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
-
 <script>
 
 const API="/api/tmdb";
-
 const IMG="https://image.tmdb.org/t/p/w500";
-
 const BACKDROP="https://image.tmdb.org/t/p/w1280";
-
 
 const configs={
 
@@ -1744,139 +1712,110 @@ path:"/discover/movie?with_original_language=bn&sort_by=popularity.desc"
 
 };
 
-
-const $=id=>
-document.getElementById(id);
-
+const $=id=>document.getElementById(id);
 
 const getStore=(key,fallback)=>{
 
 try{
-
-return JSON.parse(
-localStorage.getItem(key)
-)??fallback;
-
+return JSON.parse(localStorage.getItem(key))??fallback;
 }catch{
-
 return fallback;
-
 }
 
 };
 
-
 const setStore=(key,val)=>
-localStorage.setItem(
-key,
-JSON.stringify(val)
-);
-
+localStorage.setItem(key,JSON.stringify(val));
 
 let current="trending";
-
 let currentPage=1;
-
 let totalPages=1;
-
 let allItems=[];
-
 let searchQuery="";
-
 let searchTimer;
-
 let requestId=0;
-
 let currentItem=null;
 
 
-/*
-================================================
-MOVIE LINKS
-================================================
+/* ================================================
+   MOVIE LINKS
+   ================================================ */
 
-New format:
-
-[
-  {
-    name:"Digger",
-    url:"https://example.com/..."
-  }
-]
-
-No manual TMDB ID.
-
-Old generated-ID data is automatically converted
-when possible.
-*/
-
-const storedMovieLinks=
-getStore(
+const storedMovieLinks=getStore(
 "nbflix_movie_links",
 []
 );
 
 
-let movieLinks=
-Array.isArray(storedMovieLinks)
-?
-storedMovieLinks
+/*
+   Convert both the new array format and
+   the old object format.
+*/
+
+let movieLinks=[];
+
+if(Array.isArray(storedMovieLinks)){
+
+movieLinks=storedMovieLinks
 .map(v=>{
 
-if(!v)
-return null;
+if(!v)return null;
 
 return{
 name:String(v.name||"").trim(),
 url:String(v.url||"").trim(),
-tmdbId:v.tmdbId||
+tmdbId:String(
+v.tmdbId||
 v.legacyId||
 v.id||
 ""
+).trim()
 };
 
 })
-.filter(v=>v&&v.url)
-:
-Object.entries(storedMovieLinks||{})
-.map(([id,v])=>({
+.filter(v=>v&&v.name&&v.url);
 
-name:String(v?.name||"").trim(),
-url:String(v?.url||"").trim(),
-tmdbId:String(id)
+}else{
 
-}))
-.filter(v=>v.url);
+movieLinks=Object.values(storedMovieLinks||{})
+.map(v=>{
+
+if(!v)return null;
+
+return{
+name:String(v.name||"").trim(),
+url:String(v.url||"").trim(),
+tmdbId:String(
+v.tmdbId||
+v.id||
+""
+).trim()
+};
+
+})
+.filter(v=>v&&v.name&&v.url);
+
+}
 
 
-const ads=
-getStore(
+/* ================================================
+   ADS
+   ================================================ */
+
+const ads=getStore(
 "nbflix_ads",
 []
 );
 
-
-let adEnabled=
-getStore(
+let adEnabled=getStore(
 "nbflix_ad_enabled",
 true
 );
 
 
-/*
-================================================
-TITLE NORMALIZER
-================================================
-
-This allows:
-
-Avatar 2
-avatar 2
-Avatar   2
-Avatar-2
-
-to match more easily.
-*/
+/* ================================================
+   TITLE NORMALIZER
+   ================================================ */
 
 function normalizeTitle(s=""){
 
@@ -1891,186 +1830,145 @@ return String(s)
 
 
 /*
-Get every possible TMDB name.
+   Get all possible names from TMDB.
 */
 
 function getItemNames(item){
 
-return [
-
+return[
 item.title,
 item.name,
 item.original_title,
 item.original_name
-
 ]
-
 .filter(Boolean)
-
 .map(normalizeTitle)
-
 .filter(Boolean);
 
 }
 
 
 /*
-================================================
-FIND SAVED MOVIE LINK
-================================================
+   Find saved Watch Now link.
 */
 
 function findMovieLink(item){
 
-const names=
-getItemNames(item);
+const names=getItemNames(item);
 
 
 /*
-1. Exact title match
+   FIRST:
+   Exact normalized title.
 */
 
-let entry=
-movieLinks.find(v=>
-names.includes(
-normalizeTitle(v.name)
-)
-);
+const exact=movieLinks.find(v=>{
 
+const savedName=normalizeTitle(v.name);
 
-if(entry)
-return entry;
+return savedName &&
+names.includes(savedName);
+
+});
+
+if(exact){
+return exact;
+}
 
 
 /*
-2. If old data has TMDB ID,
-use that as fallback.
+   SECOND:
+   Old TMDB ID fallback.
 */
 
-entry=
-movieLinks.find(v=>
-v.tmdbId&&
-String(v.tmdbId)===
-String(item.id)
-);
+const idMatch=movieLinks.find(v=>{
 
+return v.tmdbId &&
+String(v.tmdbId)===String(item.id);
 
-if(entry)
-return entry;
+});
+
+if(idMatch){
+return idMatch;
+}
 
 
 /*
-3. Unique partial title fallback.
-Only use it if exactly one saved
-link matches.
+   THIRD:
+   Partial match.
+   Only accept when there is exactly
+   one possible match.
 */
 
-const partial=
-movieLinks.filter(v=>{
+const partial=movieLinks.filter(v=>{
 
-const saved=
-normalizeTitle(v.name);
+const savedName=normalizeTitle(v.name);
 
-if(!saved)
-return false;
+if(!savedName)return false;
 
 return names.some(n=>
-n.includes(saved)||
-saved.includes(n)
+n===savedName ||
+n.includes(savedName) ||
+savedName.includes(n)
 );
 
 });
 
-
-if(partial.length===1)
+if(partial.length===1){
 return partial[0];
-
+}
 
 return null;
 
 }
 
 
+/* ================================================
+   TRAILER PLAYER
+   ================================================ */
+
 const grid=$("movieGrid");
-
 const titleEl=$("sectionTitle");
-
 const countEl=$("resultCount");
 
-
 let trailerQueue=[];
-
 let trailerIndex=0;
-
 let ytPlayer=null;
-
 let ytReady=false;
-
 let playerCreated=false;
-
 const seenTrailerKeys=new Set();
 
-
 window.onYouTubeIframeAPIReady=()=>{
-
 ytReady=true;
-
 startFeaturePlayer();
-
 };
 
 
-function setPlayerText(
-title,
-status,
-counter
-){
+function setPlayerText(title,status,counter){
 
-$("featureName").textContent=
-title||"";
-
-$("playerStatus").textContent=
-status||"";
-
-$("playerCounter").textContent=
-counter||"";
+$("featureName").textContent=title||"";
+$("playerStatus").textContent=status||"";
+$("playerCounter").textContent=counter||"";
 
 }
 
 
 function pickTrailer(videos){
 
-const list=
-(videos||[]).filter(
+const list=(videos||[]).filter(
 v=>v.site==="YouTube"&&v.key
 );
 
 return(
-
-list.find(
-v=>v.type==="Trailer"&&v.official
-)
-
+list.find(v=>v.type==="Trailer"&&v.official)
 ||
-
-list.find(
-v=>v.type==="Trailer"
-)
-
+list.find(v=>v.type==="Trailer")
 ||
-
-list.find(
-v=>v.type==="Teaser"
-)
-
+list.find(v=>v.type==="Teaser")
 ||
-
 list[0]
-
 ||
-
 null
-
 );
 
 }
@@ -2078,11 +1976,8 @@ null
 
 async function api(path){
 
-const response=
-await fetch(
-API+
-"?endpoint="+
-encodeURIComponent(path),
+const response=await fetch(
+API+"?endpoint="+encodeURIComponent(path),
 {
 cache:"no-store"
 }
@@ -2091,23 +1986,14 @@ cache:"no-store"
 let data;
 
 try{
-
-data=
-await response.json();
-
+data=await response.json();
 }catch{
-
 throw new Error(
 "Vercel API returned invalid JSON."
 );
-
 }
 
-
-if(
-!response.ok||
-data.success===false
-){
+if(!response.ok||data.success===false){
 
 throw new Error(
 data.status_message||
@@ -2116,7 +2002,6 @@ data.error||
 );
 
 }
-
 
 return data;
 
@@ -2129,24 +2014,16 @@ const type=
 item.media_type||
 (item.first_air_date?"tv":"movie");
 
-
 try{
 
-const data=
-await api(
+const data=await api(
 `/${type}/${item.id}/videos`
 );
 
-
 return{
-
 item,
-
 type,
-
-video:
-pickTrailer(data.results)
-
+video:pickTrailer(data.results)
 };
 
 }catch{
@@ -2161,75 +2038,41 @@ return null;
 async function loadFeaturedTrailers(){
 
 const languages=[
-
-{
-code:"bn",
-label:"Bangla"
-},
-
-{
-code:"hi",
-label:"Hindi"
-},
-
-{
-code:"en",
-label:"English"
-},
-
-{
-code:"ta",
-label:"Tamil"
-},
-
-{
-code:"ko",
-label:"Korean"
-}
-
+{code:"bn",label:"Bangla"},
+{code:"hi",label:"Hindi"},
+{code:"en",label:"English"},
+{code:"ta",label:"Tamil"},
+{code:"ko",label:"Korean"}
 ];
-
 
 try{
 
-const results=
-await Promise.allSettled([
+const results=await Promise.allSettled([
 
 api("/movie/upcoming"),
-
 api("/trending/movie/week"),
 
 ...languages.map(
-l=>
-api(
+l=>api(
 `/discover/movie?with_original_language=${l.code}&sort_by=popularity.desc&page=1`
 )
 )
 
 ]);
 
-
 const candidates=[];
-
 const ids=new Set();
 
-
-results.forEach(
-(r,index)=>{
+results.forEach((r,index)=>{
 
 if(r.status!=="fulfilled")
 return;
 
+const list=r.value.results||[];
 
-const list=
-r.value.results||[];
-
-
-const lang=
-index>=2?
+const lang=index>=2?
 languages[index-2]:
 null;
-
 
 list.forEach(item=>{
 
@@ -2239,23 +2082,13 @@ ids.has(String(item.id))
 )
 return;
 
-
-ids.add(
-String(item.id)
-);
-
+ids.add(String(item.id));
 
 candidates.push({
-
 ...item,
-
 media_type:"movie",
-
 trailerLanguage:
-lang?
-lang.label:
-"New & Trending"
-
+lang?lang.label:"New & Trending"
 });
 
 });
@@ -2263,55 +2096,34 @@ lang.label:
 });
 
 
-for(
-let i=candidates.length-1;
-i>0;
-i--
-){
+for(let i=candidates.length-1;i>0;i--){
 
-const j=
-Math.floor(
+const j=Math.floor(
 Math.random()*(i+1)
 );
 
-[
-candidates[i],
-candidates[j]
-]=[
-candidates[j],
-candidates[i]
-];
+[candidates[i],candidates[j]]=
+[candidates[j],candidates[i]];
 
 }
 
 
-const checked=
-await Promise.all(
-candidates
-.slice(0,24)
-.map(getVideos)
+const checked=await Promise.all(
+candidates.slice(0,24).map(getVideos)
 );
 
-
 trailerQueue=[];
-
 
 checked.forEach(r=>{
 
 if(
 !r||
 !r.video||
-seenTrailerKeys.has(
-r.video.key
-)
+seenTrailerKeys.has(r.video.key)
 )
 return;
 
-
-seenTrailerKeys.add(
-r.video.key
-);
-
+seenTrailerKeys.add(r.video.key);
 
 trailerQueue.push({
 
@@ -2330,7 +2142,6 @@ r.item.trailerLanguage||
 
 });
 
-
 if(!trailerQueue.length){
 
 setPlayerText(
@@ -2339,12 +2150,8 @@ setPlayerText(
 "NBFlix"
 );
 
-
-$("featureVideo").innerHTML=
-`
-<div
-class="state"
-style="padding:45px 10px">
+$("featureVideo").innerHTML=`
+<div class="state" style="padding:45px 10px">
 No YouTube trailers available right now.
 </div>
 `;
@@ -2353,22 +2160,16 @@ return;
 
 }
 
-
 trailerIndex=0;
-
 startFeaturePlayer();
-
 
 }catch{
 
 $("featureName").textContent=
 "Trailer unavailable";
 
-$("featureVideo").innerHTML=
-`
-<div
-class="state"
-style="padding:45px 10px">
+$("featureVideo").innerHTML=`
+<div class="state" style="padding:45px 10px">
 Could not load trailers.
 </div>
 `;
@@ -2387,39 +2188,26 @@ playerCreated
 )
 return;
 
-
 playerCreated=true;
 
-
-$("featureVideo").innerHTML=
-`
+$("featureVideo").innerHTML=`
 <div
 id="youtubeFeaturePlayer"
 style="width:100%;height:100%">
 </div>
 `;
 
-
-playFeatureAt(
-0,
-true
-);
+playFeatureAt(0,true);
 
 }
 
 
-function playFeatureAt(
-index,
-create=false
-){
+function playFeatureAt(index,create=false){
 
 if(!trailerQueue.length)
 return;
 
-
-if(
-index>=trailerQueue.length
-){
+if(index>=trailerQueue.length){
 
 setPlayerText(
 "You've watched all available trailers",
@@ -2427,25 +2215,16 @@ setPlayerText(
 "Queue finished"
 );
 
-
-if(
-ytPlayer&&
-ytPlayer.stopVideo
-)
+if(ytPlayer&&ytPlayer.stopVideo)
 ytPlayer.stopVideo();
-
 
 return;
 
 }
 
-
 trailerIndex=index;
 
-
-const t=
-trailerQueue[index];
-
+const t=trailerQueue[index];
 
 setPlayerText(
 t.name,
@@ -2453,19 +2232,13 @@ t.language,
 `${index+1} / ${trailerQueue.length}`
 );
 
+if(create||!ytPlayer){
 
-if(
-create||
-!ytPlayer
-){
-
-ytPlayer=
-new YT.Player(
+ytPlayer=new YT.Player(
 "youtubeFeaturePlayer",
 {
 
 width:"100%",
-
 height:"100%",
 
 videoId:t.key,
@@ -2481,18 +2254,14 @@ modestbranding:1
 events:{
 
 onReady:e=>{
-
 e.target.mute();
-
 e.target.playVideo();
-
 },
 
 onStateChange:e=>{
 
 if(
-e.data===
-YT.PlayerState.ENDED
+e.data===YT.PlayerState.ENDED
 )
 playFeatureAt(
 trailerIndex+1
@@ -2501,57 +2270,52 @@ trailerIndex+1
 },
 
 onError:()=>{
-
 playFeatureAt(
 trailerIndex+1
 );
-
 }
 
 }
 
 }
-
 );
 
 }else{
 
-ytPlayer.loadVideoById(
-t.key
-);
+ytPlayer.loadVideoById(t.key);
 
 }
 
 }
 
+
+/* ================================================
+   ESCAPE
+   ================================================ */
 
 function esc(s=""){
 
 return String(s).replace(
 /[&<>"']/g,
 c=>({
-
 "&":"&amp;",
 "<":"&lt;",
 ">":"&gt;",
 '"':"&quot;",
 "'":"&#39;"
-
 }[c])
-
 );
 
 }
 
 
-function updateLoadButton(
-loading=false,
-hide=false
-){
+/* ================================================
+   LOAD BUTTON
+   ================================================ */
 
-const b=
-$("loadMore");
+function updateLoadButton(loading=false,hide=false){
 
+const b=$("loadMore");
 
 b.hidden=
 hide||
@@ -2560,9 +2324,7 @@ hide||
 currentPage>=totalPages
 );
 
-
 b.disabled=loading;
-
 
 b.textContent=
 loading?
@@ -2572,15 +2334,17 @@ loading?
 }
 
 
+/* ================================================
+   ERROR
+   ================================================ */
+
 function showError(message){
 
-grid.innerHTML=
-`
+grid.innerHTML=`
 
 <div class="state">
 
-<div
-style="font-size:28px;margin-bottom:10px">
+<div style="font-size:28px;margin-bottom:10px">
 ⚠️
 </div>
 
@@ -2602,18 +2366,16 @@ Check your Vercel /api/tmdb route and TMDB_API_KEY.
 
 `;
 
+countEl.textContent="Unable to load";
 
-countEl.textContent=
-"Unable to load";
-
-
-updateLoadButton(
-false,
-true
-);
+updateLoadButton(false,true);
 
 }
 
+
+/* ================================================
+   VIEW COUNTER
+   ================================================ */
 
 function recordView(){
 
@@ -2624,75 +2386,54 @@ localStorage.getItem(
 )||0
 )+1;
 
-
 localStorage.setItem(
 "nbflix_local_views",
 n
 );
 
-
 if(
-$("adminPanel").classList.contains(
-"open"
-)
+$("adminPanel").classList.contains("open")
 )
 refreshStats();
 
 }
 
 
+/* ================================================
+   RENDER MOVIES
+   ================================================ */
+
 function render(items=[]){
 
-const existing=
-new Set(
-allItems.map(
-i=>String(i.id)
-)
+const existing=new Set(
+allItems.map(i=>String(i.id))
 );
 
-
-const fresh=
-items.filter(
+const fresh=items.filter(
 i=>
 i.poster_path&&
-!existing.has(
-String(i.id)
-)
+!existing.has(String(i.id))
 );
 
-
-allItems.push(
-...fresh
-);
-
+allItems.push(...fresh);
 
 if(!allItems.length){
 
-grid.innerHTML=
-`
+grid.innerHTML=`
 <div class="state">
 No titles found.
 </div>
 `;
 
+countEl.textContent="0 results";
 
-countEl.textContent=
-"0 results";
-
-
-updateLoadButton(
-false,
-true
-);
-
+updateLoadButton(false,true);
 
 return;
 
 }
 
-
-grid.innerHTML=
-allItems.map(
+grid.innerHTML=allItems.map(
 (item,index)=>{
 
 const name=
@@ -2702,17 +2443,14 @@ item.original_title||
 item.original_name||
 "Untitled";
 
-
 const date=
 item.release_date||
 item.first_air_date||
 "";
 
-
 const type=
 item.media_type||
 (item.first_air_date?"tv":"movie");
-
 
 return`
 
@@ -2745,20 +2483,16 @@ ${type==="tv"?"Series":"Movie"}
 
 </div>
 
-
 <div class="card-info">
 
 <div class="card-title">
 ${esc(name)}
 </div>
 
-
 <div class="card-meta">
 
 <span>
-${esc(
-date.slice(0,4)||"—"
-)}
+${esc(date.slice(0,4)||"—")}
 </span>
 
 <span class="star">
@@ -2776,25 +2510,15 @@ item.vote_average||0
 `;
 
 }
-
 ).join("");
 
+document.querySelectorAll(".card").forEach(card=>{
 
-document.querySelectorAll(
-".card"
-).forEach(card=>{
+const i=Number(card.dataset.index);
 
-const i=
-Number(
-card.dataset.index
-);
-
-
-card.onclick=
-()=>openDetails(
+card.onclick=()=>openDetails(
 allItems[i]
 );
-
 
 card.onkeydown=e=>{
 
@@ -2815,67 +2539,45 @@ allItems[i]
 
 });
 
-
 countEl.textContent=
-allItems.length+
-" titles";
+allItems.length+" titles";
 
-
-updateLoadButton(
-false
-);
+updateLoadButton(false);
 
 }
 
 
-async function loadPage(
-page,
-append=false
-){
+/* ================================================
+   LOAD PAGE
+   ================================================ */
 
-const req=
-requestId;
+async function loadPage(page,append=false){
 
+const req=requestId;
 
 if(!append){
 
 allItems=[];
-
 currentPage=1;
-
 totalPages=1;
 
-
-grid.innerHTML=
-`
-
+grid.innerHTML=`
 <div class="state">
-
 <div class="spinner"></div>
-
 Loading movies...
-
 </div>
-
 `;
 
 }
 
-
-updateLoadButton(
-true
-);
-
+updateLoadButton(true);
 
 let base=
 searchQuery?
 "/search/multi?query="+
-encodeURIComponent(
-searchQuery
-)+
+encodeURIComponent(searchQuery)+
 "&include_adult=false":
 configs[current].path;
-
 
 const path=
 base+
@@ -2887,57 +2589,41 @@ base.includes("?")?
 "page="+
 page;
 
-
 try{
 
-const data=
-await api(path);
-
+const data=await api(path);
 
 if(req!==requestId)
 return;
 
-
 currentPage=page;
 
-
-totalPages=
-Math.min(
-Number(
-data.total_pages||1
-),
+totalPages=Math.min(
+Number(data.total_pages||1),
 500
 );
 
-
 render(
-(data.results||[])
-.filter(
+(data.results||[]).filter(
 i=>i.media_type!=="person"
 )
 );
-
 
 }catch(e){
 
 if(req!==requestId)
 return;
 
-
 if(append){
 
 countEl.textContent=
 "Could not load more";
 
-updateLoadButton(
-false
-);
+updateLoadButton(false);
 
 }else{
 
-showError(
-e.message
-);
+showError(e.message);
 
 }
 
@@ -2945,6 +2631,10 @@ e.message
 
 }
 
+
+/* ================================================
+   CATEGORY
+   ================================================ */
 
 function loadCategory(id){
 
@@ -2954,16 +2644,11 @@ current=id;
 
 searchQuery="";
 
-
 $("searchInput").value="";
 
-$("searchClear").style.display=
-"none";
+$("searchClear").style.display="none";
 
-
-document.querySelectorAll(
-".tab"
-).forEach(
+document.querySelectorAll(".tab").forEach(
 b=>
 b.classList.toggle(
 "active",
@@ -2971,22 +2656,21 @@ b.dataset.id===id
 )
 );
 
-
 titleEl.textContent=
 configs[id].title;
-
 
 loadPage(1);
 
 }
 
 
+/* ================================================
+   LOAD MORE
+   ================================================ */
+
 function loadMore(){
 
-if(
-currentPage<
-totalPages
-)
+if(currentPage<totalPages)
 loadPage(
 currentPage+1,
 true
@@ -2995,97 +2679,74 @@ true
 }
 
 
+/* ================================================
+   SEARCH
+   ================================================ */
+
 function search(q){
 
 requestId++;
 
-searchQuery=
-q.trim();
+searchQuery=q.trim();
 
-
-document.querySelectorAll(
-".tab"
-).forEach(
-b=>
-b.classList.remove(
-"active"
-)
+document.querySelectorAll(".tab").forEach(
+b=>b.classList.remove("active")
 );
-
 
 titleEl.textContent=
 searchQuery?
 "Search results":
 configs[current].title;
 
-
 loadPage(1);
 
 }
 
 
+/* ================================================
+   TOP MOVIES
+   ================================================ */
+
 async function loadTopMovies(){
 
 try{
 
-const data=
-await api(
+const data=await api(
 "/trending/movie/week"
 );
 
-
-const items=
-(data.results||[])
-.filter(
+const items=(data.results||[]).filter(
 i=>i.poster_path
 );
 
+const track=$("tickerTrack");
 
-const track=
-$("tickerTrack");
-
-
-const make=
-arr=>
-arr.map(
-i=>
-`
-
+const make=arr=>
+arr.map(i=>`
 <div class="ticker-item">
 
 <img
 loading="lazy"
 src="${IMG+i.poster_path}"
-alt="${esc(
-i.title||"Movie"
-)}"
+alt="${esc(i.title||"Movie")}"
 >
 
 <div class="ticker-item-title">
-${esc(
-i.title||"Untitled"
-)}
+${esc(i.title||"Untitled")}
 </div>
 
 </div>
-
-`
-).join("");
-
+`).join("");
 
 track.innerHTML=
-make(items)+
-make(items);
-
+make(items)+make(items);
 
 if(items[0])
 setHero(items[0]);
 
-
 }catch{
 
-$("tickerTrack").innerHTML=
-`
+$("tickerTrack").innerHTML=`
 <span style="color:#9298a8">
 Trending movies unavailable.
 </span>
@@ -3104,9 +2765,7 @@ item.backdrop_path
 ){
 
 $("heroBackdrop").style.backgroundImage=
-`url("${BACKDROP+
-item.backdrop_path
-}")`;
+`url("${BACKDROP+item.backdrop_path}")`;
 
 }
 
@@ -3116,18 +2775,14 @@ item.backdrop_path
 function clearPlayer(el){
 
 el.innerHTML="";
-
-el.style.display=
-"none";
+el.style.display="none";
 
 }
 
 
-/*
-================================================
-OPEN DETAILS
-================================================
-*/
+/* ================================================
+   OPEN DETAILS
+   ================================================ */
 
 function openDetails(item){
 
@@ -3135,47 +2790,32 @@ currentItem=item;
 
 recordView();
 
-
 const type=
 item.media_type||
 (item.first_air_date?"tv":"movie");
 
-
-const id=
-item.id;
-
+const id=item.id;
 
 const name=
 item.title||
 item.name||
 "Untitled";
 
-
-const poster=
-$("detailPoster");
-
-const trailerBox=
-$("trailerBox");
-
-const watch=
-$("watchPlayer");
-
+const poster=$("detailPoster");
+const trailerBox=$("trailerBox");
+const watch=$("watchPlayer");
 
 poster.src=
 item.poster_path?
 IMG+item.poster_path:
 "";
 
-
-$("detailTitle").textContent=
-name;
-
+$("detailTitle").textContent=name;
 
 const date=
 item.release_date||
 item.first_air_date||
 "";
-
 
 $("detailMeta").textContent=
 `${type==="tv"?"Series":"Movie"} • ${
@@ -3184,51 +2824,35 @@ date.slice(0,4)||"—"
 Number(item.vote_average||0).toFixed(1)
 }`;
 
-
 $("detailOverview").textContent=
 item.overview||
 "No description available.";
 
-
 clearPlayer(watch);
-
 clearPlayer(trailerBox);
 
-
-trailerBox.innerHTML=
-`
-
+trailerBox.innerHTML=`
 <div class="state">
 Select “Watch Trailer” to load the official trailer.
 </div>
-
 `;
 
-trailerBox.style.display=
-"block";
+trailerBox.style.display="block";
 
-
-$("modal").classList.add(
-"open"
-);
+$("modal").classList.add("open");
 
 
 /*
-WATCH NOW
-
-Important:
-It uses the saved Name + Link
-from Admin.
+   WATCH NOW
 */
 
-$("watchNow").onclick=
-()=>playMovie(item);
+$("watchNow").onclick=()=>{
+playMovie(item);
+};
 
 
 /*
-TRAILER
-
-This stays inside NBFlix.
+   TRAILER
 */
 
 $("playTrailer").onclick=
@@ -3236,93 +2860,59 @@ async()=>{
 
 clearPlayer(watch);
 
-trailerBox.style.display=
-"block";
+trailerBox.style.display="block";
 
-
-trailerBox.innerHTML=
-`
-
+trailerBox.innerHTML=`
 <div class="state">
-
 <div class="spinner"></div>
-
 Finding trailer...
-
 </div>
-
 `;
-
 
 try{
 
-const data=
-await api(
+const data=await api(
 `/${type}/${id}/videos`
 );
 
-
-const t=
-pickTrailer(
+const t=pickTrailer(
 data.results
 );
 
-
 if(!t){
 
-trailerBox.innerHTML=
-`
-
+trailerBox.innerHTML=`
 <div class="state">
 No YouTube trailer available for this title.
 </div>
-
 `;
 
 return;
 
 }
 
-
-const frame=
-document.createElement(
-"iframe"
-);
-
+const frame=document.createElement("iframe");
 
 frame.src=
 `https://www.youtube-nocookie.com/embed/${
 encodeURIComponent(t.key)
 }?autoplay=1&rel=0`;
 
-
-frame.title=
-name+
-" trailer";
-
+frame.title=name+" trailer";
 
 frame.allow=
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
+frame.allowFullscreen=true;
 
-frame.allowFullscreen=
-true;
-
-
-trailerBox.replaceChildren(
-frame
-);
-
+trailerBox.replaceChildren(frame);
 
 }catch{
 
-trailerBox.innerHTML=
-`
-
+trailerBox.innerHTML=`
 <div class="state">
 Could not load trailer. Please try again.
 </div>
-
 `;
 
 }
@@ -3332,217 +2922,123 @@ Could not load trailer. Please try again.
 }
 
 
-/*
-================================================
-WATCH NOW
-================================================
-
-Dashboard:
-Name + Any Link
-
-The movie/series name is matched
-with TMDB automatically.
-
-When Watch Now is pressed,
-the saved link opens directly.
-
-No embed restrictions.
-No HTTPS restriction.
-
-Example:
-
-Name: Digger
-Link: https://example.com/digger
-
-Watch Now -> example.com/digger
-================================================
-*/
+/* ================================================
+   WATCH NOW
+   ================================================ */
 
 function playMovie(item){
 
-const entry=
-findMovieLink(item);
+const entry=findMovieLink(item);
 
-
-if(
-!entry||
-!entry.url
-){
+if(!entry||!entry.url){
 
 alert(
 `Watch Now link has not been added for "${
-
 item.title||
 item.name||
 "this title"
-
-}".\n\nOpen Admin Dashboard and save the movie name + link.`
+}".\n\nOpen Admin Dashboard and save:\n\nMovie / Series Name\n+\nWatch Now Link`
 );
 
 return;
 
 }
 
-
-const target=
-String(
-entry.url
-).trim();
-
+const target=String(entry.url).trim();
 
 if(!target){
 
-alert(
-"Saved link is empty."
-);
-
+alert("Saved link is empty.");
 return;
 
 }
 
 
 /*
-Direct navigation.
-
-This goes straight to the saved page/player.
+   IMPORTANT:
+   Direct navigation to saved URL.
+   No iframe.
+   No popup.
+   No HTTPS restriction.
 */
 
-window.location.href=
-target;
+window.location.assign(target);
 
 }
 
 
-/*
-================================================
-CLOSE MODAL
-================================================
-*/
+/* ================================================
+   CLOSE MODAL
+   ================================================ */
 
 function closeModal(){
 
-$("modal").classList.remove(
-"open"
-);
+$("modal").classList.remove("open");
 
-
-clearPlayer(
-$("trailerBox")
-);
-
-
-clearPlayer(
-$("watchPlayer")
-);
+clearPlayer($("trailerBox"));
+clearPlayer($("watchPlayer"));
 
 }
 
 
-/*
-================================================
-ADS
-================================================
-*/
+/* ================================================
+   ADS
+   ================================================ */
 
 function showAd(){
 
-const slot=
-$("adSlot");
+const slot=$("adSlot");
 
-
-const ad=
-ads.find(
+const ad=ads.find(
 a=>a.enabled!==false
 );
 
-
 slot.innerHTML="";
 
+if(!adEnabled||!ad){
 
-if(
-!adEnabled||
-!ad
-){
-
-slot.style.display=
-"none";
-
+slot.style.display="none";
 return;
 
 }
 
-
 if(ad.image){
 
-const a=
-document.createElement(
-"a"
-);
+const a=document.createElement("a");
 
-
-a.href=
-ad.link||
-"#";
-
-
+a.href=ad.link||"#";
 a.target="_blank";
+a.rel="noopener noreferrer";
 
-a.rel=
-"noopener noreferrer";
+const img=document.createElement("img");
 
-
-const img=
-document.createElement(
-"img"
-);
-
-
-img.src=
-ad.image;
-
-
-img.alt=
-ad.title||
-"Advertisement";
-
+img.src=ad.image;
+img.alt=ad.title||"Advertisement";
 
 a.append(img);
-
 slot.append(a);
-
 
 }else if(ad.title){
 
-const p=
-document.createElement(
-"div"
-);
+const p=document.createElement("div");
 
-
-p.textContent=
-ad.title;
-
+p.textContent=ad.title;
 
 p.style.cssText=
 "padding:16px;background:#10121a;border:1px solid var(--line);border-radius:10px";
-
 
 slot.append(p);
 
 }
 
-
-slot.style.display=
-"block";
+slot.style.display="block";
 
 }
 
 
-/*
-================================================
-ADMIN LOGIN
-================================================
-*/
+/* ================================================
+   ADMIN LOGIN
+   ================================================ */
 
 function openAdmin(){
 
@@ -3551,18 +3047,14 @@ localStorage.getItem(
 "nbflix_admin_password"
 );
 
-
-const pass=
-prompt(
+const pass=prompt(
 saved?
 "Admin password:":
 "Create an initial Admin password:"
 );
 
-
 if(pass===null)
 return;
-
 
 if(!saved){
 
@@ -3575,7 +3067,6 @@ alert(
 return;
 
 }
-
 
 localStorage.setItem(
 "nbflix_admin_password",
@@ -3592,11 +3083,7 @@ return;
 
 }
 
-
-$("adminPanel").classList.add(
-"open"
-);
-
+$("adminPanel").classList.add("open");
 
 renderAdmin();
 
@@ -3606,11 +3093,8 @@ renderAdmin();
 function renderAdmin(){
 
 refreshStats();
-
 renderMovieLinks();
-
 renderAds();
-
 
 $("cpmInput").value=
 localStorage.getItem(
@@ -3619,6 +3103,10 @@ localStorage.getItem(
 
 }
 
+
+/* ================================================
+   STATS
+   ================================================ */
 
 function refreshStats(){
 
@@ -3629,14 +3117,12 @@ localStorage.getItem(
 )||0
 );
 
-
 const views=
 Number(
 localStorage.getItem(
 "nbflix_local_views"
 )||0
 );
-
 
 const cpm=
 Number(
@@ -3645,14 +3131,9 @@ localStorage.getItem(
 )||0
 );
 
+$("adminVisits").textContent=visits;
 
-$("adminVisits").textContent=
-visits;
-
-
-$("adminViews").textContent=
-views;
-
+$("adminViews").textContent=views;
 
 $("adminMoney").textContent=
 "৳"+
@@ -3663,25 +3144,19 @@ visits*cpm/1000
 }
 
 
-/*
-================================================
-RENDER SAVED MOVIE LINKS
-================================================
-*/
+/* ================================================
+   RENDER MOVIE LINKS
+   ================================================ */
 
 function renderMovieLinks(){
 
-const list=
-$("movieLinkList");
-
+const list=$("movieLinkList");
 
 list.innerHTML="";
 
-
 if(!movieLinks.length){
 
-list.innerHTML=
-`
+list.innerHTML=`
 <div
 class="admin-note"
 style="padding:10px 0">
@@ -3693,154 +3168,93 @@ return;
 
 }
 
+movieLinks.forEach((v,index)=>{
 
-movieLinks.forEach(
-(v,index)=>{
+const row=document.createElement("div");
 
-const row=
-document.createElement(
-"div"
-);
+row.className="admin-row";
 
 
-row.className=
-"admin-row";
-
-
-const info=
-document.createElement(
-"div"
-);
-
+const info=document.createElement("div");
 
 info.textContent=
 v.name||
 "Movie / Series";
 
 
-const sub=
-document.createElement(
-"small"
-);
+const sub=document.createElement("small");
 
-
-sub.textContent=
-v.url;
-
+sub.textContent=v.url;
 
 info.append(sub);
 
 
-const actions=
-document.createElement(
-"div"
-);
+const actions=document.createElement("div");
+
+actions.className="admin-actions";
 
 
-actions.className=
-"admin-actions";
+const edit=document.createElement("button");
 
+edit.className="mini-btn";
 
-const edit=
-document.createElement(
-"button"
-);
-
-
-edit.className=
-"mini-btn";
-
-
-edit.textContent=
-"Edit";
-
+edit.textContent="Edit";
 
 edit.onclick=()=>{
 
 $("movieNameInput").value=
 v.name||"";
 
-
 $("movieUrlInput").value=
 v.url||"";
-
 
 $("saveMovie").dataset.editIndex=
 String(index);
 
+$("movieNameInput").focus();
+
 };
 
 
-const del=
-document.createElement(
-"button"
-);
+const del=document.createElement("button");
 
+del.className="mini-btn danger";
 
-del.className=
-"mini-btn danger";
-
-
-del.textContent=
-"Delete";
-
+del.textContent="Delete";
 
 del.onclick=()=>{
 
-movieLinks.splice(
-index,
-1
-);
+if(!confirm(
+`Delete saved link for "${v.name}"?`
+))
+return;
 
+movieLinks.splice(index,1);
 
 setStore(
 "nbflix_movie_links",
 movieLinks
 );
 
-
 renderMovieLinks();
 
 };
 
 
-actions.append(
-edit,
-del
-);
+actions.append(edit,del);
 
-
-row.append(
-info,
-actions
-);
-
+row.append(info,actions);
 
 list.append(row);
 
-}
-
-);
+});
 
 }
 
 
-/*
-================================================
-SAVE MOVIE LINK
-================================================
-
-Name + ANY LINK
-
-No TMDB ID.
-No HTTPS restriction.
-No URL validation.
-
-If the same name already exists,
-it is updated instead of creating
-another duplicate.
-================================================
-*/
+/* ================================================
+   SAVE MOVIE LINK
+   ================================================ */
 
 $("saveMovie").onclick=()=>{
 
@@ -3848,7 +3262,6 @@ const name=
 $("movieNameInput")
 .value
 .trim();
-
 
 const url=
 $("movieUrlInput")
@@ -3866,7 +3279,6 @@ return;
 
 }
 
-
 if(!url){
 
 alert(
@@ -3883,7 +3295,7 @@ $("saveMovie").dataset.editIndex;
 
 
 /*
-EDIT EXISTING
+   EDIT
 */
 
 if(
@@ -3891,40 +3303,32 @@ editIndex!==undefined&&
 editIndex!==""
 ){
 
-const index=
-Number(editIndex);
+const index=Number(editIndex);
 
-
-if(
-movieLinks[index]
-){
+if(movieLinks[index]){
 
 movieLinks[index]={
 name:name,
 url:url,
 tmdbId:
-movieLinks[index].tmdbId||
-""
+movieLinks[index].tmdbId||""
 };
 
 }
 
-
-delete $("saveMovie")
-.dataset.editIndex;
+delete $("saveMovie").dataset.editIndex;
 
 }else{
 
-/*
-NEW LINK
 
-If same name already exists,
-replace it.
+/*
+   NEW / UPDATE
+
+   Same normalized title =
+   update existing link.
 */
 
-const normalized=
-normalizeTitle(name);
-
+const normalized=normalizeTitle(name);
 
 const existingIndex=
 movieLinks.findIndex(
@@ -3943,16 +3347,11 @@ tmdbId:""
 
 if(existingIndex>=0){
 
-movieLinks[
-existingIndex
-]=
-newItem;
+movieLinks[existingIndex]=newItem;
 
 }else{
 
-movieLinks.unshift(
-newItem
-);
+movieLinks.unshift(newItem);
 
 }
 
@@ -3960,7 +3359,7 @@ newItem
 
 
 /*
-Save locally.
+   Save.
 */
 
 setStore(
@@ -3968,43 +3367,36 @@ setStore(
 movieLinks
 );
 
-
 renderMovieLinks();
 
-
 $("movieNameInput").value="";
-
 $("movieUrlInput").value="";
 
-
 $("adminMessage").textContent=
-"Movie / Series link saved successfully.";
+"✅ Movie / Series link saved successfully.";
 
 };
 
 
-/*
-CLEAR MOVIE FORM
-*/
+/* ================================================
+   CLEAR MOVIE FORM
+   ================================================ */
 
 $("clearMovieForm").onclick=()=>{
 
 $("movieNameInput").value="";
-
 $("movieUrlInput").value="";
 
+delete $("saveMovie").dataset.editIndex;
 
-delete $("saveMovie")
-.dataset.editIndex;
+$("adminMessage").textContent="";
 
 };
 
 
-/*
-================================================
-ADS SAVE
-================================================
-*/
+/* ================================================
+   ADS SAVE
+   ================================================ */
 
 $("saveAd").onclick=()=>{
 
@@ -4013,18 +3405,15 @@ $("adTitleInput")
 .value
 .trim();
 
-
 const image=
 $("adImageInput")
 .value
 .trim();
 
-
 const link=
 $("adLinkInput")
 .value
 .trim();
-
 
 if(
 !title&&
@@ -4072,216 +3461,150 @@ return;
 ads.unshift({
 
 title,
-
 image,
-
 link,
-
 enabled:true
 
 });
-
 
 setStore(
 "nbflix_ads",
 ads
 );
 
-
 renderAds();
-
 showAd();
 
-
 $("adTitleInput").value="";
-
 $("adImageInput").value="";
-
 $("adLinkInput").value="";
 
 };
 
 
-/*
-================================================
-RENDER ADS
-================================================
-*/
+/* ================================================
+   RENDER ADS
+   ================================================ */
 
 function renderAds(){
 
-const list=
-$("adList");
-
+const list=$("adList");
 
 list.innerHTML="";
 
+ads.forEach((ad,i)=>{
 
-ads.forEach(
-(ad,i)=>{
+const row=document.createElement("div");
 
-const row=
-document.createElement(
-"div"
-);
+row.className="admin-row";
 
 
-row.className=
-"admin-row";
-
-
-const info=
-document.createElement(
-"div"
-);
-
+const info=document.createElement("div");
 
 info.textContent=
 ad.title||
 "Advertisement";
 
 
-const sub=
-document.createElement(
-"small"
-);
-
+const sub=document.createElement("small");
 
 sub.textContent=
 ad.link||
 ad.image||
 "No URL";
 
-
 info.append(sub);
 
 
-const del=
-document.createElement(
-"button"
-);
+const del=document.createElement("button");
 
+del.className="mini-btn danger";
 
-del.className=
-"mini-btn danger";
-
-
-del.textContent=
-"Delete";
-
+del.textContent="Delete";
 
 del.onclick=()=>{
 
-ads.splice(
-i,
-1
-);
-
+ads.splice(i,1);
 
 setStore(
 "nbflix_ads",
 ads
 );
 
-
 renderAds();
-
 showAd();
 
 };
 
-
-row.append(
-info,
-del
-);
-
+row.append(info,del);
 
 list.append(row);
 
-}
-
-);
+});
 
 }
 
 
 $("toggleAd").onclick=()=>{
 
-adEnabled=
-!adEnabled;
-
+adEnabled=!adEnabled;
 
 setStore(
 "nbflix_ad_enabled",
 adEnabled
 );
 
-
 showAd();
 
 };
 
 
-/*
-================================================
-CPM
-================================================
-*/
+/* ================================================
+   CPM
+   ================================================ */
 
 $("saveCpm").onclick=()=>{
 
-const n=
-Math.max(
+const n=Math.max(
 0,
 Number(
 $("cpmInput").value
 )||0
 );
 
-
 localStorage.setItem(
 "nbflix_local_cpm",
 n
 );
-
 
 refreshStats();
 
 };
 
 
-/*
-================================================
-PASSWORD
-================================================
-*/
+/* ================================================
+   PASSWORD
+   ================================================ */
 
 $("savePassword").onclick=()=>{
 
-const p=
-$("newPassword").value;
-
+const p=$("newPassword").value;
 
 if(p.length<6){
 
 $("adminMessage").textContent=
 "Password must be at least 6 characters.";
 
-
 return;
 
 }
-
 
 localStorage.setItem(
 "nbflix_admin_password",
 p
 );
 
-
 $("newPassword").value="";
-
 
 $("adminMessage").textContent=
 "Password updated on this browser.";
@@ -4289,64 +3612,41 @@ $("adminMessage").textContent=
 };
 
 
-/*
-================================================
-TABS
-================================================
-*/
+/* ================================================
+   TABS
+   ================================================ */
 
 $("tabs").onclick=e=>{
 
-const b=
-e.target.closest(
-".tab"
-);
-
+const b=e.target.closest(".tab");
 
 if(b)
-loadCategory(
-b.dataset.id
-);
+loadCategory(b.dataset.id);
 
 };
 
 
-/*
-================================================
-SEARCH
-================================================
-*/
+/* ================================================
+   SEARCH
+   ================================================ */
 
 $("searchInput").oninput=e=>{
 
-const v=
-e.target.value;
-
+const v=e.target.value;
 
 $("searchClear").style.display=
-v?
-"block":
-"none";
+v?"block":"none";
 
-
-clearTimeout(
-searchTimer
-);
-
+clearTimeout(searchTimer);
 
 if(!v.trim()){
 
-loadCategory(
-current
-);
-
+loadCategory(current);
 return;
 
 }
 
-
-searchTimer=
-setTimeout(
+searchTimer=setTimeout(
 ()=>search(v),
 450
 );
@@ -4358,46 +3658,31 @@ $("searchClear").onclick=()=>{
 
 $("searchInput").value="";
 
-$("searchClear").style.display=
-"none";
+$("searchClear").style.display="none";
 
-
-loadCategory(
-"trending"
-);
+loadCategory("trending");
 
 };
 
 
-/*
-================================================
-LOAD MORE
-================================================
-*/
+/* ================================================
+   LOAD MORE
+   ================================================ */
 
-$("loadMore").onclick=
-loadMore;
+$("loadMore").onclick=loadMore;
 
 
-/*
-================================================
-MODAL
-================================================
-*/
+/* ================================================
+   MODAL
+   ================================================ */
 
-$("closeModal").onclick=
-closeModal;
+$("closeModal").onclick=closeModal;
 
-
-$("closeDetails").onclick=
-closeModal;
-
+$("closeDetails").onclick=closeModal;
 
 $("modal").onclick=e=>{
 
-if(
-e.target.id==="modal"
-)
+if(e.target.id==="modal")
 closeModal();
 
 };
@@ -4411,22 +3696,17 @@ if(e.key==="Escape"){
 
 closeModal();
 
-
 $("adminPanel")
-.classList.remove(
-"open"
-);
+.classList.remove("open");
 
 }
 
 });
 
 
-/*
-================================================
-HERO BUTTONS
-================================================
-*/
+/* ================================================
+   HERO BUTTONS
+   ================================================ */
 
 $("exploreBtn").onclick=()=>
 $("catalog").scrollIntoView({
@@ -4436,10 +3716,7 @@ behavior:"smooth"
 
 $("trendingBtn").onclick=()=>{
 
-loadCategory(
-"trending"
-);
-
+loadCategory("trending");
 
 $("catalog").scrollIntoView({
 behavior:"smooth"
@@ -4448,33 +3725,22 @@ behavior:"smooth"
 };
 
 
-/*
-================================================
-ADMIN BUTTONS
-================================================
-*/
+/* ================================================
+   ADMIN BUTTONS
+   ================================================ */
 
-$("adminLaunch").onclick=
-openAdmin;
-
+$("adminLaunch").onclick=openAdmin;
 
 $("adminClose").onclick=()=>
-$("adminPanel").classList.remove(
-"open"
-);
-
+$("adminPanel").classList.remove("open");
 
 $("adminLogout").onclick=()=>
-$("adminPanel").classList.remove(
-"open"
-);
+$("adminPanel").classList.remove("open");
 
 
-/*
-================================================
-LOCAL VISIT COUNTER
-================================================
-*/
+/* ================================================
+   LOCAL VISIT COUNTER
+   ================================================ */
 
 if(
 !sessionStorage.getItem(
@@ -4493,7 +3759,6 @@ localStorage.getItem(
 
 );
 
-
 sessionStorage.setItem(
 "nbflix_visit_counted",
 "1"
@@ -4502,19 +3767,15 @@ sessionStorage.setItem(
 }
 
 
-/*
-================================================
-START
-================================================
-*/
+/* ================================================
+   START
+   ================================================ */
 
 showAd();
 
 loadTopMovies();
 
-loadCategory(
-"trending"
-);
+loadCategory("trending");
 
 loadFeaturedTrailers();
 
