@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,6 +8,7 @@
 <title>NBFlix — Movies & Series</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/icon-192.png">
+
 <link rel="preconnect" href="https://image.tmdb.org">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,15 +27,21 @@
 --line:rgba(255,255,255,.085);
 --shadow:0 25px 70px rgba(0,0,0,.45)
 }
+
 *{box-sizing:border-box}
+
 html{scroll-behavior:smooth}
+
 body{
 margin:0;
-background:radial-gradient(circle at 50% -10%,rgba(255,49,92,.07),transparent 30%),var(--bg);
+background:
+radial-gradient(circle at 50% -10%,rgba(255,49,92,.07),transparent 30%),
+var(--bg);
 color:var(--text);
 font-family:Inter,system-ui,sans-serif;
 min-height:100vh
 }
+
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
@@ -53,13 +59,16 @@ background:rgba(7,8,13,.85);
 backdrop-filter:blur(22px);
 border-bottom:1px solid var(--line)
 }
+
 .logo{
 font-size:28px;
 font-weight:900;
 letter-spacing:-1.8px;
 white-space:nowrap
 }
+
 .logo span{color:var(--red)}
+
 .nav-badge{
 font-size:9px;
 font-weight:900;
@@ -70,11 +79,13 @@ border:1px solid rgba(255,49,92,.3);
 padding:5px 7px;
 border-radius:6px
 }
+
 .search{
 margin-left:auto;
 width:min(430px,100%);
 position:relative
 }
+
 .search input{
 width:100%;
 height:44px;
@@ -85,10 +96,12 @@ border:1px solid var(--line);
 border-radius:13px;
 outline:none
 }
+
 .search input:focus{
 border-color:rgba(255,49,92,.65);
 box-shadow:0 0 0 4px rgba(255,49,92,.08)
 }
+
 .search-icon{
 position:absolute;
 left:15px;
@@ -97,6 +110,7 @@ color:var(--muted);
 font-size:19px;
 pointer-events:none
 }
+
 .search-clear{
 position:absolute;
 right:10px;
@@ -119,6 +133,7 @@ align-items:center;
 border-bottom:1px solid var(--line);
 background:#08090e
 }
+
 .hero-backdrop{
 position:absolute;
 inset:0;
@@ -127,14 +142,27 @@ background-position:center;
 opacity:.28;
 transform:scale(1.04)
 }
+
 .hero-backdrop:after{
 content:"";
 position:absolute;
 inset:0;
 background:
-linear-gradient(90deg,#07080d 5%,rgba(7,8,13,.9) 35%,rgba(7,8,13,.4) 70%,#07080d 100%),
-linear-gradient(0deg,#07080d 0%,transparent 35%,rgba(7,8,13,.35) 100%)
+linear-gradient(
+90deg,
+#07080d 5%,
+rgba(7,8,13,.9) 35%,
+rgba(7,8,13,.4) 70%,
+#07080d 100%
+),
+linear-gradient(
+0deg,
+#07080d 0%,
+transparent 35%,
+rgba(7,8,13,.35) 100%
+)
 }
+
 .hero-glow{
 position:absolute;
 width:500px;
@@ -145,6 +173,7 @@ background:rgba(255,49,92,.12);
 filter:blur(100px);
 border-radius:50%
 }
+
 .hero-content{
 width:min(1500px,100%);
 margin:auto;
@@ -156,11 +185,13 @@ align-items:center;
 justify-content:space-between;
 gap:35px
 }
+
 .hero-copy{
 max-width:650px;
 flex:1;
 min-width:0
 }
+
 .hero-label{
 display:flex;
 align-items:center;
@@ -171,6 +202,7 @@ font-weight:900;
 letter-spacing:3px;
 text-transform:uppercase
 }
+
 .hero-label i{
 width:7px;
 height:7px;
@@ -178,25 +210,30 @@ border-radius:50%;
 background:var(--red);
 box-shadow:0 0 15px var(--red)
 }
+
 .hero h1{
 font-size:clamp(42px,6.5vw,75px);
 line-height:.98;
 letter-spacing:-4px;
 margin:18px 0
 }
+
 .hero h1 span{color:var(--red)}
+
 .hero-description{
 max-width:600px;
 color:#b3b7c4;
 line-height:1.75;
 font-size:14px
 }
+
 .hero-actions{
 display:flex;
 flex-wrap:wrap;
 gap:11px;
 margin-top:25px
 }
+
 .btn{
 border:0;
 border-radius:11px;
@@ -207,15 +244,18 @@ background:var(--red);
 box-shadow:0 8px 25px rgba(255,49,92,.18);
 transition:.2s
 }
+
 .btn:hover{
 transform:translateY(-2px);
 background:var(--red2)
 }
+
 .btn.secondary{
 background:#ffffff0d;
 border:1px solid var(--line);
 box-shadow:none
 }
+
 .hero-info{
 display:flex;
 gap:18px;
@@ -224,6 +264,7 @@ margin-top:25px;
 color:#8f95a6;
 font-size:11px
 }
+
 .hero-info strong{color:#e5e7ee}
 
 .hero-player{
@@ -238,6 +279,7 @@ border-radius:17px;
 box-shadow:0 20px 55px rgba(0,0,0,.45);
 backdrop-filter:blur(12px)
 }
+
 .player-heading{
 display:flex;
 align-items:center;
@@ -245,8 +287,10 @@ justify-content:space-between;
 gap:8px;
 margin:0 2px 9px
 }
+
 .player-heading strong{font-size:11px}
 .player-heading span{font-size:9px;color:#ff8299}
+
 .player-frame{
 width:100%;
 aspect-ratio:16/9;
@@ -254,12 +298,14 @@ background:#030408;
 border-radius:10px;
 overflow:hidden
 }
+
 .player-frame iframe{
 width:100%;
 height:100%;
 border:0;
 display:block
 }
+
 .player-title{
 padding:9px 3px 1px;
 font-size:11px;
@@ -268,6 +314,7 @@ white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis
 }
+
 .player-status{
 font-size:9px;
 color:var(--muted);
@@ -279,6 +326,7 @@ padding:20px 5%;
 background:#0b0d13;
 border-bottom:1px solid var(--line)
 }
+
 .section-mini-head{
 display:flex;
 align-items:center;
@@ -286,28 +334,41 @@ justify-content:space-between;
 gap:15px;
 margin-bottom:13px
 }
+
 .section-mini-head strong{font-size:13px}
+
 .section-mini-head span{
 font-size:10px;
 color:var(--muted)
 }
+
 .ticker-window{
 overflow:hidden;
-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)
+mask-image:linear-gradient(
+90deg,
+transparent,
+#000 3%,
+#000 97%,
+transparent
+)
 }
+
 .ticker-track{
 display:flex;
 gap:12px;
 width:max-content;
 animation:ticker 55s linear infinite
 }
+
 .ticker-window:hover .ticker-track{
 animation-play-state:paused
 }
+
 .ticker-item{
 width:80px;
 flex-shrink:0
 }
+
 .ticker-item img{
 width:80px;
 height:112px;
@@ -316,6 +377,7 @@ border-radius:9px;
 display:block;
 background:#171a24
 }
+
 .ticker-item-title{
 margin-top:6px;
 font-size:9px;
@@ -325,6 +387,7 @@ white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis
 }
+
 @keyframes ticker{
 from{transform:translateX(0)}
 to{transform:translateX(-50%)}
@@ -335,6 +398,7 @@ max-width:1600px;
 margin:auto;
 padding:36px 5% 75px
 }
+
 .tabs{
 display:flex;
 gap:8px;
@@ -342,7 +406,9 @@ overflow-x:auto;
 padding:3px 0 16px;
 scrollbar-width:none
 }
+
 .tabs::-webkit-scrollbar{display:none}
+
 .tab{
 white-space:nowrap;
 color:#c8cbd4;
@@ -354,17 +420,20 @@ font-size:12px;
 font-weight:800;
 transition:.2s
 }
+
 .tab:hover{
 color:#fff;
 border-color:#ffffff20;
 background:#171a24
 }
+
 .tab.active{
 color:#fff;
 background:var(--red);
 border-color:var(--red);
 box-shadow:0 8px 22px rgba(255,49,92,.16)
 }
+
 .section-head{
 display:flex;
 align-items:flex-end;
@@ -372,20 +441,24 @@ justify-content:space-between;
 gap:20px;
 margin:5px 0 19px
 }
+
 .section-head h2{
 margin:0;
 font-size:23px;
 letter-spacing:-1px
 }
+
 .section-head small{
 color:var(--muted);
 font-size:11px
 }
+
 .grid{
 display:grid;
 grid-template-columns:repeat(6,minmax(0,1fr));
 gap:21px
 }
+
 .card{
 min-width:0;
 overflow:hidden;
@@ -395,24 +468,32 @@ border:1px solid transparent;
 cursor:pointer;
 transition:.25s
 }
+
 .card:hover{
 transform:translateY(-6px);
 border-color:#ffffff20;
 box-shadow:0 20px 45px rgba(0,0,0,.42)
 }
+
 .poster{
 position:relative;
 aspect-ratio:2/3;
 overflow:hidden;
 background:#151722
 }
+
 .poster:after{
 content:"";
 position:absolute;
 inset:0;
-background:linear-gradient(180deg,transparent 65%,rgba(0,0,0,.4));
+background:linear-gradient(
+180deg,
+transparent 65%,
+rgba(0,0,0,.4)
+);
 pointer-events:none
 }
+
 .poster img{
 width:100%;
 height:100%;
@@ -420,7 +501,11 @@ display:block;
 object-fit:cover;
 transition:transform .45s
 }
-.card:hover .poster img{transform:scale(1.045)}
+
+.card:hover .poster img{
+transform:scale(1.045)
+}
+
 .rating{
 position:absolute;
 z-index:2;
@@ -434,6 +519,7 @@ border:1px solid #ffffff14;
 font-size:10px;
 font-weight:900
 }
+
 .kind{
 position:absolute;
 z-index:2;
@@ -448,7 +534,9 @@ font-weight:900;
 letter-spacing:.6px;
 text-transform:uppercase
 }
+
 .card-info{padding:12px}
+
 .card-title{
 font-size:13px;
 font-weight:800;
@@ -456,6 +544,7 @@ white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis
 }
+
 .card-meta{
 display:flex;
 justify-content:space-between;
@@ -464,13 +553,16 @@ color:var(--muted);
 font-size:10px;
 margin-top:7px
 }
+
 .card-meta .star{color:var(--gold)}
+
 .state{
 grid-column:1/-1;
 padding:70px 15px;
 color:var(--muted);
 text-align:center
 }
+
 .spinner{
 width:30px;
 height:30px;
@@ -480,11 +572,16 @@ border-top-color:var(--red);
 border-radius:50%;
 animation:spin .75s linear infinite
 }
-@keyframes spin{to{transform:rotate(360deg)}}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
 .load-wrap{
 text-align:center;
 padding:30px 0 5px
 }
+
 .load-btn{
 border:1px solid #ffffff12;
 border-radius:11px;
@@ -494,7 +591,9 @@ background:#151822;
 font-weight:800;
 transition:.2s
 }
+
 .load-btn:hover{background:var(--red)}
+
 .load-btn:disabled{
 opacity:.5;
 cursor:wait
@@ -511,7 +610,9 @@ padding:18px;
 background:rgba(0,0,0,.82);
 backdrop-filter:blur(8px)
 }
+
 .modal.open{display:flex}
+
 .dialog{
 width:min(950px,100%);
 max-height:92vh;
@@ -522,6 +623,7 @@ border:1px solid var(--line);
 border-radius:20px;
 box-shadow:var(--shadow)
 }
+
 .close{
 position:absolute;
 z-index:5;
@@ -535,46 +637,56 @@ color:#fff;
 background:rgba(0,0,0,.72);
 font-size:22px
 }
+
 .close:hover{background:var(--red)}
+
 .detail-top{
 display:grid;
 grid-template-columns:220px 1fr;
 gap:25px;
 padding:27px
 }
+
 .detail-poster{
 width:100%;
 border-radius:13px;
 display:block;
 background:#171a24
 }
+
 .detail-copy h2{
 margin:3px 0 10px;
 font-size:29px;
 letter-spacing:-1px
 }
+
 .detail-meta{
 color:var(--muted);
 font-size:12px;
 margin-bottom:16px
 }
+
 .detail-overview{
 color:#b5b9c5;
 font-size:14px;
 line-height:1.75
 }
+
 .detail-actions{
 display:flex;
 flex-wrap:wrap;
 gap:9px;
 margin-top:19px
 }
-.trailer,.watch-player{
+
+.trailer,
+.watch-player{
 aspect-ratio:16/9;
 background:#030408;
 border-top:1px solid var(--line);
 display:none
 }
+
 .trailer iframe,
 .watch-player iframe,
 .watch-player video{
@@ -583,7 +695,11 @@ height:100%;
 border:0;
 display:block
 }
-.watch-player{position:relative}
+
+.watch-player{
+position:relative
+}
+
 .watch-message{
 padding:25px;
 text-align:center;
@@ -598,13 +714,16 @@ color:var(--muted);
 font-size:11px;
 line-height:1.7
 }
+
 .footer a{color:#d5d8e0}
+
 .ad-slot{
 display:none;
 margin:0 auto 24px;
 max-width:1000px;
 text-align:center
 }
+
 .ad-slot img{
 max-width:100%;
 max-height:180px;
@@ -626,11 +745,13 @@ height:42px;
 font-weight:900;
 opacity:.45
 }
+
 .admin-launch:hover{
 opacity:1;
 color:white;
 background:var(--red)
 }
+
 .admin{
 position:fixed;
 inset:0;
@@ -640,11 +761,14 @@ display:none;
 overflow:auto;
 padding:22px
 }
+
 .admin.open{display:block}
+
 .admin-wrap{
 max-width:1050px;
 margin:auto
 }
+
 .admin-head{
 display:flex;
 align-items:center;
@@ -654,19 +778,24 @@ border-bottom:1px solid var(--line);
 padding-bottom:16px;
 margin-bottom:20px
 }
+
 .admin-head h2{margin:0}
+
 .admin-grid{
 display:grid;
 grid-template-columns:repeat(2,minmax(0,1fr));
 gap:16px
 }
+
 .admin-card{
 background:var(--panel);
 border:1px solid var(--line);
 border-radius:14px;
 padding:18px
 }
+
 .admin-card h3{margin:0 0 14px}
+
 .admin input,
 .admin textarea,
 .admin select{
@@ -679,24 +808,29 @@ border:1px solid var(--line);
 border-radius:9px;
 outline:none
 }
+
 .admin textarea{
 min-height:80px;
 resize:vertical
 }
+
 .admin label{
 font-size:11px;
 color:#b9bdc8
 }
+
 .admin-actions{
 display:flex;
 gap:8px;
 flex-wrap:wrap
 }
+
 .admin-list{
 display:grid;
 gap:8px;
 margin-top:12px
 }
+
 .admin-row{
 display:flex;
 align-items:center;
@@ -708,12 +842,14 @@ border:1px solid var(--line);
 border-radius:9px;
 font-size:12px
 }
+
 .admin-row small{
 color:var(--muted);
 display:block;
 margin-top:4px;
 overflow-wrap:anywhere
 }
+
 .mini-btn{
 border:1px solid var(--line);
 border-radius:8px;
@@ -721,17 +857,21 @@ padding:7px 9px;
 color:#fff;
 background:#191c27
 }
+
 .danger{background:#5a1827}
+
 .admin-note{
 color:var(--muted);
 font-size:11px;
 line-height:1.6
 }
+
 .stats{
 display:flex;
 gap:10px;
 flex-wrap:wrap
 }
+
 .stat{
 flex:1;
 min-width:130px;
@@ -740,69 +880,139 @@ padding:14px;
 border:1px solid var(--line);
 border-radius:10px
 }
+
 .stat b{
 font-size:23px;
 display:block;
 margin-top:6px
 }
+
 .hidden{display:none!important}
 
 @media(max-width:1250px){
-.grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.grid{
+grid-template-columns:repeat(5,minmax(0,1fr))
 }
+}
+
 @media(max-width:1000px){
-.grid{grid-template-columns:repeat(4,minmax(0,1fr))}
-.hero-content{gap:20px}
-.hero-player{width:340px}
+.grid{
+grid-template-columns:repeat(4,minmax(0,1fr))
 }
+
+.hero-content{
+gap:20px
+}
+
+.hero-player{
+width:340px
+}
+}
+
 @media(max-width:760px){
+
 .hero-content{
 align-items:flex-start;
 flex-direction:column;
 padding:48px 5%;
 gap:25px
 }
-.hero-copy{width:100%}
-.hero-player{width:min(430px,100%)}
-.hero{min-height:0}
+
+.hero-copy{
+width:100%
+}
+
+.hero-player{
+width:min(430px,100%)
+}
+
+.hero{
+min-height:0
+}
+
 .hero h1{
 font-size:43px;
 letter-spacing:-2.5px
 }
-.hero-description{font-size:13px}
+
+.hero-description{
+font-size:13px
 }
+}
+
 @media(max-width:680px){
+
 .nav{
 padding:11px 4%;
 flex-wrap:wrap
 }
-.logo{font-size:24px}
-.nav-badge{display:none}
+
+.logo{
+font-size:24px
+}
+
+.nav-badge{
+display:none
+}
+
 .search{
 order:3;
 flex-basis:100%;
 width:100%
 }
-main{padding:26px 4% 55px}
+
+main{
+padding:26px 4% 55px
+}
+
 .grid{
 grid-template-columns:repeat(2,minmax(0,1fr));
 gap:13px
 }
-.top-section{padding:17px 4%}
+
+.top-section{
+padding:17px 4%
+}
+
 .ticker-item,
-.ticker-item img{width:72px}
-.ticker-item img{height:100px}
+.ticker-item img{
+width:72px
+}
+
+.ticker-item img{
+height:100px
+}
+
 .detail-top{
 grid-template-columns:105px 1fr;
 gap:15px;
 padding:18px
 }
-.detail-copy h2{font-size:20px}
-.detail-overview{font-size:12px}
-.section-head h2{font-size:19px}
-.admin{padding:12px}
-.admin-grid{grid-template-columns:1fr}
-.admin-head{align-items:flex-start}
+
+.detail-copy h2{
+font-size:20px
+}
+
+.detail-overview{
+font-size:12px
+}
+
+.section-head h2{
+font-size:19px
+}
+
+.admin{
+padding:12px
+}
+
+.admin-grid{
+grid-template-columns:1fr
+}
+
+.admin-head{
+align-items:flex-start
+}
+
 .admin-row{
 align-items:flex-start;
 flex-direction:column
@@ -814,26 +1024,60 @@ flex-direction:column
 <body>
 
 <header class="nav">
-<a class="logo" href="/">NB<span>Flix</span></a>
-<div class="nav-badge">DISCOVER</div>
+
+<a class="logo" href="/">
+NB<span>Flix</span>
+</a>
+
+<div class="nav-badge">
+DISCOVER
+</div>
 
 <div class="search">
+
 <span class="search-icon">⌕</span>
-<input id="searchInput" type="search" placeholder="Search movies & series..." autocomplete="off">
-<button class="search-clear" id="searchClear">×</button>
+
+<input
+id="searchInput"
+type="search"
+placeholder="Search movies & series..."
+autocomplete="off"
+>
+
+<button
+class="search-clear"
+id="searchClear"
+>
+×
+</button>
+
 </div>
+
 </header>
 
+
 <section class="hero">
-<div class="hero-backdrop" id="heroBackdrop"></div>
+
+<div
+class="hero-backdrop"
+id="heroBackdrop"
+></div>
+
 <div class="hero-glow"></div>
 
 <div class="hero-content">
 
 <div class="hero-copy">
-<div class="hero-label"><i></i> NBFlix Originals</div>
 
-<h1>Watch what<br><span>moves you.</span></h1>
+<div class="hero-label">
+<i></i>
+NBFlix Originals
+</div>
+
+<h1>
+Watch what<br>
+<span>moves you.</span>
+</h1>
 
 <p class="hero-description">
 Explore trending movies, popular series and stories from around the world.
@@ -841,199 +1085,485 @@ Discover your next favorite title with posters, ratings, descriptions and offici
 </p>
 
 <div class="hero-actions">
-<button class="btn" id="exploreBtn">Explore Catalog ↓</button>
-<button class="btn secondary" id="trendingBtn">🔥 Trending Now</button>
+
+<button
+class="btn"
+id="exploreBtn"
+>
+Explore Catalog ↓
+</button>
+
+<button
+class="btn secondary"
+id="trendingBtn"
+>
+🔥 Trending Now
+</button>
+
 </div>
 
 <div class="hero-info">
+
 <span>🎬 <strong>Movies</strong></span>
 <span>📺 <strong>Series</strong></span>
 <span>🌎 <strong>Worldwide</strong></span>
 <span>▶ <strong>YouTube Trailers</strong></span>
+
 </div>
+
 </div>
+
 
 <div class="hero-player">
+
 <div class="player-heading">
-<strong>▶ New Movie Trailers</strong>
-<span id="playerCounter">AUTO PLAY</span>
+
+<strong>
+▶ New Movie Trailers
+</strong>
+
+<span id="playerCounter">
+AUTO PLAY
+</span>
+
 </div>
 
-<div class="player-frame" id="featureVideo">
-<div class="state" style="padding:55px 10px">
+<div
+class="player-frame"
+id="featureVideo"
+>
+
+<div
+class="state"
+style="padding:55px 10px"
+>
 Loading trailers...
 </div>
+
 </div>
 
-<div class="player-title" id="featureName">
+<div
+class="player-title"
+id="featureName"
+>
 Finding new trailers...
 </div>
 
-<div class="player-status" id="playerStatus">
+<div
+class="player-status"
+id="playerStatus"
+>
 Bangla • Hindi • English • Tamil • Korean
 </div>
+
 </div>
 
 </div>
 </section>
 
+
 <section class="top-section">
+
 <div class="section-mini-head">
-<strong>🔥 Trending Movies</strong>
-<span>Updated from TMDB</span>
+
+<strong>
+🔥 Trending Movies
+</strong>
+
+<span>
+Updated from TMDB
+</span>
+
 </div>
 
 <div class="ticker-window">
-<div class="ticker-track" id="tickerTrack">
-<span style="color:#9298a8">Loading...</span>
+
+<div
+class="ticker-track"
+id="tickerTrack"
+>
+
+<span style="color:#9298a8">
+Loading...
+</span>
+
 </div>
+
 </div>
+
 </section>
+
 
 <main id="catalog">
 
-<div class="tabs" id="tabs">
-<button class="tab active" data-id="trending">Trending</button>
-<button class="tab" data-id="popular">Popular Movies</button>
-<button class="tab" data-id="top">Top Rated</button>
-<button class="tab" data-id="now">Now Playing</button>
-<button class="tab" data-id="upcoming">Upcoming</button>
-<button class="tab" data-id="series">Popular Series</button>
-<button class="tab" data-id="hi">Hindi</button>
-<button class="tab" data-id="zh">Chinese</button>
-<button class="tab" data-id="ko">Korean</button>
-<button class="tab" data-id="ja">Japanese</button>
-<button class="tab" data-id="anime">Anime</button>
-<button class="tab" data-id="bn">Bangla</button>
+<div
+class="tabs"
+id="tabs"
+>
+
+<button
+class="tab active"
+data-id="trending"
+>
+Trending
+</button>
+
+<button
+class="tab"
+data-id="popular"
+>
+Popular Movies
+</button>
+
+<button
+class="tab"
+data-id="top"
+>
+Top Rated
+</button>
+
+<button
+class="tab"
+data-id="now"
+>
+Now Playing
+</button>
+
+<button
+class="tab"
+data-id="upcoming"
+>
+Upcoming
+</button>
+
+<button
+class="tab"
+data-id="series"
+>
+Popular Series
+</button>
+
+<button
+class="tab"
+data-id="hi"
+>
+Hindi
+</button>
+
+<button
+class="tab"
+data-id="zh"
+>
+Chinese
+</button>
+
+<button
+class="tab"
+data-id="ko"
+>
+Korean
+</button>
+
+<button
+class="tab"
+data-id="ja"
+>
+Japanese
+</button>
+
+<button
+class="tab"
+data-id="anime"
+>
+Anime
+</button>
+
+<button
+class="tab"
+data-id="bn"
+>
+Bangla
+</button>
+
 </div>
+
 
 <div class="section-head">
+
 <div>
-<h2 id="sectionTitle">Trending This Week</h2>
-<small id="resultCount">Discover something new</small>
-</div>
+
+<h2 id="sectionTitle">
+Trending This Week
+</h2>
+
+<small id="resultCount">
+Discover something new
+</small>
+
 </div>
 
-<div class="ad-slot" id="adSlot"></div>
+</div>
 
-<div class="grid" id="movieGrid">
+
+<div
+class="ad-slot"
+id="adSlot"
+></div>
+
+
+<div
+class="grid"
+id="movieGrid"
+>
+
 <div class="state">
+
 <div class="spinner"></div>
+
 Loading movies...
+
 </div>
+
 </div>
+
 
 <div class="load-wrap">
-<button class="load-btn" id="loadMore" hidden>
+
+<button
+class="load-btn"
+id="loadMore"
+hidden
+>
 Load More Movies ↓
 </button>
+
 </div>
 
 </main>
 
+
 <footer class="footer">
+
 Movie and TV data provided by
-<a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a>.<br>
+
+<a
+href="https://www.themoviedb.org/"
+target="_blank"
+rel="noopener"
+>
+TMDB
+</a>.
+
+<br>
+
 NBFlix is not endorsed or certified by TMDB.
+
 </footer>
 
+
 <!-- DETAILS MODAL -->
-<div class="modal" id="modal">
+
+<div
+class="modal"
+id="modal"
+>
 
 <div class="dialog">
 
-<button class="close" id="closeModal">×</button>
+<button
+class="close"
+id="closeModal"
+>
+×
+</button>
 
 <div class="detail-top">
 
-<img class="detail-poster" id="detailPoster" alt="">
+<img
+class="detail-poster"
+id="detailPoster"
+alt=""
+>
 
 <div class="detail-copy">
 
 <h2 id="detailTitle"></h2>
 
-<div class="detail-meta" id="detailMeta"></div>
+<div
+class="detail-meta"
+id="detailMeta"
+></div>
 
-<p class="detail-overview" id="detailOverview"></p>
+<p
+class="detail-overview"
+id="detailOverview"
+></p>
 
 <div class="detail-actions">
 
-<button class="btn" id="watchNow">
+<button
+class="btn"
+id="watchNow"
+>
 ▶ Watch Now
 </button>
 
-<button class="btn secondary" id="playTrailer">
+<button
+class="btn secondary"
+id="playTrailer"
+>
 ▶ Watch Trailer
 </button>
 
-<button class="btn secondary" id="closeDetails">
+<button
+class="btn secondary"
+id="closeDetails"
+>
 Close
 </button>
 
 </div>
-</div>
+
 </div>
 
-<div class="watch-player" id="watchPlayer"></div>
+</div>
 
-<div class="trailer" id="trailerBox">
+
+<!-- SAME NBFLIX WATCH PLAYER -->
+
+<div
+class="watch-player"
+id="watchPlayer"
+></div>
+
+
+<!-- TRAILER PLAYER -->
+
+<div
+class="trailer"
+id="trailerBox"
+>
+
 <div class="state">
 Select “Watch Trailer” to load the official trailer.
 </div>
+
 </div>
 
 </div>
+
 </div>
+
 
 <!-- ADMIN BUTTON -->
-<button class="admin-launch" id="adminLaunch" title="Admin">⚙</button>
+
+<button
+class="admin-launch"
+id="adminLaunch"
+title="Admin"
+>
+⚙
+</button>
+
 
 <!-- ADMIN -->
-<section class="admin" id="adminPanel">
+
+<section
+class="admin"
+id="adminPanel"
+>
 
 <div class="admin-wrap">
 
 <div class="admin-head">
 
 <div>
-<div class="nav-badge">NBFLIX CONTROL</div>
-<h2>Admin Dashboard</h2>
+
+<div class="nav-badge">
+NBFLIX CONTROL
+</div>
+
+<h2>
+Admin Dashboard
+</h2>
+
 </div>
 
 <div class="admin-actions">
-<button class="mini-btn" id="adminLogout">Logout</button>
-<button class="mini-btn" id="adminClose">Close</button>
+
+<button
+class="mini-btn"
+id="adminLogout"
+>
+Logout
+</button>
+
+<button
+class="mini-btn"
+id="adminClose"
+>
+Close
+</button>
+
 </div>
 
 </div>
+
 
 <div class="admin-grid">
 
+
 <!-- TRAFFIC -->
+
 <div class="admin-card">
 
-<h3>📊 Traffic & Earnings</h3>
+<h3>
+📊 Traffic & Earnings
+</h3>
 
 <div class="stats">
 
 <div class="stat">
-<span class="admin-note">Visits on this browser</span>
-<b id="adminVisits">0</b>
+
+<span class="admin-note">
+Visits on this browser
+</span>
+
+<b id="adminVisits">
+0
+</b>
+
 </div>
 
 <div class="stat">
-<span class="admin-note">Movie detail opens</span>
-<b id="adminViews">0</b>
+
+<span class="admin-note">
+Movie detail opens
+</span>
+
+<b id="adminViews">
+0
+</b>
+
 </div>
 
 <div class="stat">
-<span class="admin-note">Estimated earnings</span>
-<b id="adminMoney">৳0.00</b>
-</div>
+
+<span class="admin-note">
+Estimated earnings
+</span>
+
+<b id="adminMoney">
+৳0.00
+</b>
 
 </div>
 
-<label>Estimated revenue per 1,000 visits (৳)</label>
+</div>
+
+<label>
+Estimated revenue per 1,000 visits (৳)
+</label>
 
 <input
 id="cpmInput"
@@ -1043,37 +1573,52 @@ step="0.01"
 placeholder="e.g. 50"
 >
 
-<button class="btn" id="saveCpm">
+<button
+class="btn"
+id="saveCpm"
+>
 Save estimate
 </button>
 
 <p class="admin-note">
+
 These are browser-local counters and an estimate only.
 They are not verified ad-network earnings or site-wide analytics.
+
 </p>
 
 </div>
 
+
 <!-- MOVIE LINK -->
+
 <div class="admin-card">
 
-<h3>🎬 Add / Edit Movie Link</h3>
+<h3>
+🎬 Add / Edit Movie Link
+</h3>
 
-<label>TMDB movie or series ID</label>
+<label>
+TMDB movie or series ID
+</label>
 
 <input
 id="movieIdInput"
 placeholder="Example: 12345"
 >
 
-<label>Display name (optional)</label>
+<label>
+Display name (optional)
+</label>
 
 <input
 id="movieNameInput"
 placeholder="Movie name"
 >
 
-<label>YouTube / Authorized Video URL</label>
+<label>
+YouTube / Direct Video / Player URL
+</label>
 
 <input
 id="movieUrlInput"
@@ -1083,41 +1628,66 @@ placeholder="https://www.youtube.com/watch?v=VIDEO_ID"
 
 <div class="admin-actions">
 
-<button class="btn" id="saveMovie">
+<button
+class="btn"
+id="saveMovie"
+>
 Save movie link
 </button>
 
-<button class="mini-btn" id="clearMovieForm">
+<button
+class="mini-btn"
+id="clearMovieForm"
+>
 Clear
 </button>
 
 </div>
 
 <p class="admin-note">
+
 YouTube formats supported:
 youtube.com/watch?v=ID,
 youtu.be/ID,
 youtube.com/shorts/ID,
-youtube.com/embed/ID.
+youtube.com/embed/ID,
+youtube.com/live/ID.
+
+<br><br>
+
+Direct HTTPS MP4/WebM/OGV/OGG video links are supported.
+Other HTTPS player links will open inside the NBFlix player if the source allows iframe embedding.
+
 </p>
 
-<div class="admin-list" id="movieLinkList"></div>
+<div
+class="admin-list"
+id="movieLinkList"
+></div>
 
 </div>
 
+
 <!-- ADS -->
+
 <div class="admin-card">
 
-<h3>📢 Add Advertisement</h3>
+<h3>
+📢 Add Advertisement
+</h3>
 
-<label>Ad title</label>
+<label>
+Ad title
+</label>
 
 <input
 id="adTitleInput"
 placeholder="Advertisement"
 >
 
-<label>Image URL (optional)</label>
+<label>
+Image URL (optional)
+</label>
 
 <input
 id="adImageInput"
@@ -1125,7 +1695,9 @@ type="url"
 placeholder="https://.../banner.jpg"
 >
 
-<label>Click-through URL</label>
+<label>
+Click-through URL
+</label>
 
 <input
 id="adLinkInput"
@@ -1135,37 +1707,57 @@ placeholder="https://..."
 
 <div class="admin-actions">
 
-<button class="btn" id="saveAd">
+<button
+class="btn"
+id="saveAd"
+>
 Save ad
 </button>
 
-<button class="mini-btn" id="toggleAd">
+<button
+class="mini-btn"
+id="toggleAd"
+>
 Show / hide ad
 </button>
 
 </div>
 
-<div class="admin-list" id="adList"></div>
+<div
+class="admin-list"
+id="adList"
+></div>
 
 <p class="admin-note">
+
 Only use ads and media you are authorized to display.
 Ad details are stored in this browser.
+
 </p>
 
 </div>
 
+
 <!-- PASSWORD -->
+
 <div class="admin-card">
 
-<h3>🔐 Admin Password</h3>
+<h3>
+🔐 Admin Password
+</h3>
 
 <p class="admin-note">
-Set a local dashboard password. It is not secure authentication;
+
+Set a local dashboard password.
+It is not secure authentication;
 anyone who can inspect this page may bypass it.
 Do not use this for sensitive data.
+
 </p>
 
-<label>New password</label>
+<label>
+New password
+</label>
 
 <input
 id="newPassword"
@@ -1173,265 +1765,538 @@ type="password"
 placeholder="Set dashboard password"
 >
 
-<button class="btn" id="savePassword">
+<button
+class="btn"
+id="savePassword"
+>
 Save password
 </button>
 
-<p class="admin-note" id="adminMessage"></p>
+<p
+class="admin-note"
+id="adminMessage"
+></p>
 
 </div>
 
 </div>
 </div>
+
 </section>
+
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
+
 <script>
+
 const API="/api/tmdb";
-const IMG="https://image.tmdb.org/t/p/w500";
-const BACKDROP="https://image.tmdb.org/t/p/w1280";
+
+const IMG=
+"https://image.tmdb.org/t/p/w500";
+
+const BACKDROP=
+"https://image.tmdb.org/t/p/w1280";
+
+
+/* ==================================================
+TMDB CATEGORIES
+================================================== */
 
 const configs={
+
 trending:{
 title:"Trending This Week",
 path:"/trending/all/week"
 },
+
 popular:{
 title:"Popular Movies",
 path:"/movie/popular"
 },
+
 top:{
 title:"Top Rated Movies",
 path:"/movie/top_rated"
 },
+
 now:{
 title:"Now Playing",
 path:"/movie/now_playing"
 },
+
 upcoming:{
 title:"Upcoming Movies",
 path:"/movie/upcoming"
 },
+
 series:{
 title:"Popular Series",
 path:"/tv/popular"
 },
+
 hi:{
 title:"Hindi Movies",
 path:"/discover/movie?with_original_language=hi&sort_by=popularity.desc"
 },
+
 zh:{
 title:"Chinese Movies",
 path:"/discover/movie?with_original_language=zh&sort_by=popularity.desc"
 },
+
 ko:{
 title:"Korean Movies",
 path:"/discover/movie?with_original_language=ko&sort_by=popularity.desc"
 },
+
 ja:{
 title:"Japanese Movies",
 path:"/discover/movie?with_original_language=ja&sort_by=popularity.desc"
 },
+
 anime:{
 title:"Anime",
 path:"/discover/movie?with_genres=16&sort_by=popularity.desc"
 },
+
 bn:{
 title:"Bangla Movies",
 path:"/discover/movie?with_original_language=bn&sort_by=popularity.desc"
 }
+
 };
 
-const $=id=>document.getElementById(id);
+
+const $=id=>
+document.getElementById(id);
+
 
 const getStore=(key,fallback)=>{
+
 try{
-return JSON.parse(localStorage.getItem(key))??fallback
+
+return JSON.parse(
+localStorage.getItem(key)
+)??fallback;
+
 }catch{
-return fallback
+
+return fallback;
+
 }
+
 };
+
 
 const setStore=(key,val)=>{
-localStorage.setItem(key,JSON.stringify(val))
+
+localStorage.setItem(
+key,
+JSON.stringify(val)
+);
+
 };
+
 
 let current="trending";
+
 let currentPage=1;
+
 let totalPages=1;
+
 let allItems=[];
+
 let searchQuery="";
+
 let searchTimer;
+
 let requestId=0;
+
 let currentItem=null;
 
-let movieLinks=getStore("nbflix_movie_links",{});
-let ads=getStore("nbflix_ads",[]);
-let adEnabled=getStore("nbflix_ad_enabled",true);
 
-const grid=$("movieGrid");
-const titleEl=$("sectionTitle");
-const countEl=$("resultCount");
+let movieLinks=
+getStore(
+"nbflix_movie_links",
+{}
+);
+
+let ads=
+getStore(
+"nbflix_ads",
+[]
+);
+
+let adEnabled=
+getStore(
+"nbflix_ad_enabled",
+true
+);
+
+
+const grid=
+$("movieGrid");
+
+const titleEl=
+$("sectionTitle");
+
+const countEl=
+$("resultCount");
+
+
+/* ==================================================
+FEATURE TRAILER PLAYER
+================================================== */
 
 let trailerQueue=[];
+
 let trailerIndex=0;
+
 let ytPlayer=null;
+
 let ytReady=false;
+
 let playerCreated=false;
-const seenTrailerKeys=new Set();
+
+const seenTrailerKeys=
+new Set();
+
 
 window.onYouTubeIframeAPIReady=()=>{
+
 ytReady=true;
+
 startFeaturePlayer();
+
 };
 
-function setPlayerText(title,status,counter){
-$("featureName").textContent=title||"";
-$("playerStatus").textContent=status||"";
-$("playerCounter").textContent=counter||"";
+
+function setPlayerText(
+title,
+status,
+counter
+){
+
+$("featureName").textContent=
+title||"";
+
+$("playerStatus").textContent=
+status||"";
+
+$("playerCounter").textContent=
+counter||"";
+
 }
+
 
 function pickTrailer(videos){
-const list=(videos||[]).filter(v=>v.site==="YouTube"&&v.key);
 
-return list.find(v=>v.type==="Trailer"&&v.official)
-||list.find(v=>v.type==="Trailer")
-||list.find(v=>v.type==="Teaser")
-||list[0]
-||null;
+const list=
+(videos||[]).filter(
+v=>
+v.site==="YouTube"&&
+v.key
+);
+
+return
+
+list.find(
+v=>
+v.type==="Trailer"&&
+v.official
+)
+
+||
+
+list.find(
+v=>
+v.type==="Trailer"
+)
+
+||
+
+list.find(
+v=>
+v.type==="Teaser"
+)
+
+||
+
+list[0]
+
+||
+
+null;
+
 }
+
+
+/* ==================================================
+TMDB API
+================================================== */
 
 async function api(path){
 
-const response=await fetch(
-API+"?endpoint="+encodeURIComponent(path),
-{cache:"no-store"}
+const response=
+await fetch(
+API+
+"?endpoint="+
+encodeURIComponent(path),
+{
+cache:"no-store"
+}
 );
 
 let data;
 
 try{
-data=await response.json();
+
+data=
+await response.json();
+
 }catch{
-throw new Error("Vercel API returned invalid JSON.");
+
+throw new Error(
+"Vercel API returned invalid JSON."
+);
+
 }
 
-if(!response.ok||data.success===false){
+if(
+!response.ok||
+data.success===false
+){
+
 throw new Error(
 data.status_message||
 data.error||
 "TMDB request failed."
 );
+
 }
 
 return data;
+
 }
+
+
+/* ==================================================
+GET VIDEOS
+================================================== */
 
 async function getVideos(item){
 
-const type=item.media_type||
+const type=
+item.media_type||
 (item.first_air_date?"tv":"movie");
 
 try{
 
-const data=await api(`/${type}/${item.id}/videos`);
+const data=
+await api(
+`/${type}/${item.id}/videos`
+);
 
 return{
+
 item,
 type,
-video:pickTrailer(data.results)
+video:
+pickTrailer(data.results)
+
 };
 
 }catch{
+
 return null;
+
 }
+
 }
+
+
+/* ==================================================
+FEATURED TRAILERS
+================================================== */
 
 async function loadFeaturedTrailers(){
 
 const languages=[
-{code:"bn",label:"Bangla"},
-{code:"hi",label:"Hindi"},
-{code:"en",label:"English"},
-{code:"ta",label:"Tamil"},
-{code:"ko",label:"Korean"}
+
+{
+code:"bn",
+label:"Bangla"
+},
+
+{
+code:"hi",
+label:"Hindi"
+},
+
+{
+code:"en",
+label:"English"
+},
+
+{
+code:"ta",
+label:"Tamil"
+},
+
+{
+code:"ko",
+label:"Korean"
+}
+
 ];
+
 
 try{
 
-const results=await Promise.allSettled([
+const results=
+await Promise.allSettled([
+
 api("/movie/upcoming"),
+
 api("/trending/movie/week"),
+
 ...languages.map(
-l=>api(`/discover/movie?with_original_language=${l.code}&sort_by=popularity.desc&page=1`)
+l=>
+api(
+`/discover/movie?with_original_language=${l.code}&sort_by=popularity.desc&page=1`
 )
+)
+
 ]);
 
+
 const candidates=[];
+
 const ids=new Set();
 
-results.forEach((r,index)=>{
 
-if(r.status!=="fulfilled")return;
+results.forEach(
+(r,index)=>{
 
-const list=r.value.results||[];
-const lang=index>=2?languages[index-2]:null;
+if(
+r.status!=="fulfilled"
+)
+return;
 
-list.forEach(item=>{
+const list=
+r.value.results||[];
+
+const lang=
+index>=2
+?languages[index-2]
+:null;
+
+
+list.forEach(
+item=>{
 
 if(
 !item.poster_path||
 ids.has(String(item.id))
-)return;
+)
+return;
 
-ids.add(String(item.id));
+ids.add(
+String(item.id)
+);
 
 candidates.push({
+
 ...item,
+
 media_type:"movie",
+
 trailerLanguage:
-lang?lang.label:"New & Trending"
-});
+lang
+?lang.label
+:"New & Trending"
 
 });
 
 });
 
-for(let i=candidates.length-1;i>0;i--){
+});
 
-const j=Math.floor(Math.random()*(i+1));
 
-[candidates[i],candidates[j]]
-=[candidates[j],candidates[i]];
+for(
+let i=candidates.length-1;
+i>0;
+i--
+){
+
+const j=
+Math.floor(
+Math.random()*(i+1)
+);
+
+[
+candidates[i],
+candidates[j]
+]=
+[
+candidates[j],
+candidates[i]
+];
 
 }
 
-const checked=await Promise.all(
-candidates.slice(0,24).map(getVideos)
+
+const checked=
+await Promise.all(
+candidates
+.slice(0,24)
+.map(getVideos)
 );
+
 
 trailerQueue=[];
 
-checked.forEach(r=>{
+
+checked.forEach(
+r=>{
 
 if(
 !r||
 !r.video||
-seenTrailerKeys.has(r.video.key)
-)return;
+seenTrailerKeys.has(
+r.video.key
+)
+)
+return;
 
-seenTrailerKeys.add(r.video.key);
+
+seenTrailerKeys.add(
+r.video.key
+);
+
 
 trailerQueue.push({
+
 key:r.video.key,
-name:r.item.title||r.item.name||"Movie trailer",
-language:r.item.trailerLanguage||"New & Trending"
-});
+
+name:
+r.item.title||
+r.item.name||
+"Movie trailer",
+
+language:
+r.item.trailerLanguage||
+"New & Trending"
 
 });
 
-if(!trailerQueue.length){
+});
+
+
+if(
+!trailerQueue.length
+){
 
 setPlayerText(
 "No trailer found",
@@ -1440,22 +2305,48 @@ setPlayerText(
 );
 
 $("featureVideo").innerHTML=
-'<div class="state" style="padding:45px 10px">No YouTube trailers available right now.</div>';
+`
+<div
+class="state"
+style="padding:45px 10px"
+>
+No YouTube trailers available right now.
+</div>
+`;
 
 return;
+
 }
 
+
 trailerIndex=0;
+
 startFeaturePlayer();
+
 
 }catch{
 
-$("featureName").textContent="Trailer unavailable";
+$("featureName").textContent=
+"Trailer unavailable";
 
 $("featureVideo").innerHTML=
-'<div class="state" style="padding:45px 10px">Could not load trailers.</div>';
+`
+<div
+class="state"
+style="padding:45px 10px"
+>
+Could not load trailers.
+</div>
+`;
+
 }
+
 }
+
+
+/* ==================================================
+START FEATURE PLAYER
+================================================== */
 
 function startFeaturePlayer(){
 
@@ -1463,21 +2354,44 @@ if(
 !ytReady||
 !trailerQueue.length||
 playerCreated
-)return;
+)
+return;
+
 
 playerCreated=true;
 
-$("featureVideo").innerHTML=
-'<div id="youtubeFeaturePlayer" style="width:100%;height:100%"></div>';
 
-playFeatureAt(0,true);
+$("featureVideo").innerHTML=
+`
+<div
+id="youtubeFeaturePlayer"
+style="width:100%;height:100%"
+></div>
+`;
+
+
+playFeatureAt(
+0,
+true
+);
+
 }
 
-function playFeatureAt(index,create=false){
 
-if(!trailerQueue.length)return;
+function playFeatureAt(
+index,
+create=false
+){
 
-if(index>=trailerQueue.length){
+if(
+!trailerQueue.length
+)
+return;
+
+
+if(
+index>=trailerQueue.length
+){
 
 setPlayerText(
 "You've watched all available trailers",
@@ -1485,15 +2399,25 @@ setPlayerText(
 "Queue finished"
 );
 
-if(ytPlayer&&ytPlayer.stopVideo)
+
+if(
+ytPlayer&&
+ytPlayer.stopVideo
+)
 ytPlayer.stopVideo();
 
+
 return;
+
 }
+
 
 trailerIndex=index;
 
-const t=trailerQueue[index];
+
+const t=
+trailerQueue[index];
+
 
 setPlayerText(
 t.name,
@@ -1501,143 +2425,275 @@ t.language,
 `${index+1} / ${trailerQueue.length}`
 );
 
-if(create||!ytPlayer){
 
-ytPlayer=new YT.Player(
+if(
+create||
+!ytPlayer
+){
+
+ytPlayer=
+new YT.Player(
 "youtubeFeaturePlayer",
 {
+
 width:"100%",
+
 height:"100%",
+
 videoId:t.key,
+
 playerVars:{
+
 autoplay:1,
+
 controls:1,
+
 rel:0,
+
 playsinline:1,
+
 modestbranding:1
+
 },
+
 events:{
+
 onReady:e=>{
+
 e.target.mute();
+
 e.target.playVideo();
+
 },
+
 onStateChange:e=>{
+
 if(
-e.data===YT.PlayerState.ENDED
-)
-playFeatureAt(trailerIndex+1);
+e.data===
+YT.PlayerState.ENDED
+){
+
+playFeatureAt(
+trailerIndex+1
+);
+
+}
+
 },
+
 onError:()=>{
-playFeatureAt(trailerIndex+1);
+
+playFeatureAt(
+trailerIndex+1
+);
+
 }
+
 }
+
 }
 );
 
 }else{
 
-ytPlayer.loadVideoById(t.key);
+ytPlayer.loadVideoById(
+t.key
+);
 
 }
+
 }
+
+
+/* ==================================================
+ESCAPE HTML
+================================================== */
 
 function esc(s=""){
 
 return String(s).replace(
 /[&<>"']/g,
-c=>({
+c=>
+({
+
 "&":"&amp;",
 "<":"&lt;",
 ">":"&gt;",
 '"':"&quot;",
 "'":"&#39;"
+
 }[c])
 );
 
 }
 
-function updateLoadButton(loading=false,hide=false){
 
-const b=$("loadMore");
+/* ==================================================
+LOAD BUTTON
+================================================== */
+
+function updateLoadButton(
+loading=false,
+hide=false
+){
+
+const b=
+$("loadMore");
+
 
 b.hidden=
 hide||
-(!loading&&currentPage>=totalPages);
+(
+!loading&&
+currentPage>=totalPages
+);
 
-b.disabled=loading;
+
+b.disabled=
+loading;
+
 
 b.textContent=
 loading
 ?"Loading..."
 :"Load More Movies ↓";
+
 }
+
+
+/* ==================================================
+ERROR
+================================================== */
 
 function showError(message){
 
-grid.innerHTML=`
+grid.innerHTML=
+`
 <div class="state">
-<div style="font-size:28px;margin-bottom:10px">⚠️</div>
+
+<div
+style="font-size:28px;margin-bottom:10px"
+>
+⚠️
+</div>
+
 <strong style="color:#fff">
 Unable to load titles
 </strong>
+
 <br><br>
+
 ${esc(message)}
+
 <br><br>
+
 <small>
 Check your Vercel /api/tmdb route and TMDB_API_KEY.
 </small>
+
 </div>
 `;
 
-countEl.textContent="Unable to load";
 
-updateLoadButton(false,true);
+countEl.textContent=
+"Unable to load";
+
+
+updateLoadButton(
+false,
+true
+);
+
 }
+
+
+/* ==================================================
+LOCAL DETAIL VIEW
+================================================== */
 
 function recordView(){
 
 let n=
 Number(
-localStorage.getItem("nbflix_local_views")||0
+localStorage.getItem(
+"nbflix_local_views"
+)||0
 )+1;
+
 
 localStorage.setItem(
 "nbflix_local_views",
 n
 );
 
+
 if(
-$("adminPanel").classList.contains("open")
-)
+$("adminPanel")
+.classList.contains("open")
+){
+
 refreshStats();
+
 }
+
+}
+
+
+/* ==================================================
+RENDER MOVIES
+================================================== */
 
 function render(items=[]){
 
-const existing=new Set(
-allItems.map(i=>String(i.id))
+const existing=
+new Set(
+allItems.map(
+i=>String(i.id)
+)
 );
 
-const fresh=items.filter(
-i=>i.poster_path&&
-!existing.has(String(i.id))
+
+const fresh=
+items.filter(
+i=>
+i.poster_path&&
+!existing.has(
+String(i.id)
+)
 );
 
-allItems.push(...fresh);
 
-if(!allItems.length){
+allItems.push(
+...fresh
+);
+
+
+if(
+!allItems.length
+){
 
 grid.innerHTML=
-'<div class="state">No titles found.</div>';
+`
+<div class="state">
+No titles found.
+</div>
+`;
 
-countEl.textContent="0 results";
+countEl.textContent=
+"0 results";
 
-updateLoadButton(false,true);
+updateLoadButton(
+false,
+true
+);
 
 return;
+
 }
 
-grid.innerHTML=allItems.map(
+
+grid.innerHTML=
+allItems.map(
 (item,index)=>{
 
 const name=
@@ -1647,22 +2703,33 @@ item.original_title||
 item.original_name||
 "Untitled";
 
+
 const date=
 item.release_date||
 item.first_air_date||
 "";
 
+
 const type=
 item.media_type||
-(item.first_air_date?"tv":"movie");
+(
+item.first_air_date
+?"tv"
+:"movie"
+);
+
 
 const hasCustomLink=
 !!(
-movieLinks[String(item.id)]||
+movieLinks[
+String(item.id)
+]||
 {}
 ).url;
 
+
 return`
+
 <article
 class="card"
 tabindex="0"
@@ -1681,16 +2748,38 @@ onerror="this.style.opacity='.12'"
 >
 
 <span class="rating">
-★ ${Number(item.vote_average||0).toFixed(1)}
+★ ${Number(
+item.vote_average||0
+).toFixed(1)}
 </span>
 
 <span class="kind">
 ${type==="tv"?"Series":"Movie"}
 </span>
 
-${hasCustomLink?
-'<span style="position:absolute;z-index:3;left:9px;top:9px;padding:5px 7px;border-radius:6px;background:#16a34a;color:#fff;font-size:8px;font-weight:900">▶ WATCH</span>'
-:""}
+${
+hasCustomLink
+?
+`
+<span
+style="
+position:absolute;
+z-index:3;
+left:9px;
+top:9px;
+padding:5px 7px;
+border-radius:6px;
+background:#16a34a;
+color:#fff;
+font-size:8px;
+font-weight:900
+"
+>
+▶ WATCH
+</span>
+`
+:""
+}
 
 </div>
 
@@ -1701,10 +2790,19 @@ ${esc(name)}
 </div>
 
 <div class="card-meta">
-<span>${esc(date.slice(0,4)||"—")}</span>
-<span class="star">
-★ ${Number(item.vote_average||0).toFixed(1)}
+
+<span>
+${esc(
+date.slice(0,4)||"—"
+)}
 </span>
+
+<span class="star">
+★ ${Number(
+item.vote_average||0
+).toFixed(1)}
+</span>
+
 </div>
 
 </div>
@@ -1715,13 +2813,24 @@ ${esc(name)}
 }
 ).join("");
 
-document.querySelectorAll(".card").forEach(card=>{
 
-const i=Number(card.dataset.index);
+document.querySelectorAll(
+".card"
+).forEach(
+card=>{
+
+const i=
+Number(
+card.dataset.index
+);
+
 
 card.onclick=()=>{
-openDetails(allItems[i]);
+openDetails(
+allItems[i]
+);
 };
+
 
 card.onkeydown=e=>{
 
@@ -1732,72 +2841,132 @@ e.key===" "
 
 e.preventDefault();
 
-openDetails(allItems[i]);
+openDetails(
+allItems[i]
+);
 
 }
 
 };
 
-});
+}
+);
+
 
 countEl.textContent=
-allItems.length+" titles";
+allItems.length+
+" titles";
+
 
 updateLoadButton(false);
+
 }
 
-async function loadPage(page,append=false){
 
-const req=requestId;
+/* ==================================================
+LOAD PAGE
+================================================== */
+
+async function loadPage(
+page,
+append=false
+){
+
+const req=
+requestId;
+
 
 if(!append){
 
 allItems=[];
+
 currentPage=1;
+
 totalPages=1;
 
+
 grid.innerHTML=
-'<div class="state"><div class="spinner"></div>Loading movies...</div>';
+`
+<div class="state">
+
+<div class="spinner"></div>
+
+Loading movies...
+
+</div>
+`;
+
 }
+
 
 updateLoadButton(true);
 
+
 let base=
 searchQuery
-?"/search/multi?query="+
+
+?
+
+"/search/multi?query="+
 encodeURIComponent(searchQuery)+
 "&include_adult=false"
-:configs[current].path;
+
+:
+
+configs[current].path;
+
 
 const path=
 base+
-(base.includes("?")?"&":"?")+
-"page="+page;
+(
+base.includes("?")
+?"&"
+:"?"
+)+
+"page="+
+page;
+
 
 try{
 
-const data=await api(path);
+const data=
+await api(path);
 
-if(req!==requestId)return;
+
+if(
+req!==requestId
+)
+return;
+
 
 currentPage=page;
 
+
 totalPages=
 Math.min(
-Number(data.total_pages||1),
+Number(
+data.total_pages||1
+),
 500
 );
+
 
 render(
 (data.results||[])
 .filter(
-i=>i.media_type!=="person"
+i=>
+i.media_type!=="person"
 )
 );
 
+
 }catch(e){
 
-if(req!==requestId)return;
+if(
+req!==requestId
+)
+return;
+
 
 if(append){
 
@@ -1808,12 +2977,20 @@ updateLoadButton(false);
 
 }else{
 
-showError(e.message);
+showError(
+e.message
+);
 
 }
 
 }
+
 }
+
+
+/* ==================================================
+CATEGORY
+================================================== */
 
 function loadCategory(id){
 
@@ -1823,11 +3000,16 @@ current=id;
 
 searchQuery="";
 
+
 $("searchInput").value="";
 
-$("searchClear").style.display="none";
+$("searchClear").style.display=
+"none";
 
-document.querySelectorAll(".tab").forEach(
+
+document.querySelectorAll(
+".tab"
+).forEach(
 b=>
 b.classList.toggle(
 "active",
@@ -1835,18 +3017,39 @@ b.dataset.id===id
 )
 );
 
+
 titleEl.textContent=
 configs[id].title;
 
+
 loadPage(1);
+
 }
+
+
+/* ==================================================
+LOAD MORE
+================================================== */
 
 function loadMore(){
 
-if(currentPage<totalPages)
-loadPage(currentPage+1,true);
+if(
+currentPage<totalPages
+){
+
+loadPage(
+currentPage+1,
+true
+);
 
 }
+
+}
+
+
+/* ==================================================
+SEARCH
+================================================== */
 
 function search(q){
 
@@ -1854,64 +3057,104 @@ requestId++;
 
 searchQuery=q.trim();
 
-document.querySelectorAll(".tab")
-.forEach(
-b=>b.classList.remove("active")
+
+document.querySelectorAll(
+".tab"
+).forEach(
+b=>
+b.classList.remove(
+"active"
+)
 );
+
 
 titleEl.textContent=
 searchQuery
 ?"Search results"
 :configs[current].title;
 
+
 loadPage(1);
+
 }
+
+
+/* ==================================================
+TOP MOVIES
+================================================== */
 
 async function loadTopMovies(){
 
 try{
 
 const data=
-await api("/trending/movie/week");
+await api(
+"/trending/movie/week"
+);
+
 
 const items=
 (data.results||[])
-.filter(i=>i.poster_path);
+.filter(
+i=>i.poster_path
+);
 
-const track=$("tickerTrack");
+
+const track=
+$("tickerTrack");
+
 
 const make=arr=>
 arr.map(
-i=>`
+i=>
+`
 <div class="ticker-item">
 
 <img
 loading="lazy"
 src="${IMG+i.poster_path}"
-alt="${esc(i.title||"Movie")}"
+alt="${esc(
+i.title||"Movie"
+)}"
 >
 
 <div class="ticker-item-title">
-${esc(i.title||"Untitled")}
+${esc(
+i.title||"Untitled"
+)}
 </div>
 
 </div>
 `
 ).join("");
 
+
 track.innerHTML=
-make(items)+make(items);
+make(items)+
+make(items);
+
 
 if(items[0])
 setHero(items[0]);
 
+
 }catch{
 
 $("tickerTrack").innerHTML=
-'<span style="color:#9298a8">Trending movies unavailable.</span>';
+`
+<span style="color:#9298a8">
+Trending movies unavailable.
+</span>
+`;
 
 }
+
 }
+
+
+/* ==================================================
+HERO
+================================================== */
 
 function setHero(item){
 
@@ -1921,85 +3164,126 @@ item.backdrop_path
 ){
 
 $("heroBackdrop").style.backgroundImage=
-`url("${BACKDROP+item.backdrop_path}")`;
+`url("${BACKDROP+
+item.backdrop_path}")`;
 
 }
+
 }
+
+
+/* ==================================================
+CLEAR PLAYER
+================================================== */
 
 function clearPlayer(el){
 
 el.innerHTML="";
-el.style.display="none";
+
+el.style.display=
+"none";
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 YOUTUBE URL SUPPORT
-====================================================
-*/
+================================================== */
 
 function getYouTubeId(rawUrl){
 
-if(!rawUrl)return null;
+if(!rawUrl)
+return null;
+
 
 let url;
 
 try{
-url=new URL(rawUrl.trim());
+
+url=
+new URL(
+rawUrl.trim()
+);
+
 }catch{
+
 return null;
+
 }
+
 
 const host=
 url.hostname
 .toLowerCase()
-.replace(/^www\./,"");
+.replace(
+/^www\./,
+""
+);
+
 
 let id=null;
 
-/* youtube.com/watch?v=VIDEO_ID */
+
+/* youtube.com */
+
 if(
 host==="youtube.com"||
-host==="m.youtube.com"
+host==="m.youtube.com"||
+host==="music.youtube.com"
 ){
 
 if(
 url.pathname==="/watch"
 ){
 
-id=url.searchParams.get("v");
+id=
+url.searchParams.get(
+"v"
+);
 
 }else if(
-url.pathname.startsWith("/shorts/")
+url.pathname.startsWith(
+"/shorts/"
+)
 ){
 
 id=
-url.pathname.split("/shorts/")[1]
+url.pathname
+.split("/shorts/")[1]
 .split("/")[0];
 
 }else if(
-url.pathname.startsWith("/embed/")
+url.pathname.startsWith(
+"/embed/"
+)
 ){
 
 id=
-url.pathname.split("/embed/")[1]
+url.pathname
+.split("/embed/")[1]
 .split("/")[0];
 
 }else if(
-url.pathname.startsWith("/live/")
+url.pathname.startsWith(
+"/live/"
+)
 ){
 
 id=
-url.pathname.split("/live/")[1]
+url.pathname
+.split("/live/")[1]
 .split("/")[0];
 
 }
 
 }
 
-/* youtu.be/VIDEO_ID */
-if(host==="youtu.be"){
+
+/* youtu.be */
+
+if(
+host==="youtu.be"
+){
 
 id=
 url.pathname
@@ -2008,14 +3292,26 @@ url.pathname
 
 }
 
-if(!id)return null;
 
-id=id.split("?")[0].split("&")[0];
+if(!id)
+return null;
+
+
+id=
+id.split("?")[0]
+.split("&")[0];
+
 
 return /^[A-Za-z0-9_-]{6,}$/.test(id)
 ?id
 :null;
+
 }
+
+
+/* ==================================================
+YOUTUBE EMBED
+================================================== */
 
 function youtubeEmbedUrl(id){
 
@@ -2024,20 +3320,26 @@ return(
 encodeURIComponent(id)+
 "?autoplay=1&rel=0&playsinline=1"
 );
+
 }
+
+
+/* ==================================================
+DIRECT VIDEO
+================================================== */
 
 function isDirectVideo(url){
 
 return /\.(mp4|webm|ogv|ogg)(?:$|[?#])/i.test(
 url
 );
+
 }
 
-/*
-====================================================
+
+/* ==================================================
 OPEN DETAILS
-====================================================
-*/
+================================================== */
 
 function openDetails(item){
 
@@ -2045,103 +3347,190 @@ currentItem=item;
 
 recordView();
 
+
 const type=
 item.media_type||
-(item.first_air_date?"tv":"movie");
+(
+item.first_air_date
+?"tv"
+:"movie"
+);
 
-const id=item.id;
+
+const id=
+item.id;
+
 
 const name=
 item.title||
 item.name||
 "Untitled";
 
-const poster=$("detailPoster");
-const trailerBox=$("trailerBox");
-const watch=$("watchPlayer");
+
+const poster=
+$("detailPoster");
+
+const trailerBox=
+$("trailerBox");
+
+const watch=
+$("watchPlayer");
+
 
 poster.src=
 item.poster_path
-?IMG+item.poster_path
+?IMG+
+item.poster_path
 :"";
 
-$("detailTitle").textContent=name;
+
+$("detailTitle").textContent=
+name;
+
 
 const date=
 item.release_date||
 item.first_air_date||
 "";
 
+
 $("detailMeta").textContent=
 `${type==="tv"?"Series":"Movie"} • ${
 date.slice(0,4)||"—"
 } • ★ ${
-Number(item.vote_average||0).toFixed(1)
+Number(
+item.vote_average||0
+).toFixed(1)
 }`;
+
 
 $("detailOverview").textContent=
 item.overview||
 "No description available.";
 
+
 clearPlayer(watch);
+
 clearPlayer(trailerBox);
 
+
 trailerBox.innerHTML=
-'<div class="state">Select “Watch Trailer” to load the official trailer.</div>';
+`
+<div class="state">
+Select “Watch Trailer” to load the official trailer.
+</div>
+`;
 
-trailerBox.style.display="block";
 
-$("modal").classList.add("open");
+trailerBox.style.display=
+"block";
+
+
+$("modal")
+.classList.add("open");
+
+
+/* WATCH NOW */
 
 $("watchNow").onclick=()=>{
+
 playMovie(item);
+
 };
 
-$("playTrailer").onclick=async()=>{
+
+/* WATCH TRAILER */
+
+$("playTrailer").onclick=
+async()=>{
 
 clearPlayer(watch);
 
-trailerBox.style.display="block";
+trailerBox.style.display=
+"block";
+
 
 trailerBox.innerHTML=
-'<div class="state"><div class="spinner"></div>Finding trailer...</div>';
+`
+<div class="state">
+
+<div class="spinner"></div>
+
+Finding trailer...
+
+</div>
+`;
+
 
 try{
 
 const data=
-await api(`/${type}/${id}/videos`);
+await api(
+`/${type}/${id}/videos`
+);
+
 
 const t=
-pickTrailer(data.results);
+pickTrailer(
+data.results
+);
+
 
 if(!t){
 
 trailerBox.innerHTML=
-'<div class="state">No YouTube trailer available for this title.</div>';
+`
+<div class="state">
+No YouTube trailer available for this title.
+</div>
+`;
 
 return;
+
 }
 
+
 const frame=
-document.createElement("iframe");
+document.createElement(
+"iframe"
+);
+
 
 frame.src=
-youtubeEmbedUrl(t.key);
+youtubeEmbedUrl(
+t.key
+);
+
 
 frame.title=
-name+" trailer";
+name+
+" trailer";
+
 
 frame.allow=
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
+
+frame.referrerPolicy=
+"strict-origin-when-cross-origin";
+
+
 frame.allowFullscreen=true;
 
-trailerBox.replaceChildren(frame);
+
+trailerBox.replaceChildren(
+frame
+);
+
 
 }catch{
 
 trailerBox.innerHTML=
-'<div class="state">Could not load trailer. Please try again.</div>';
+`
+<div class="state">
+Could not load trailer. Please try again.
+</div>
+`;
 
 }
 
@@ -2149,30 +3538,47 @@ trailerBox.innerHTML=
 
 }
 
-/*
-====================================================
-WATCH MOVIE
-====================================================
-*/
+
+/* ==================================================
+WATCH NOW
+ADMIN LINK → SAME NBFLIX PLAYER
+================================================== */
 
 function playMovie(item){
 
-const id=String(item.id);
+const id=
+String(item.id);
+
 
 const entry=
 movieLinks[id];
 
-const box=$("watchPlayer");
-const trailer=$("trailerBox");
+
+const box=
+$("watchPlayer");
+
+const trailer=
+$("trailerBox");
+
+
+/* Hide trailer */
 
 clearPlayer(trailer);
 
-trailer.style.display="none";
+trailer.style.display=
+"none";
+
+
+/* Show NBFlix player */
 
 box.innerHTML="";
-box.style.display="block";
 
-/* No admin link */
+box.style.display=
+"block";
+
+
+/* No Admin link */
+
 if(
 !entry||
 !entry.url
@@ -2181,198 +3587,345 @@ if(
 box.innerHTML=
 `
 <div class="watch-message">
-<strong style="color:#fff;font-size:18px">
-▶ Video not added yet
+
+<strong
+style="
+color:#fff;
+font-size:18px
+"
+>
+▶ Watch Now link not added
 </strong>
+
 <br><br>
-This title does not have a custom Watch Now link.
-<br>
-You can still use “Watch Trailer”.
+
+This title does not have a custom Watch Now video yet.
+
+<br><br>
+
+You can still use
+<strong style="color:#ff5275">
+Watch Trailer
+</strong>
+to see the official trailer.
+
 </div>
 `;
 
 return;
+
 }
+
+
+/* Validate URL */
 
 let url;
 
 try{
 
 url=
-new URL(entry.url);
+new URL(
+entry.url.trim()
+);
 
 }catch{
 
 box.innerHTML=
-'<div class="watch-message">Invalid video URL.</div>';
+`
+<div class="watch-message">
+Invalid video URL.
+</div>
+`;
 
 return;
+
 }
 
-if(url.protocol!=="https:"){
+
+/* HTTPS only */
+
+if(
+url.protocol!=="https:"
+){
 
 box.innerHTML=
-'<div class="watch-message">Only HTTPS video links are allowed.</div>';
+`
+<div class="watch-message">
+Only HTTPS video links are allowed.
+</div>
+`;
 
 return;
+
 }
 
-/*
-YouTube link
-*/
+
+/* ==================================================
+YOUTUBE VIDEO
+================================================== */
+
 const youtubeId=
-getYouTubeId(entry.url);
+getYouTubeId(
+entry.url
+);
+
 
 if(youtubeId){
 
 const frame=
-document.createElement("iframe");
+document.createElement(
+"iframe"
+);
+
 
 frame.src=
-youtubeEmbedUrl(youtubeId);
+youtubeEmbedUrl(
+youtubeId
+);
+
 
 frame.title=
 entry.name||
 item.title||
 item.name||
-"Video player";
+"NBFlix Video Player";
+
 
 frame.allow=
 "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
+
+frame.referrerPolicy=
+"strict-origin-when-cross-origin";
+
+
 frame.allowFullscreen=true;
 
-box.append(frame);
+
+box.appendChild(frame);
 
 return;
+
 }
 
-/*
-Direct MP4/WebM/etc.
-*/
-if(isDirectVideo(url.href)){
+
+/* ==================================================
+DIRECT VIDEO FILE
+MP4 / WEBM / OGV / OGG
+================================================== */
+
+if(
+isDirectVideo(
+url.href
+)
+){
 
 const video=
-document.createElement("video");
+document.createElement(
+"video"
+);
+
 
 video.controls=true;
+
 video.autoplay=true;
+
 video.playsInline=true;
-video.src=url.href;
+
+video.preload="metadata";
+
+video.src=
+url.href;
+
 
 video.style.cssText=
 "width:100%;height:100%;background:#000";
 
-box.append(video);
 
-return;
+box.appendChild(video);
+
+
+/* Try autoplay */
+
+const playPromise=
+video.play();
+
+
+if(
+playPromise&&
+typeof playPromise.catch==="function"
+){
+
+playPromise.catch(
+()=>{}
+);
+
 }
 
-/*
-Other authorized embeddable HTTPS URL
-*/
-const frame=
-document.createElement("iframe");
+return;
 
-frame.src=url.href;
+}
+
+
+/* ==================================================
+OTHER AUTHORIZED EMBEDDABLE HTTPS PLAYER
+================================================== */
+
+const frame=
+document.createElement(
+"iframe"
+);
+
+
+frame.src=
+url.href;
+
 
 frame.title=
 entry.name||
 item.title||
 item.name||
-"Video player";
+"NBFlix Video Player";
+
 
 frame.allow=
-"autoplay; fullscreen; picture-in-picture";
+"autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write; accelerometer; gyroscope";
+
+
+frame.referrerPolicy=
+"strict-origin-when-cross-origin";
+
 
 frame.allowFullscreen=true;
 
-box.append(frame);
+
+box.appendChild(frame);
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 CLOSE MODAL
-====================================================
-*/
+================================================== */
 
 function closeModal(){
 
-$("modal").classList.remove("open");
+$("modal")
+.classList.remove("open");
 
-clearPlayer($("trailerBox"));
-clearPlayer($("watchPlayer"));
+
+clearPlayer(
+$("trailerBox")
+);
+
+
+clearPlayer(
+$("watchPlayer")
+);
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 ADS
-====================================================
-*/
+================================================== */
 
 function showAd(){
 
-const slot=$("adSlot");
+const slot=
+$("adSlot");
+
 
 const ad=
-ads.find(a=>a.enabled!==false);
+ads.find(
+a=>a.enabled!==false
+);
+
 
 slot.innerHTML="";
 
-if(!adEnabled||!ad){
 
-slot.style.display="none";
+if(
+!adEnabled||
+!ad
+){
+
+slot.style.display=
+"none";
 
 return;
+
 }
+
 
 if(ad.image){
 
 const a=
-document.createElement("a");
+document.createElement(
+"a"
+);
+
 
 a.href=
 ad.link||
 "#";
 
+
 a.target="_blank";
-a.rel="noopener noreferrer";
+
+a.rel=
+"noopener noreferrer";
+
 
 const img=
-document.createElement("img");
+document.createElement(
+"img"
+);
 
-img.src=ad.image;
-img.alt=ad.title||"Advertisement";
+
+img.src=
+ad.image;
+
+img.alt=
+ad.title||
+"Advertisement";
+
 
 a.append(img);
 
 slot.append(a);
 
+
 }else if(ad.title){
 
 const p=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-p.textContent=ad.title;
+
+p.textContent=
+ad.title;
+
 
 p.style.cssText=
 "padding:16px;background:#10121a;border:1px solid var(--line);border-radius:10px";
+
 
 slot.append(p);
 
 }
 
-slot.style.display="block";
+
+slot.style.display=
+"block";
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 ADMIN
-====================================================
-*/
+================================================== */
 
 function openAdmin(){
 
@@ -2381,14 +3934,20 @@ localStorage.getItem(
 "nbflix_admin_password"
 );
 
+
 const pass=
 prompt(
 saved
-?"Admin password:"
-:"Create an initial Admin password:"
+?
+"Admin password:"
+:
+"Create an initial Admin password:"
 );
 
-if(pass===null)return;
+
+if(pass===null)
+return;
+
 
 if(!saved){
 
@@ -2399,26 +3958,40 @@ alert(
 );
 
 return;
+
 }
+
 
 localStorage.setItem(
 "nbflix_admin_password",
 pass
 );
 
-}else if(pass!==saved){
+}else if(
+pass!==saved
+){
 
-alert("Incorrect password.");
+alert(
+"Incorrect password."
+);
 
 return;
+
 }
+
 
 $("adminPanel")
 .classList.add("open");
 
+
 renderAdmin();
 
 }
+
+
+/* ==================================================
+RENDER ADMIN
+================================================== */
 
 function renderAdmin(){
 
@@ -2428,12 +4001,18 @@ renderMovieLinks();
 
 renderAds();
 
+
 $("cpmInput").value=
 localStorage.getItem(
 "nbflix_local_cpm"
 )||"0";
 
 }
+
+
+/* ==================================================
+STATS
+================================================== */
 
 function refreshStats(){
 
@@ -2444,12 +4023,14 @@ localStorage.getItem(
 )||0
 );
 
+
 const views=
 Number(
 localStorage.getItem(
 "nbflix_local_views"
 )||0
 );
+
 
 const cpm=
 Number(
@@ -2458,72 +4039,107 @@ localStorage.getItem(
 )||0
 );
 
+
 $("adminVisits").textContent=
 visits;
+
 
 $("adminViews").textContent=
 views;
 
+
 $("adminMoney").textContent=
 "৳"+
-(visits*cpm/1000).toFixed(2);
+(
+visits*cpm/1000
+).toFixed(2);
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 ADMIN MOVIE LINKS
-====================================================
-*/
+================================================== */
 
 function renderMovieLinks(){
 
 const list=
 $("movieLinkList");
 
+
 list.innerHTML="";
 
-Object.entries(movieLinks)
-.forEach(([id,v])=>{
+
+Object.entries(
+movieLinks
+)
+.forEach(
+([id,v])=>{
+
 
 const row=
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-row.className="admin-row";
+
+row.className=
+"admin-row";
+
 
 const info=
-document.createElement("div");
+document.createElement(
+"div"
+);
+
 
 info.textContent=
-`ID ${id} · ${v.name||"Movie link"}`;
+`ID ${id} · ${
+v.name||
+"Movie link"
+}`;
+
 
 const sub=
-document.createElement("small");
+document.createElement(
+"small"
+);
+
 
 sub.textContent=
 v.url;
 
+
 info.append(sub);
 
+
 const del=
-document.createElement("button");
+document.createElement(
+"button"
+);
+
 
 del.className=
 "mini-btn danger";
 
+
 del.textContent=
 "Delete";
+
 
 del.onclick=()=>{
 
 delete movieLinks[id];
+
 
 setStore(
 "nbflix_movie_links",
 movieLinks
 );
 
+
 renderMovieLinks();
+
 
 render(
 allItems
@@ -2531,7 +4147,12 @@ allItems
 
 };
 
-row.append(info,del);
+
+row.append(
+info,
+del
+);
+
 
 list.append(row);
 
@@ -2539,61 +4160,83 @@ list.append(row);
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 ADMIN ADS
-====================================================
-*/
+================================================== */
 
 function renderAds(){
 
 const list=
 $("adList");
 
+
 list.innerHTML="";
 
-ads.forEach((ad,i)=>{
+
+ads.forEach(
+(ad,i)=>{
 
 const row=
-document.createElement("div");
+document.createElement(
+"div"
+);
+
 
 row.className=
 "admin-row";
 
+
 const info=
-document.createElement("div");
+document.createElement(
+"div"
+);
+
 
 info.textContent=
 ad.title||
 "Advertisement";
 
+
 const sub=
-document.createElement("small");
+document.createElement(
+"small"
+);
+
 
 sub.textContent=
 ad.link||
 ad.image||
 "No URL";
 
+
 info.append(sub);
 
+
 const del=
-document.createElement("button");
+document.createElement(
+"button"
+);
+
 
 del.className=
 "mini-btn danger";
 
+
 del.textContent=
 "Delete";
+
 
 del.onclick=()=>{
 
 ads.splice(i,1);
 
+
 setStore(
 "nbflix_ads",
 ads
 );
+
 
 renderAds();
 
@@ -2601,7 +4244,12 @@ showAd();
 
 };
 
-row.append(info,del);
+
+row.append(
+info,
+del
+);
+
 
 list.append(row);
 
@@ -2609,16 +4257,18 @@ list.append(row);
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 EVENTS
-====================================================
-*/
+================================================== */
 
 $("tabs").onclick=e=>{
 
 const b=
-e.target.closest(".tab");
+e.target.closest(
+".tab"
+);
+
 
 if(b)
 loadCategory(
@@ -2627,23 +4277,34 @@ b.dataset.id
 
 };
 
+
 $("searchInput").oninput=e=>{
 
-const v=e.target.value;
+const v=
+e.target.value;
+
 
 $("searchClear").style.display=
 v
 ?"block"
 :"none";
 
-clearTimeout(searchTimer);
+
+clearTimeout(
+searchTimer
+);
+
 
 if(!v.trim()){
 
-loadCategory(current);
+loadCategory(
+current
+);
 
 return;
+
 }
+
 
 searchTimer=
 setTimeout(
@@ -2653,6 +4314,7 @@ setTimeout(
 
 };
 
+
 $("searchClear").onclick=()=>{
 
 $("searchInput").value="";
@@ -2660,25 +4322,35 @@ $("searchInput").value="";
 $("searchClear").style.display=
 "none";
 
-loadCategory("trending");
+
+loadCategory(
+"trending"
+);
 
 };
+
 
 $("loadMore").onclick=
 loadMore;
 
+
 $("closeModal").onclick=
 closeModal;
+
 
 $("closeDetails").onclick=
 closeModal;
 
+
 $("modal").onclick=e=>{
 
-if(e.target.id==="modal")
+if(
+e.target.id==="modal"
+)
 closeModal();
 
 };
+
 
 document.addEventListener(
 "keydown",
@@ -2696,14 +4368,19 @@ $("adminPanel")
 }
 );
 
+
 $("exploreBtn").onclick=()=>
 $("catalog").scrollIntoView({
 behavior:"smooth"
 });
 
+
 $("trendingBtn").onclick=()=>{
 
-loadCategory("trending");
+loadCategory(
+"trending"
+);
+
 
 $("catalog").scrollIntoView({
 behavior:"smooth"
@@ -2711,22 +4388,28 @@ behavior:"smooth"
 
 };
 
+
 $("adminLaunch").onclick=
 openAdmin;
 
+
 $("adminClose").onclick=()=>
 $("adminPanel")
-.classList.remove("open");
+.classList.remove(
+"open"
+);
+
 
 $("adminLogout").onclick=()=>
 $("adminPanel")
-.classList.remove("open");
+.classList.remove(
+"open"
+);
 
-/*
-====================================================
+
+/* ==================================================
 SAVE MOVIE LINK
-====================================================
-*/
+================================================== */
 
 $("saveMovie").onclick=()=>{
 
@@ -2734,31 +4417,44 @@ const id=
 $("movieIdInput")
 .value.trim();
 
+
 const url=
 $("movieUrlInput")
 .value.trim();
+
 
 const name=
 $("movieNameInput")
 .value.trim();
 
-if(!id||!url){
+
+if(
+!id||
+!url
+){
 
 alert(
 "TMDB ID and video URL are required."
 );
 
 return;
+
 }
+
 
 let u;
 
 try{
 
-u=new URL(url);
+u=
+new URL(url);
 
-if(u.protocol!=="https:")
+
+if(
+u.protocol!=="https:"
+)
 throw 0;
+
 
 }catch{
 
@@ -2767,26 +4463,34 @@ alert(
 );
 
 return;
+
 }
 
-/*
-If YouTube, verify the ID.
-*/
+
+/* Verify YouTube */
+
 const ytId=
 getYouTubeId(url);
 
+
+const host=
+u.hostname
+.toLowerCase()
+.replace(
+/^www\./,
+""
+);
+
+
+const isYoutube=
+host==="youtube.com"||
+host==="m.youtube.com"||
+host==="music.youtube.com"||
+host==="youtu.be";
+
+
 if(
-(
-u.hostname
-.toLowerCase()
-.replace(/^www\./,"")
-.includes("youtube")
-||
-u.hostname
-.toLowerCase()
-.replace(/^www\./,"")==="youtu.be"
-)
-&&
+isYoutube&&
 !ytId
 ){
 
@@ -2795,46 +4499,81 @@ alert(
 );
 
 return;
+
 }
 
+
+/* Save */
+
 movieLinks[id]={
+
 url:url,
+
 name:name,
-type:ytId?"youtube":"external",
-youtubeId:ytId||null
+
+type:
+ytId
+?"youtube"
+:"external",
+
+youtubeId:
+ytId||
+null
+
 };
+
 
 setStore(
 "nbflix_movie_links",
 movieLinks
 );
 
+
 renderMovieLinks();
+
 
 render(
 allItems
 );
 
+
 $("adminMessage").textContent=
 ytId
-?"YouTube Watch Now link saved on this browser."
-:"Video link saved on this browser.";
+?
+"YouTube Watch Now link saved on this browser."
+:
+"Video/player link saved on this browser.";
 
-};
 
-$("clearMovieForm").onclick=()=>{
+/* Clear form */
 
 $("movieIdInput").value="";
+
 $("movieNameInput").value="";
+
 $("movieUrlInput").value="";
 
 };
 
-/*
-====================================================
+
+/* ==================================================
+CLEAR MOVIE FORM
+================================================== */
+
+$("clearMovieForm").onclick=()=>{
+
+$("movieIdInput").value="";
+
+$("movieNameInput").value="";
+
+$("movieUrlInput").value="";
+
+};
+
+
+/* ==================================================
 SAVE AD
-====================================================
-*/
+================================================== */
 
 $("saveAd").onclick=()=>{
 
@@ -2842,22 +4581,31 @@ const title=
 $("adTitleInput")
 .value.trim();
 
+
 const image=
 $("adImageInput")
 .value.trim();
+
 
 const link=
 $("adLinkInput")
 .value.trim();
 
-if(!title&&!image&&!link){
+
+if(
+!title&&
+!image&&
+!link
+){
 
 alert(
 "Enter ad information."
 );
 
 return;
+
 }
+
 
 for(
 const value of [image,link]
@@ -2879,52 +4627,71 @@ alert(
 );
 
 return;
-}
 
 }
 
 }
+
+}
+
 
 ads.unshift({
+
 title,
+
 image,
+
 link,
+
 enabled:true
+
 });
+
 
 setStore(
 "nbflix_ads",
 ads
 );
 
+
 renderAds();
 
 showAd();
 
+
 $("adTitleInput").value="";
+
 $("adImageInput").value="";
+
 $("adLinkInput").value="";
 
 };
 
+
+/* ==================================================
+TOGGLE AD
+================================================== */
+
 $("toggleAd").onclick=()=>{
 
-adEnabled=!adEnabled;
+adEnabled=
+!adEnabled;
+
 
 setStore(
 "nbflix_ad_enabled",
 adEnabled
 );
 
+
 showAd();
 
 };
 
-/*
-====================================================
+
+/* ==================================================
 CPM
-====================================================
-*/
+================================================== */
 
 $("saveCpm").onclick=()=>{
 
@@ -2936,51 +4703,58 @@ $("cpmInput").value
 )||0
 );
 
+
 localStorage.setItem(
 "nbflix_local_cpm",
 n
 );
 
+
 refreshStats();
 
 };
 
-/*
-====================================================
+
+/* ==================================================
 PASSWORD
-====================================================
-*/
+================================================== */
 
 $("savePassword").onclick=()=>{
 
 const p=
 $("newPassword").value;
 
-if(p.length<6){
+
+if(
+p.length<6
+){
 
 $("adminMessage").textContent=
 "Password must be at least 6 characters.";
 
 return;
+
 }
+
 
 localStorage.setItem(
 "nbflix_admin_password",
 p
 );
 
+
 $("newPassword").value="";
+
 
 $("adminMessage").textContent=
 "Password updated on this browser.";
 
 };
 
-/*
-====================================================
+
+/* ==================================================
 LOCAL VISIT COUNTER
-====================================================
-*/
+================================================== */
 
 if(
 !sessionStorage.getItem(
@@ -2990,12 +4764,15 @@ if(
 
 localStorage.setItem(
 "nbflix_local_visits",
+
 Number(
 localStorage.getItem(
 "nbflix_local_visits"
 )||0
 )+1
+
 );
+
 
 sessionStorage.setItem(
 "nbflix_visit_counted",
@@ -3004,17 +4781,18 @@ sessionStorage.setItem(
 
 }
 
-/*
-====================================================
+
+/* ==================================================
 START
-====================================================
-*/
+================================================== */
 
 showAd();
 
 loadTopMovies();
 
-loadCategory("trending");
+loadCategory(
+"trending"
+);
 
 loadFeaturedTrailers();
 
@@ -3022,4 +4800,3 @@ loadFeaturedTrailers();
 
 </body>
 </html>
-```
