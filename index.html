@@ -13,10 +13,13 @@
 
 <link rel="preconnect" href="https://image.tmdb.org">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
  --bg:#07080d;
  --panel:#10121a;
@@ -30,7 +33,9 @@
  --shadow:0 25px 70px rgba(0,0,0,.45);
 }
 
-*{box-sizing:border-box}
+*{
+ box-sizing:border-box;
+}
 
 html{
  scroll-behavior:smooth;
@@ -39,18 +44,34 @@ html{
 body{
  margin:0;
  background:
- radial-gradient(circle at 50% -10%,rgba(255,49,92,.07),transparent 30%),
+ radial-gradient(
+  circle at 50% -10%,
+  rgba(255,49,92,.07),
+  transparent 30%
+ ),
  var(--bg);
  color:var(--text);
  font-family:Inter,system-ui,sans-serif;
  min-height:100vh;
 }
 
-button,input{font:inherit}
-button{cursor:pointer}
-a{text-decoration:none;color:inherit}
+button,
+input{
+ font:inherit;
+}
 
-/* NAV */
+button{
+ cursor:pointer;
+}
+
+a{
+ text-decoration:none;
+ color:inherit;
+}
+
+/* =========================
+   NAV
+========================= */
 
 .nav{
  position:sticky;
@@ -137,7 +158,9 @@ a{text-decoration:none;color:inherit}
  background:#ffffff0d;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
  min-height:430px;
@@ -156,7 +179,7 @@ a{text-decoration:none;color:inherit}
  background-position:center;
  opacity:.34;
  transform:scale(1.04);
- transition:background-image .6s ease,opacity .4s ease;
+ transition:background-image .6s ease;
 }
 
 .hero-backdrop:after{
@@ -164,14 +187,16 @@ a{text-decoration:none;color:inherit}
  position:absolute;
  inset:0;
  background:
- linear-gradient(90deg,
+ linear-gradient(
+  90deg,
   #07080d 3%,
   rgba(7,8,13,.94) 27%,
   rgba(7,8,13,.72) 52%,
   rgba(7,8,13,.32) 75%,
   #07080d 100%
  ),
- linear-gradient(0deg,
+ linear-gradient(
+  0deg,
   #07080d 0%,
   transparent 35%,
   rgba(7,8,13,.3) 100%
@@ -291,7 +316,9 @@ a{text-decoration:none;color:inherit}
  color:#e5e7ee;
 }
 
-/* AUTO TRAILER */
+/* =========================
+   AUTO TRAILER
+========================= */
 
 .hero-trailer{
  position:relative;
@@ -364,9 +391,13 @@ a{text-decoration:none;color:inherit}
  right:12px;
  bottom:11px;
  padding:9px 11px;
- border-radius:9px;
- background:linear-gradient(180deg,transparent,rgba(0,0,0,.82));
  padding-top:25px;
+ border-radius:9px;
+ background:linear-gradient(
+  180deg,
+  transparent,
+  rgba(0,0,0,.85)
+ );
  font-size:11px;
  font-weight:800;
  white-space:nowrap;
@@ -385,7 +416,49 @@ a{text-decoration:none;color:inherit}
  font-size:11px;
 }
 
-/* TOP MOVIES */
+/* =========================
+   VISIT COUNTER
+========================= */
+
+.stats-strip{
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ flex-wrap:wrap;
+ padding:12px 5%;
+ background:#090b11;
+ border-bottom:1px solid var(--line);
+}
+
+.stat-pill{
+ display:flex;
+ align-items:center;
+ gap:7px;
+ padding:7px 11px;
+ border-radius:9px;
+ background:#11131b;
+ border:1px solid rgba(255,255,255,.07);
+ color:#9298aa;
+ font-size:10px;
+ font-weight:700;
+}
+
+.stat-pill strong{
+ color:#fff;
+ font-size:11px;
+}
+
+.stat-dot{
+ width:6px;
+ height:6px;
+ border-radius:50%;
+ background:#ff315c;
+ box-shadow:0 0 10px #ff315c;
+}
+
+/* =========================
+   TOP MOVIES
+========================= */
 
 .top-section{
  padding:18px 5%;
@@ -458,11 +531,17 @@ a{text-decoration:none;color:inherit}
 }
 
 @keyframes ticker{
- from{transform:translateX(0)}
- to{transform:translateX(-50%)}
+ from{
+  transform:translateX(0);
+ }
+ to{
+  transform:translateX(-50%);
+ }
 }
 
-/* FEATURE */
+/* =========================
+   FEATURE
+========================= */
 
 .feature{
  display:none;
@@ -511,7 +590,9 @@ a{text-decoration:none;color:inherit}
  border:0;
 }
 
-/* MAIN */
+/* =========================
+   MAIN
+========================= */
 
 main{
  max-width:1600px;
@@ -585,7 +666,11 @@ main{
  min-width:0;
  overflow:hidden;
  border-radius:15px;
- background:linear-gradient(180deg,#11131b,#0d0f15);
+ background:linear-gradient(
+  180deg,
+  #11131b,
+  #0d0f15
+ );
  border:1px solid transparent;
  cursor:pointer;
  transition:.25s;
@@ -682,6 +767,10 @@ main{
  color:var(--gold);
 }
 
+.view-count{
+ color:#8f95a6;
+}
+
 .state{
  grid-column:1/-1;
  padding:70px 15px;
@@ -700,7 +789,9 @@ main{
 }
 
 @keyframes spin{
- to{transform:rotate(360deg)}
+ to{
+  transform:rotate(360deg);
+ }
 }
 
 .load-wrap{
@@ -727,7 +818,9 @@ main{
  cursor:wait;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 .modal{
  position:fixed;
@@ -825,7 +918,9 @@ main{
  border:0;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
  border-top:1px solid var(--line);
@@ -840,7 +935,9 @@ main{
  color:#d5d8e0;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:1250px){
 
@@ -949,6 +1046,10 @@ main{
   border-radius:14px;
  }
 
+ .stats-strip{
+  padding:10px 4%;
+ }
+
  main{
   padding:26px 4% 55px;
  }
@@ -1016,6 +1117,7 @@ main{
  }
 
 }
+
 </style>
 
 </head>
@@ -1034,7 +1136,9 @@ main{
 
  <div class="search">
 
-<span class="search-icon">⌕</span>
+  <span class="search-icon">
+   ⌕
+  </span>
 
 <input
 id="searchInput"
@@ -1046,10 +1150,7 @@ autocomplete="off"
 
 <button
 class="search-clear"
-id="searchClear"
-
->
-
+id="searchClear">
 × </button>
 
  </div>
@@ -1129,9 +1230,11 @@ id="searchClear"
 
   </div>
 
-  <!-- AUTO TRAILER -->
+  <!-- ONE AUTO TRAILER AT A TIME -->
 
-  <div class="hero-trailer" id="heroTrailer">
+  <div
+   class="hero-trailer"
+   id="heroTrailer">
 
    <div class="trailer-badge">
     <i></i>
@@ -1152,6 +1255,28 @@ id="searchClear"
 
   </div>
 
+ </div>
+
+</section>
+
+<!-- VISITS -->
+
+<section class="stats-strip">
+
+ <div class="stat-pill">
+  <span class="stat-dot"></span>
+  Visitors
+  <strong id="siteVisits">
+   0
+  </strong>
+ </div>
+
+ <div class="stat-pill">
+  👁️
+  Total Views
+  <strong id="totalMovieViews">
+   0
+  </strong>
  </div>
 
 </section>
@@ -1325,8 +1450,6 @@ Load More Movies ↓ </button>
 
 </main>
 
-<!-- FOOTER -->
-
 <footer class="footer">
 
 Movie and TV data provided by
@@ -1417,6 +1540,228 @@ alt=""
 
 </div>
 
+<!-- FIREBASE -->
+
+<script type="module">
+
+import {
+ initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+ getDatabase,
+ ref,
+ runTransaction,
+ onValue
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+const firebaseConfig={
+
+ apiKey:"YOUR_FIREBASE_API_KEY",
+
+ authDomain:"nbflix-c86c6.firebaseapp.com",
+
+ databaseURL:
+  "https://nbflix-c86c6-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+ projectId:"nbflix-c86c6",
+
+ storageBucket:
+  "nbflix-c86c6.firebasestorage.app",
+
+ messagingSenderId:"950751956592",
+
+ appId:"YOUR_FIREBASE_APP_ID",
+
+ measurementId:"G-93P77HBSG6"
+
+};
+
+
+const firebaseApp=
+ initializeApp(
+  firebaseConfig
+ );
+
+
+const db=
+ getDatabase(
+  firebaseApp
+ );
+
+
+/* SITE VISIT */
+
+const siteVisitsRef=
+ ref(
+  db,
+  "siteVisits"
+ );
+
+
+/*
+ Only one visit per browser session.
+ Refresh করলে একই session-এ
+ আবার count হবে না.
+ */
+
+if(
+ !sessionStorage.getItem(
+  "nbflix_visit_counted"
+ )
+){
+
+ sessionStorage.setItem(
+  "nbflix_visit_counted",
+  "1"
+ );
+
+
+ runTransaction(
+  siteVisitsRef,
+  current=>
+   (Number(current)||0)+1
+ );
+
+}
+
+
+/* WATCH SITE VISITS */
+
+onValue(
+ siteVisitsRef,
+ snapshot=>{
+
+  const value=
+   Number(
+    snapshot.val()
+   )||0;
+
+
+  document.getElementById(
+   "siteVisits"
+  ).textContent=
+   value.toLocaleString();
+
+ }
+);
+
+
+/* TOTAL MOVIE VIEWS */
+
+const movieViewsRef=
+ ref(
+  db,
+  "movieViews"
+ );
+
+
+onValue(
+ movieViewsRef,
+ snapshot=>{
+
+  const data=
+   snapshot.val()||{};
+
+
+  let total=0;
+
+
+  Object.keys(data)
+   .forEach(kind=>{
+
+    const group=
+     data[kind]||{};
+
+
+    Object.keys(group)
+     .forEach(id=>{
+
+      total+=
+       Number(
+        group[id]
+       )||0;
+
+     });
+
+   });
+
+
+  document.getElementById(
+   "totalMovieViews"
+  ).textContent=
+   total.toLocaleString();
+
+ }
+);
+
+
+/* GET INDIVIDUAL VIEW */
+
+window.nbflixGetViews=
+ function(kind,id,callback){
+
+  const viewRef=
+   ref(
+    db,
+    "movieViews/"+
+    kind+
+    "/"+
+    id
+   );
+
+
+  onValue(
+   viewRef,
+   snapshot=>{
+
+    callback(
+     Number(
+      snapshot.val()
+     )||0
+    );
+
+   },
+   {
+    onlyOnce:true
+   }
+  );
+
+ };
+
+
+/* ADD MOVIE VIEW */
+
+window.nbflixAddView=
+ function(kind,id){
+
+  const viewRef=
+   ref(
+    db,
+    "movieViews/"+
+    kind+
+    "/"+
+    id
+   );
+
+
+  runTransaction(
+   viewRef,
+   current=>
+    (Number(current)||0)+1
+  );
+
+ };
+
+</script>
+
+<!-- MAIN APP -->
+
 <script>
 
 const API="/api/tmdb";
@@ -1494,13 +1839,19 @@ const configs={
 
 
 const grid=
- document.getElementById("movieGrid");
+ document.getElementById(
+  "movieGrid"
+ );
 
 const titleEl=
- document.getElementById("sectionTitle");
+ document.getElementById(
+  "sectionTitle"
+ );
 
 const countEl=
- document.getElementById("resultCount");
+ document.getElementById(
+  "resultCount"
+ );
 
 
 let current="trending";
@@ -1518,109 +1869,78 @@ let searchTimer;
 let requestId=0;
 
 
-/* AUTO TRAILER */
+/* =========================
+   HERO TRAILER QUEUE
+========================= */
 
-let heroTrailerItems=[];
+let heroTrailerQueue=[];
 
 let heroTrailerIndex=0;
 
-let heroTrailerTimer=null;
+let heroTrailerPlaying=false;
 
 
-function esc(s=""){
+/*
+ One trailer at a time.
 
- return String(s).replace(
-  /[&<>"']/g,
-  c=>({
-   "&":"&amp;",
-   "<":"&lt;",
-   ">":"&gt;",
-   '"':"&quot;",
-   "'":"&#39;"
-  }[c])
- );
+ Trailer শেষ হলে next trailer.
+ Timer দিয়ে মাঝপথে বদলাবে না.
+ */
 
-}
+async function startHeroTrailerQueue(items){
+
+ heroTrailerQueue=[];
+
+ heroTrailerIndex=0;
 
 
-async function api(path){
-
- const response=
-  await fetch(
-   API+
-   "?endpoint="+
-   encodeURIComponent(path),
-   {
-    cache:"no-store"
-   }
-  );
+ const candidates=
+  items
+   .filter(item=>
+    item &&
+    item.id &&
+    item.backdrop_path
+   )
+   .slice(0,8);
 
 
- let data;
+ for(
+  const item of candidates
+ ){
+
+  const trailer=
+   await findTrailer(
+    item
+   );
 
 
- try{
+  if(trailer){
 
-  data=
-   await response.json();
+   heroTrailerQueue.push({
+    item:item,
+    trailer:trailer
+   });
 
- }catch{
-
-  throw new Error(
-   "Vercel API returned invalid JSON."
-  );
-
- }
-
-
- if(!response.ok){
-
-  throw new Error(
-   data.status_message ||
-   data.error ||
-   "TMDB request failed."
-  );
+  }
 
  }
 
-
- if(data.success===false){
-
-  throw new Error(
-   data.status_message ||
-   data.error ||
-   "TMDB request failed."
-  );
-
- }
-
-
- return data;
-
-}
-
-
-/* HERO BACKDROP */
-
-function setHero(item){
 
  if(
-  !item ||
-  !item.backdrop_path
+  !heroTrailerQueue.length
  ){
+
+  document.getElementById(
+   "heroTrailerFallback"
+  ).textContent=
+   "Trailer unavailable";
+
   return;
+
  }
 
 
- const hero=
-  document.getElementById(
-   "heroBackdrop"
-  );
-
-
- hero.style.backgroundImage=
-  `url("${BACKDROP+
-     item.backdrop_path}")`;
+ playHeroQueueItem();
 
 }
 
@@ -1629,14 +1949,21 @@ function setHero(item){
 
 async function findTrailer(item){
 
- if(!item || !item.id){
+ if(
+  !item ||
+  !item.id
+ ){
   return null;
  }
 
 
  const type=
   item.media_type ||
-  (item.first_air_date?"tv":"movie");
+  (
+   item.first_air_date
+    ?"tv"
+    :"movie"
+  );
 
 
  try{
@@ -1672,7 +1999,7 @@ async function findTrailer(item){
     video.site==="YouTube"
    )
 
-  ) || null;
+  )||null;
 
 
  }catch{
@@ -1684,11 +2011,72 @@ async function findTrailer(item){
 }
 
 
-/* HERO TRAILER */
+/* PLAY ONE HERO TRAILER */
 
-function showHeroTrailer(item,trailer){
+function playHeroQueueItem(){
 
- const box=
+ if(
+  heroTrailerIndex>=
+  heroTrailerQueue.length
+ ){
+
+  /*
+   সব trailer একবার করে দেখানো হয়েছে।
+   আবার প্রথম থেকে শুরু করবে না।
+  */
+
+  heroTrailerPlaying=false;
+
+  const fallback=
+   document.getElementById(
+    "heroTrailerFallback"
+   );
+
+  const iframe=
+   document.querySelector(
+    "#heroTrailer iframe"
+   );
+
+
+  if(iframe){
+   iframe.remove();
+  }
+
+
+  fallback.style.display=
+   "flex";
+
+  fallback.textContent=
+   "More trailers coming soon.";
+
+  return;
+
+ }
+
+
+ const current=
+  heroTrailerQueue[
+   heroTrailerIndex
+  ];
+
+
+ heroTrailerPlaying=true;
+
+
+ const item=
+  current.item;
+
+ const trailer=
+  current.trailer;
+
+
+ const name=
+  item.title ||
+  item.name ||
+  "Featured Movie";
+
+
+ const hero=
   document.getElementById(
    "heroTrailer"
   );
@@ -1698,42 +2086,29 @@ function showHeroTrailer(item,trailer){
    "heroTrailerFallback"
   );
 
- const name=
+ const title=
   document.getElementById(
    "heroTrailerName"
   );
 
 
- const movieName=
-  item.title ||
-  item.name ||
-  "Featured Movie";
+ title.textContent=
+  name;
 
 
- name.textContent=
-  movieName;
+ setHero(
+  item
+ );
 
 
- setHero(item);
+ const old=
+  hero.querySelector(
+   "iframe"
+  );
 
 
- if(!trailer){
-
-  fallback.style.display=
-   "flex";
-
-  fallback.textContent=
-   "Trailer unavailable";
-
-  const old=
-   box.querySelector("iframe");
-
-  if(old){
-   old.remove();
-  }
-
-  return;
-
+ if(old){
+  old.remove();
  }
 
 
@@ -1741,26 +2116,28 @@ function showHeroTrailer(item,trailer){
   "none";
 
 
- const old=
-  box.querySelector("iframe");
-
- if(old){
-  old.remove();
- }
-
-
  const iframe=
-  document.createElement("iframe");
+  document.createElement(
+   "iframe"
+  );
 
 
  iframe.src=
   "https://www.youtube-nocookie.com/embed/"+
-  encodeURIComponent(trailer.key)+
-  "?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1";
+  encodeURIComponent(
+   trailer.key
+  )+
+  "?autoplay=1"+
+  "&mute=1"+
+  "&controls=1"+
+  "&rel=0"+
+  "&modestbranding=1"+
+  "&playsinline=1";
 
 
  iframe.title=
-  movieName+" trailer";
+  name+
+  " trailer";
 
 
  iframe.allow=
@@ -1770,127 +2147,194 @@ function showHeroTrailer(item,trailer){
  iframe.allowFullscreen=true;
 
 
- box.appendChild(iframe);
+ hero.appendChild(
+  iframe
+ );
+
+
+ /*
+  YouTube iframe থেকে video শেষ হয়েছে
+  কিনা জানতে postMessage ব্যবহার করা হচ্ছে.
+ */
+
+ setTimeout(
+  ()=>{
+
+   try{
+
+    iframe.contentWindow.postMessage(
+     JSON.stringify({
+      event:"command",
+      func:"addEventListener",
+      args:["onStateChange"]
+     }),
+     "*"
+    );
+
+   }catch{}
+
+  },
+  1500
+ );
+
+
+ /*
+  YouTube iframe-এর state message
+  শুনে next trailer চালানো হবে.
+ */
+
+ window.removeEventListener(
+  "message",
+  heroMessageHandler
+ );
+
+ window.addEventListener(
+  "message",
+  heroMessageHandler
+ );
 
 }
 
 
-async function prepareHeroTrailers(items){
+function heroMessageHandler(event){
 
- heroTrailerItems=
-  items
-   .filter(item=>
-    item &&
-    item.id &&
-    item.backdrop_path
-   )
-   .slice(0,7);
-
-
- if(!heroTrailerItems.length){
+ if(
+  !event.origin.includes(
+   "youtube.com"
+  )
+ ){
   return;
  }
 
 
- /* প্রথম movie-এর backdrop সঙ্গে সঙ্গে দেখানো */
+ let data;
 
- setHero(heroTrailerItems[0]);
+
+ try{
+
+  data=
+   typeof event.data==="string"
+    ?JSON.parse(event.data)
+    :event.data;
+
+ }catch{
+
+  return;
+
+ }
 
 
  /*
-  কয়েকটি trending movie-এর trailer
-  খুঁজে রাখবে।
+  YouTube ended state = 0
  */
 
- const prepared=[];
-
-
- for(
-  const item of heroTrailerItems
+ if(
+  data &&
+  data.event==="onStateChange" &&
+  Number(data.info)===0 &&
+  heroTrailerPlaying
  ){
 
-  const trailer=
-   await findTrailer(item);
+  heroTrailerPlaying=false;
 
+  heroTrailerIndex++;
 
-  if(trailer){
-
-   prepared.push({
-    item,
-    trailer
-   });
-
-  }
-
-  if(prepared.length>=5){
-   break;
-  }
+  setTimeout(
+   ()=>{
+    playHeroQueueItem();
+   },
+   900
+  );
 
  }
 
-
- heroTrailerItems=
-  prepared;
+}
 
 
- if(!heroTrailerItems.length){
+/* HERO BACKDROP */
 
-  const fallback=
-   document.getElementById(
-    "heroTrailerFallback"
-   );
+function setHero(item){
 
-  fallback.textContent=
-   "Featured trailers unavailable.";
-
+ if(
+  !item ||
+  !item.backdrop_path
+ ){
   return;
-
  }
 
 
- heroTrailerIndex=0;
+ const hero=
+  document.getElementById(
+   "heroBackdrop"
+  );
 
 
- showHeroTrailer(
-  heroTrailerItems[0].item,
-  heroTrailerItems[0].trailer
- );
+ hero.style.backgroundImage=
+  `url("${BACKDROP+
+   item.backdrop_path}")`;
+
+}
 
 
- if(heroTrailerTimer){
-  clearInterval(heroTrailerTimer);
- }
+/* API */
 
+async function api(path){
 
- /*
-  35 seconds পর পর নতুন trailer
- */
-
- heroTrailerTimer=
-  setInterval(()=>{
-
-   if(!heroTrailerItems.length){
-    return;
+ const response=
+  await fetch(
+   API+
+   "?endpoint="+
+   encodeURIComponent(
+    path
+   ),
+   {
+    cache:"no-store"
    }
+  );
 
 
-   heroTrailerIndex=
-    (heroTrailerIndex+1)%
-    heroTrailerItems.length;
+ let data;
 
 
-   const next=
-    heroTrailerItems[
-     heroTrailerIndex
-    ];
+ try{
+
+  data=
+   await response.json();
+
+ }catch{
+
+  throw new Error(
+   "Vercel API returned invalid JSON."
+  );
+
+ }
 
 
-   showHeroTrailer(
-    next.item,
-    next.trailer
-   );
+ if(!response.ok){
 
-  },35000);
+  throw new Error(
+   data.status_message ||
+   data.error ||
+   "TMDB request failed."
+  );
+
+ }
+
+
+ if(
+  data.success===false
+ ){
+
+  throw new Error(
+   data.status_message ||
+   data.error ||
+   "TMDB request failed."
+  );
+
+ }
+
+
+ return data;
 
 }
 
@@ -1930,7 +2374,8 @@ async function loadTopMovies(){
       src="${IMG+
        item.poster_path}"
       alt="${esc(
-       item.title||"Movie"
+       item.title||
+       "Movie"
       )}"
      >
 
@@ -1956,9 +2401,16 @@ async function loadTopMovies(){
   }
 
 
-  /* AUTO TRAILER */
+  /*
+   Important:
+   একসাথে একটাই trailer.
+   Trailer শেষ না হওয়া পর্যন্ত
+   অন্য trailer আসবে না.
+  */
 
-  prepareHeroTrailers(items);
+  startHeroTrailerQueue(
+   items
+  );
 
 
  }catch{
@@ -2057,6 +2509,35 @@ function showError(message){
 }
 
 
+/* FORMAT VIEWS */
+
+function formatViews(value){
+
+ value=
+  Number(value)||0;
+
+
+ if(value>=1000000){
+  return (
+   (value/1000000)
+    .toFixed(1)
+   +"M"
+  );
+ }
+
+ if(value>=1000){
+  return (
+   (value/1000)
+    .toFixed(1)
+   +"K"
+  );
+ }
+
+ return value.toString();
+
+}
+
+
 /* RENDER */
 
 function render(items=[]){
@@ -2064,7 +2545,9 @@ function render(items=[]){
  const existing=
   new Set(
    allItems.map(
-    item=>String(item.id)
+    item=>String(
+     item.id
+    )
    )
   );
 
@@ -2078,10 +2561,14 @@ function render(items=[]){
   );
 
 
- allItems.push(...fresh);
+ allItems.push(
+  ...fresh
+ );
 
 
- if(!allItems.length){
+ if(
+  !allItems.length
+ ){
 
   grid.innerHTML=
    '<div class="state">No titles found.</div>';
@@ -2131,6 +2618,12 @@ function render(items=[]){
        ?"tv"
        :"movie"
      );
+
+
+    const viewKind=
+     type==="tv"
+      ?"tv"
+      :"movie";
 
 
     return `
@@ -2193,6 +2686,22 @@ function render(items=[]){
 
        </div>
 
+       <div
+        class="card-meta"
+        style="margin-top:5px">
+
+        <span>
+         👁️ Views
+        </span>
+
+        <span
+         class="view-count"
+         id="views-${viewKind}-${item.id}">
+         0
+        </span>
+
+       </div>
+
       </div>
 
      </article>
@@ -2203,12 +2712,69 @@ function render(items=[]){
   ).join("");
 
 
+ /*
+  Load Firebase view counts
+ */
+
+ allItems.forEach(
+  item=>{
+
+   const type=
+    item.media_type ||
+    (
+     item.first_air_date
+      ?"tv"
+      :"movie"
+    );
+
+
+   const kind=
+    type==="tv"
+     ?"tv"
+     :"movie";
+
+
+   if(
+    typeof window.nbflixGetViews===
+    "function"
+   ){
+
+    window.nbflixGetViews(
+     kind,
+     item.id,
+     value=>{
+
+      const el=
+       document.getElementById(
+        "views-"+
+        kind+
+        "-"+
+        item.id
+       );
+
+
+      if(el){
+       el.textContent=
+        formatViews(value);
+      }
+
+     }
+    );
+
+   }
+
+  }
+ );
+
+
  document
   .querySelectorAll(".card")
   .forEach(card=>{
 
    const index=
-    Number(card.dataset.index);
+    Number(
+     card.dataset.index
+    );
 
 
    card.onclick=()=>
@@ -2309,9 +2875,9 @@ async function loadPage(
   base+
   (
    base.includes("?")
-    ?" &"
+    ?"&&"
     :"?"
-  ).replace(" ","")+
+  ).replace("&&","&")+
   "page="+
   page;
 
@@ -2322,7 +2888,9 @@ async function loadPage(
    await api(path);
 
 
-  if(req!==requestId){
+  if(
+   req!==requestId
+  ){
    return;
   }
 
@@ -2351,7 +2919,9 @@ async function loadPage(
 
  }catch(error){
 
-  if(req!==requestId){
+  if(
+   req!==requestId
+  ){
    return;
   }
 
@@ -2362,7 +2932,9 @@ async function loadPage(
     "Could not load more";
 
 
-   updateLoadButton(false);
+   updateLoadButton(
+    false
+   );
 
   }else{
 
@@ -2492,6 +3064,29 @@ async function openDetails(item){
   "Untitled";
 
 
+ /*
+  VIEW +1
+ */
+
+ const viewKind=
+  type==="tv"
+   ?"tv"
+   :"movie";
+
+
+ if(
+  typeof window.nbflixAddView===
+  "function"
+ ){
+
+  window.nbflixAddView(
+   viewKind,
+   id
+  );
+
+ }
+
+
  const poster=
   document.getElementById(
    "detailPoster"
@@ -2530,7 +3125,8 @@ async function openDetails(item){
 
  poster.src=
   item.poster_path
-   ?IMG+item.poster_path
+   ?IMG+
+    item.poster_path
    :"";
 
 
@@ -2576,7 +3172,9 @@ async function openDetails(item){
 
 
  document
-  .getElementById("modal")
+  .getElementById(
+   "modal"
+  )
   .classList.add("open");
 
 
@@ -2685,25 +3283,35 @@ async function openDetails(item){
 function closeModal(){
 
  document
-  .getElementById("modal")
-  .classList.remove("open");
+  .getElementById(
+   "modal"
+  )
+  .classList.remove(
+   "open"
+  );
 
 
  document
-  .getElementById("trailerBox")
+  .getElementById(
+   "trailerBox"
+  )
   .innerHTML="";
 
 }
 
 
-/* TAB CLICK */
+/* TABS */
 
 document
- .getElementById("tabs")
+ .getElementById(
+  "tabs"
+ )
  .onclick=e=>{
 
   const button=
-   e.target.closest(".tab");
+   e.target.closest(
+    ".tab"
+   );
 
 
   if(button){
@@ -2717,10 +3325,12 @@ document
  };
 
 
-/* SEARCH */
+/* SEARCH INPUT */
 
 document
- .getElementById("searchInput")
+ .getElementById(
+  "searchInput"
+ )
  .oninput=e=>{
 
   const value=
@@ -2728,7 +3338,9 @@ document
 
 
   document
-   .getElementById("searchClear")
+   .getElementById(
+    "searchClear"
+   )
    .style.display=
     value
      ?"block"
@@ -2765,16 +3377,22 @@ document
 /* SEARCH CLEAR */
 
 document
- .getElementById("searchClear")
+ .getElementById(
+  "searchClear"
+ )
  .onclick=()=>{
 
   document
-   .getElementById("searchInput")
+   .getElementById(
+    "searchInput"
+   )
    .value="";
 
 
   document
-   .getElementById("searchClear")
+   .getElementById(
+    "searchClear"
+   )
    .style.display=
     "none";
 
@@ -2789,27 +3407,35 @@ document
 /* LOAD MORE */
 
 document
- .getElementById("loadMore")
+ .getElementById(
+  "loadMore"
+ )
  .onclick=
   loadMore;
 
 
-/* MODAL BUTTONS */
+/* MODAL */
 
 document
- .getElementById("closeModal")
+ .getElementById(
+  "closeModal"
+ )
  .onclick=
   closeModal;
 
 
 document
- .getElementById("closeDetails")
+ .getElementById(
+  "closeDetails"
+ )
  .onclick=
   closeModal;
 
 
 document
- .getElementById("modal")
+ .getElementById(
+  "modal"
+ )
  .onclick=e=>{
 
   if(
@@ -2843,11 +3469,15 @@ document.addEventListener(
 /* EXPLORE */
 
 document
- .getElementById("exploreBtn")
+ .getElementById(
+  "exploreBtn"
+ )
  .onclick=()=>{
 
   document
-   .getElementById("catalog")
+   .getElementById(
+    "catalog"
+   )
    .scrollIntoView({
     behavior:"smooth"
    });
@@ -2858,7 +3488,9 @@ document
 /* TRENDING */
 
 document
- .getElementById("trendingBtn")
+ .getElementById(
+  "trendingBtn"
+ )
  .onclick=()=>{
 
   loadCategory(
@@ -2867,7 +3499,9 @@ document
 
 
   document
-   .getElementById("catalog")
+   .getElementById(
+    "catalog"
+   )
    .scrollIntoView({
     behavior:"smooth"
    });
