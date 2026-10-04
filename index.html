@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07080d">
-<meta name="description" content="NBFlix — Discover movies and series.">
+<meta name="description" content="NBFlix — Discover Movies & Series">
 <title>NBFlix — Movies & Series</title>
 
 <style>
@@ -33,28 +33,27 @@ button{cursor:pointer}
   position:sticky;
   top:0;
   z-index:30;
-  background:rgba(7,8,13,.95);
-  backdrop-filter:blur(14px);
+  background:rgba(7,8,13,.96);
+  backdrop-filter:blur(15px);
   border-bottom:1px solid var(--line);
   padding:12px 4%
 }
 .navin{
-  max-width:1400px;
+  max-width:1450px;
   margin:auto;
   display:flex;
   gap:12px;
   align-items:center
 }
 .logo{
-  font-size:26px;
+  font-size:27px;
   font-weight:900;
   color:var(--accent);
-  letter-spacing:-1px;
   white-space:nowrap
 }
 .search{
   flex:1;
-  min-width:120px;
+  min-width:100px;
   background:#11141d;
   border:1px solid var(--line);
   color:#fff;
@@ -73,23 +72,23 @@ button{cursor:pointer}
 }
 
 .hero{
-  max-width:1400px;
+  max-width:1450px;
   margin:20px auto;
   padding:0 4%
 }
 .heroBox{
-  min-height:260px;
+  min-height:275px;
   border:1px solid var(--line);
   border-radius:20px;
-  padding:28px;
+  padding:30px;
   display:flex;
   align-items:flex-end;
   background:
-    radial-gradient(circle at 80% 30%,rgba(255,49,92,.18),transparent 35%),
+    radial-gradient(circle at 80% 30%,rgba(255,49,92,.2),transparent 36%),
     linear-gradient(120deg,#151722,#0b0d14)
 }
 .hero h1{
-  font-size:clamp(35px,7vw,72px);
+  font-size:clamp(38px,7vw,75px);
   margin:0 0 8px;
   letter-spacing:-3px
 }
@@ -99,20 +98,20 @@ button{cursor:pointer}
 }
 .stats{
   display:flex;
-  gap:10px;
+  gap:9px;
   flex-wrap:wrap
 }
 .pill{
   background:#11141d;
   border:1px solid var(--line);
   border-radius:999px;
-  padding:8px 12px;
+  padding:8px 13px;
   color:#dfe2ea
 }
 .pill b{color:#fff}
 
 .tabs{
-  max-width:1400px;
+  max-width:1450px;
   margin:0 auto 20px;
   padding:0 4%;
   display:flex;
@@ -136,7 +135,7 @@ button{cursor:pointer}
 }
 
 .wrap{
-  max-width:1400px;
+  max-width:1450px;
   margin:auto;
   padding:0 4% 60px
 }
@@ -183,7 +182,7 @@ button{cursor:pointer}
   background:rgba(0,0,0,.78);
   border-radius:7px;
   padding:5px 7px;
-  font-size:11px
+  font-size:10px
 }
 .rating{
   position:absolute;
@@ -214,7 +213,8 @@ button{cursor:pointer}
 .empty{
   text-align:center;
   color:var(--muted);
-  padding:50px 10px
+  padding:50px 10px;
+  grid-column:1/-1
 }
 .loader{
   text-align:center;
@@ -224,7 +224,8 @@ button{cursor:pointer}
 
 .adslot{
   display:none;
-  margin:15px 4%;
+  max-width:1450px;
+  margin:15px auto;
   border:1px dashed #343948;
   border-radius:12px;
   overflow:hidden;
@@ -241,7 +242,7 @@ button{cursor:pointer}
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.78);
+  background:rgba(0,0,0,.82);
   z-index:50;
   display:none;
   align-items:center;
@@ -250,7 +251,7 @@ button{cursor:pointer}
 }
 .modal.show{display:flex}
 .modalbox{
-  width:min(900px,100%);
+  width:min(950px,100%);
   max-height:92vh;
   overflow:auto;
   background:var(--panel);
@@ -269,7 +270,7 @@ button{cursor:pointer}
 .details{padding:20px}
 .detailsTop{
   display:grid;
-  grid-template-columns:180px 1fr;
+  grid-template-columns:190px 1fr;
   gap:20px
 }
 .detailsTop img{
@@ -358,7 +359,8 @@ button{cursor:pointer}
   margin:auto;
   display:flex;
   justify-content:space-between;
-  align-items:center
+  align-items:center;
+  gap:10px
 }
 .adminmain{
   max-width:1300px;
@@ -379,7 +381,7 @@ button{cursor:pointer}
 .dash small{color:var(--muted)}
 .dash strong{
   display:block;
-  font-size:28px;
+  font-size:27px;
   margin-top:8px
 }
 .panel{
@@ -429,7 +431,9 @@ button{cursor:pointer}
   text-align:left;
   font-size:12px
 }
-.linktable a{color:#ff6684}
+.linktable a{
+  color:#ff6684
+}
 .danger{
   background:#8f2039;
   color:#fff;
@@ -462,7 +466,7 @@ button{cursor:pointer}
 .login{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.82);
+  background:rgba(0,0,0,.84);
   z-index:200;
   display:none;
   align-items:center;
@@ -513,7 +517,9 @@ button{cursor:pointer}
       autocomplete="off"
     >
 
-    <button class="adminBtn" id="adminOpen">Admin</button>
+    <button class="adminBtn" id="adminOpen">
+      Admin
+    </button>
   </div>
 </header>
 
@@ -521,9 +527,13 @@ button{cursor:pointer}
   <div class="heroBox">
     <div>
       <h1>Watch what moves you.</h1>
-      <p>Discover movies and series with TMDB information and trailers.</p>
+
+      <p>
+        Discover movies and series with TMDB information and trailers.
+      </p>
 
       <div class="stats">
+
         <div class="pill">
           👁 Page Views:
           <b id="siteVisits">0</b>
@@ -533,6 +543,7 @@ button{cursor:pointer}
           🎬 Movie Views:
           <b id="movieViewsTotal">0</b>
         </div>
+
       </div>
     </div>
   </div>
@@ -541,34 +552,82 @@ button{cursor:pointer}
 <div id="adTop" class="adslot"></div>
 
 <nav class="tabs" id="tabs">
-  <button class="tab active" data-key="trending">Trending</button>
-  <button class="tab" data-key="popular">Popular Movies</button>
-  <button class="tab" data-key="top">Top Rated</button>
-  <button class="tab" data-key="now">Now Playing</button>
-  <button class="tab" data-key="upcoming">Upcoming</button>
-  <button class="tab" data-key="tv">Popular Series</button>
-  <button class="tab" data-key="hi">Hindi</button>
-  <button class="tab" data-key="zh">Chinese</button>
-  <button class="tab" data-key="ko">Korean</button>
-  <button class="tab" data-key="ja">Japanese</button>
-  <button class="tab" data-key="anime">Anime</button>
-  <button class="tab" data-key="bn">Bangla</button>
+
+  <button class="tab active" data-key="trending">
+    Trending
+  </button>
+
+  <button class="tab" data-key="popular">
+    Popular Movies
+  </button>
+
+  <button class="tab" data-key="top">
+    Top Rated
+  </button>
+
+  <button class="tab" data-key="now">
+    Now Playing
+  </button>
+
+  <button class="tab" data-key="upcoming">
+    Upcoming
+  </button>
+
+  <button class="tab" data-key="tv">
+    Popular Series
+  </button>
+
+  <button class="tab" data-key="hi">
+    Hindi
+  </button>
+
+  <button class="tab" data-key="zh">
+    Chinese
+  </button>
+
+  <button class="tab" data-key="ko">
+    Korean
+  </button>
+
+  <button class="tab" data-key="ja">
+    Japanese
+  </button>
+
+  <button class="tab" data-key="anime">
+    Anime
+  </button>
+
+  <button class="tab" data-key="bn">
+    Bangla
+  </button>
+
 </nav>
 
 <main class="wrap">
 
   <div class="sectionHead">
-    <h2 id="heading">Trending</h2>
-    <span class="muted" id="count">0 results</span>
+
+    <h2 id="heading">
+      Trending
+    </h2>
+
+    <span class="muted" id="count">
+      0 results
+    </span>
+
   </div>
 
   <div id="grid" class="grid"></div>
 
-  <div id="loader" class="loader">Loading...</div>
+  <div id="loader" class="loader">
+    Loading...
+  </div>
 
   <div id="adMiddle" class="adslot"></div>
 
 </main>
+
+<div id="adBottom" class="adslot"></div>
 
 <footer class="footer">
   NBFlix • Movie & Series Discovery<br>
@@ -577,18 +636,26 @@ button{cursor:pointer}
 
 <button class="top" id="topBtn">↑</button>
 
+
 <!-- DETAILS MODAL -->
+
 <div class="modal" id="modal">
+
   <div class="modalbox">
 
-    <button class="close" id="closeModal">✕</button>
+    <button class="close" id="closeModal">
+      ✕
+    </button>
 
     <div class="details" id="details"></div>
 
   </div>
+
 </div>
 
-<!-- LOGIN -->
+
+<!-- ADMIN LOGIN -->
+
 <div class="login" id="login">
 
   <div class="loginbox">
@@ -628,57 +695,17 @@ button{cursor:pointer}
 
 </div>
 
+
 <!-- ADMIN DASHBOARD -->
+
 <div class="admin" id="admin">
 
   <div class="adminnav">
 
     <div class="adminnavin">
 
-      <strong>NBFlix Dashboard</strong>
+      <strong>
+        NBFlix Dashboard
+      </strong>
 
       <div class="row">
-
-        <button class="pagebtn" id="refreshAdmin">
-          Refresh
-        </button>
-
-        <button class="pagebtn" id="adminClose">
-          Close
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="adminmain">
-
-    <!-- STATS -->
-    <div class="dashgrid">
-
-      <div class="dash">
-        <small>Total Page Views</small>
-        <strong id="aVisits">0</strong>
-      </div>
-
-      <div class="dash">
-        <small>Total Movie Views</small>
-        <strong id="aMovieViews">0</strong>
-      </div>
-
-      <div class="dash">
-        <small>Watch Links</small>
-        <strong id="aLinks">0</strong>
-      </div>
-
-      <div class="dash">
-        <small>Estimated Earnings</small>
-        <strong id="aEarn">$0.00</strong>
-      </div>
-
-    </div>
-
-    <!-- WATCH LINK -->
-    <div class="
