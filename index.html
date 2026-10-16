@@ -27,7 +27,11 @@ main{max-width:1600px;margin:auto;padding:36px 5% 75px}.tabs{display:flex;gap:8p
 <section class="top-section"><div class="section-mini-head"><strong>🔥 Trending Movies</strong><span>Updated from TMDB</span></div><div class="ticker-window"><div class="ticker-track" id="tickerTrack"><span style="color:#9298a8">Loading...</span></div></div></section>
 <main id="catalog"><div class="tabs" id="tabs">
 <button class="tab active" data-id="trending">Trending</button><button class="tab" data-id="popular">Popular Movies</button><button class="tab" data-id="top">Top Rated</button><button class="tab" data-id="now">Now Playing</button><button class="tab" data-id="upcoming">Upcoming</button><button class="tab" data-id="series">Popular Series</button><button class="tab" data-id="hi">Hindi</button><button class="tab" data-id="zh">Chinese</button><button class="tab" data-id="ko">Korean</button><button class="tab" data-id="ja">Japanese</button><button class="tab" data-id="anime">Anime</button><button class="tab" data-id="bn">Bangla</button>
-</div><div class="section-head"><div><h2 id="sectionTitle">Trending This Week</h2><small id="resultCount">Discover something new</small></div></div>
+</div><div id="profitablerate-banner" style="display:block;width:100%;max-width:1000px;margin:0 auto 24px;padding:12px 0;text-align:center;overflow:hidden;">
+<script async="async" data-cfasync="false" src="https://pl31663083.profitableratecpmnetwork.com/ccd18ccea59bcf9913e548f97f3acaec/invoke.js"></script>
+<div id="container-ccd18ccea59bcf9913e548f97f3acaec"></div>
+</div>
+<div class="section-head"><div><h2 id="sectionTitle">Trending This Week</h2><small id="resultCount">Discover something new</small></div></div>
 <div class="ad-slot" id="ad-after-heading"></div><div class="ad-slot" id="adSlot"></div><div class="grid" id="movieGrid"><div class="state"><div class="spinner"></div>Loading movies...</div></div><div class="ad-slot" id="ad-before-load"></div><div class="load-wrap"><button class="load-btn" id="loadMore" hidden>Load More Movies ↓</button></div></main>
 <footer class="footer"><div class="ad-slot" id="ad-footer"></div>Movie and TV data provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a>.<br>NBFlix is not endorsed or certified by TMDB.</footer>
 
@@ -110,5 +114,8 @@ $("adminLaunch").onclick=openAdmin;$("adminClose").onclick=()=>$("adminPanel").c
 localStorage.setItem("nbflix_local_visits",String(Number(localStorage.getItem("nbflix_local_visits")||0)+1));localStorage.setItem("nbflix_local_pageviews",String(Number(localStorage.getItem("nbflix_local_pageviews")||0)+1));
 loadTicker();loadCategory("trending");loadFeatured();renderAdSlots();
 </script>
+<!-- Profitablerate ad scripts: loaded once for all site visitors -->
+<script src="https://pl31644572.profitableratecpmnetwork.com/1c/80/4c/1c804cffe39d5e2386e6f2ae4bf620ab.js"></script>
+<script src="https://pl31644352.profitableratecpmnetwork.com/81/9f/92/819f9266c2a653d4240df614e14671ef.js"></script>
 </body>
 </html>
