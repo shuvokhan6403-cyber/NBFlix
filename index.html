@@ -23,6 +23,31 @@ main{max-width:1600px;margin:auto;padding:36px 5% 75px}.tabs{display:flex;gap:8p
 @media(max-width:1250px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}}@media(max-width:1000px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero-content{gap:20px}.hero-player{width:340px}}@media(max-width:760px){.hero-content{align-items:flex-start;flex-direction:column;padding:48px 5%;gap:25px}.hero-copy{width:100%}.hero-player{width:min(430px,100%)}.hero{min-height:0}.hero h1{font-size:43px;letter-spacing:-2.5px}.hero-description{font-size:13px}}@media(max-width:680px){.nav{padding:11px 4%;flex-wrap:wrap}.logo{font-size:24px}.nav-badge{display:none}.search{order:3;flex-basis:100%;width:100%}main{padding:26px 4% 55px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.top-section{padding:17px 4%}.ticker-item,.ticker-item img{width:72px}.ticker-item img{height:100px}.detail-top{grid-template-columns:105px 1fr;gap:15px;padding:18px}.detail-copy h2{font-size:20px}.detail-overview{font-size:12px}.section-head h2{font-size:19px}.admin{padding:12px}.admin-grid{grid-template-columns:1fr}.admin-head{align-items:flex-start}.admin-row{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr 1fr}.placement-list{grid-template-columns:1fr}.wide{grid-column:auto}}
 
 .site-sponsored{max-width:1500px;margin:20px auto 0;padding:0 5%}.site-sponsored-head{display:flex;align-items:center;gap:10px;margin:0 0 12px;color:#aeb4c4;font-size:10px}.site-sponsored-head span{padding:5px 7px;border-radius:5px;background:#ff315c18;border:1px solid #ff315c35;color:#ff7893;font-size:8px;font-weight:900;letter-spacing:1px}.site-sponsored-head strong{font-size:12px;color:#e8eaf1}.site-sponsored-head small{margin-left:auto;color:#737b8d;font-size:9px}.site-sponsored-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:center}.site-sponsored-grid .details-ad-card{min-height:100px}.site-sponsored-grid .details-ad-card.wide{grid-column:1/-1}.site-sponsored-grid .details-ad-card iframe{max-width:100%;border:0}.site-sponsored-grid .details-ad-card>div{max-width:100%;overflow:hidden}.site-sponsored-grid .details-ad-card.vertical{min-height:150px}.site-sponsored-grid .ad-label{display:block;color:#737b8d;font-size:8px;letter-spacing:1px;margin-bottom:7px}@media(max-width:760px){.site-sponsored{padding:0 4%;margin-top:14px}.site-sponsored-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.site-sponsored-grid .details-ad-card.wide{grid-column:1/-1}.site-sponsored-grid .details-ad-card{padding:7px}.site-sponsored-grid .details-ad-card.vertical{min-height:100px}}@media(max-width:420px){.site-sponsored-grid{grid-template-columns:1fr}.site-sponsored-grid .details-ad-card.wide{grid-column:auto}}
+
+/* Mobile ad compatibility */
+html,body{max-width:100%;overflow-x:hidden}
+.site-sponsored,.site-sponsored-grid,.details-ad-zone,.details-ad-grid,
+.details-ad-card,#profitablerate-banner{min-width:0;max-width:100%;box-sizing:border-box}
+.site-sponsored-grid .details-ad-card,
+.details-ad-grid .details-ad-card{width:100%;min-width:0;overflow:hidden}
+.site-sponsored-grid .details-ad-card>div,
+.details-ad-grid .details-ad-card>div{width:100%;max-width:100%;min-width:0;overflow:hidden}
+.site-sponsored-grid iframe,.details-ad-grid iframe,
+#profitablerate-banner iframe,.ad-slot iframe{
+  display:block;max-width:100%!important;box-sizing:border-box;margin-left:auto!important;margin-right:auto!important
+}
+@media(max-width:680px){
+  .site-sponsored-grid{grid-template-columns:minmax(0,1fr);gap:10px}
+  .site-sponsored-grid .details-ad-card,
+  .site-sponsored-grid .details-ad-card.wide,
+  .site-sponsored-grid .details-ad-card.vertical{grid-column:1/-1;width:100%;min-height:0}
+  .site-sponsored-grid .details-ad-card>div{margin-left:auto;margin-right:auto}
+  #profitablerate-banner{width:100%!important;padding:8px 0!important;margin-bottom:16px!important}
+  #profitablerate-banner iframe{width:100%!important;height:auto!important}
+  .details-ad-zone{padding-left:12px;padding-right:12px}
+  .details-ad-card iframe{max-width:100%!important}
+}
+
 </style>
 </head>
 <body>
@@ -32,11 +57,11 @@ main{max-width:1600px;margin:auto;padding:36px 5% 75px}.tabs{display:flex;gap:8p
 
 <section class="top-section"><div class="section-mini-head"><strong>🔥 Trending Movies</strong><span>Updated from TMDB</span></div><div class="ticker-window"><div class="ticker-track" id="tickerTrack"><span style="color:#9298a8">Loading...</span></div></div></section>
 <section class="site-sponsored" aria-label="Sponsored advertisements"><div class="site-sponsored-head"><span>SPONSORED</span><strong>Offers & promotions</strong><small>Advertisement</small></div><div class="site-sponsored-grid">
-<div class="details-ad-card wide"><div><span class="ad-label">SPONSORED BANNER</span><script>atOptions = {'key':'f9a36df4edf15ce08eb52b3053ec8210','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://www.highrevenueformat.com/f9a36df4edf15ce08eb52b3053ec8210/invoke.js"></script></div></div>
-<div class="details-ad-card"><div><span class="ad-label">SPONSORED</span><script>atOptions = {'key':'bb5e162b00b96f4d0e99ba261e32d68a','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highrevenueformat.com/bb5e162b00b96f4d0e99ba261e32d68a/invoke.js"></script></div></div>
-<div class="details-ad-card"><div><span class="ad-label">SPONSORED</span><script>atOptions = {'key':'48437f279ed80c9074b7a68ddf1d25eb','format':'iframe','height':60,'width':468,'params':{}};</script><script src="https://www.highrevenueformat.com/48437f279ed80c9074b7a68ddf1d25eb/invoke.js"></script></div></div>
-<div class="details-ad-card vertical"><div><span class="ad-label">SPONSORED</span><script>atOptions = {'key':'75de933ea62a880444b604df57869666','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highrevenueformat.com/75de933ea62a880444b604df57869666/invoke.js"></script></div></div>
-<div class="details-ad-card vertical"><div><span class="ad-label">SPONSORED</span><script>atOptions = {'key':'d464399c46447ddd7bba73f1acc7088f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highrevenueformat.com/d464399c46447ddd7bba73f1acc7088f/invoke.js"></script></div></div>
+<div class="details-ad-card wide"><div><span class="ad-label">SPONSORED BANNER</span><script>atOptions = (function(){var mobile = window.matchMedia && window.matchMedia('(max-width: 680px)').matches;return {'key':'f9a36df4edf15ce08eb52b3053ec8210','format':'iframe','height':mobile?100:90,'width':mobile?300:728,'params':{}};})();</script><script src="https://www.highrevenueformat.com/f9a36df4edf15ce08eb52b3053ec8210/invoke.js"></script></div></div>
+<div class="details-ad-card"><div><span class="ad-label">SPONSORED</span><script>atOptions = (function(){var mobile = window.matchMedia && window.matchMedia('(max-width: 680px)').matches;return {'key':'bb5e162b00b96f4d0e99ba261e32d68a','format':'iframe','height':mobile?250:250,'width':mobile?300:300,'params':{}};})();</script><script src="https://www.highrevenueformat.com/bb5e162b00b96f4d0e99ba261e32d68a/invoke.js"></script></div></div>
+<div class="details-ad-card"><div><span class="ad-label">SPONSORED</span><script>atOptions = (function(){var mobile = window.matchMedia && window.matchMedia('(max-width: 680px)').matches;return {'key':'48437f279ed80c9074b7a68ddf1d25eb','format':'iframe','height':mobile?50:60,'width':mobile?300:468,'params':{}};})();</script><script src="https://www.highrevenueformat.com/48437f279ed80c9074b7a68ddf1d25eb/invoke.js"></script></div></div>
+<div class="details-ad-card vertical"><div><span class="ad-label">SPONSORED</span><script>atOptions = (function(){var mobile = window.matchMedia && window.matchMedia('(max-width: 680px)').matches;return {'key':'75de933ea62a880444b604df57869666','format':'iframe','height':mobile?300:300,'width':mobile?160:160,'params':{}};})();</script><script src="https://www.highrevenueformat.com/75de933ea62a880444b604df57869666/invoke.js"></script></div></div>
+<div class="details-ad-card vertical"><div><span class="ad-label">SPONSORED</span><script>atOptions = (function(){var mobile = window.matchMedia && window.matchMedia('(max-width: 680px)').matches;return {'key':'d464399c46447ddd7bba73f1acc7088f','format':'iframe','height':mobile?600:600,'width':mobile?160:160,'params':{}};})();</script><script src="https://www.highrevenueformat.com/d464399c46447ddd7bba73f1acc7088f/invoke.js"></script></div></div>
 </div></section>
 <main id="catalog"><div class="tabs" id="tabs">
 <button class="tab active" data-id="trending">Trending</button><button class="tab" data-id="popular">Popular Movies</button><button class="tab" data-id="top">Top Rated</button><button class="tab" data-id="now">Now Playing</button><button class="tab" data-id="upcoming">Upcoming</button><button class="tab" data-id="series">Popular Series</button><button class="tab" data-id="hi">Hindi</button><button class="tab" data-id="zh">Chinese</button><button class="tab" data-id="ko">Korean</button><button class="tab" data-id="ja">Japanese</button><button class="tab" data-id="anime">Anime</button><button class="tab" data-id="bn">Bangla</button>
